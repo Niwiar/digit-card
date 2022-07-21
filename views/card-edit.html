@@ -41,9 +41,13 @@
 				aria-label="Close"><span aria-hidden="true">×</span></button>
 			</div>
 			<div class="modal-body text-center">
-				<div class="camera-box">
-					<div id="camera" ></div>
-					<div id="camera-line"></div>
+				<div class="input-group">
+					<span class="input-group-text">ชื่อการ์ด</span>
+					<input type="text" aria-label="First name" class="form-control">
+				</div>
+				<div class="input-group">
+					<span class="input-group-text">รหัส</span>
+					<input type="text" aria-label="First name" class="form-control">
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -117,7 +121,7 @@
 							<input class="form-control pad-3" type="file" id="formFile">
 						</div>
 						<div class="btn-group">
-							<button onclick="setCamera()" class="btn btn-primary" data-toggle="modal" data-target="#modalWebcam">ถ่ายรูป</button>
+							<button class="btn btn-primary" data-toggle="modal" data-target="#modalWebcam">ถ่ายรูป</button>
 							<button class="btn btn-primary">บันทึก</button>
 							<button class="btn btn-primary">ลิ้งค์</button>
 						</div>
