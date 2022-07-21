@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>Error</title>
+  </head>
+
+  <body>
+    <div class="main">
+        <div class="text-center mt-4">
+            <h1 class="lead">Editing your card</h1>
+        </div>
+        
+        <form action="/card/auth" method="post">
+            <div class="mb-3">
+                <label class="form-label">Card</label>
+                <input class="form-control form-control-lg" type="text" name="CardName" placeholder="Enter your Card name" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input class="form-control form-control-lg" type="password" name="CardPass" placeholder="Enter your card password" />
+            </div>
+            <div class="text-center mt-3">
+                <button type="submit" class="btn btn-lg btn-primary">login</button>
+            </div>
+            <% if (messages.login) { %>
+                <div class="alert alert-danger mt-2" role="alert"><%= messages.login %></div>
+            <% } %>
+        </form>
+
+		<div class="text-center mt-4">
+            <h1 class="lead">Create your card</h1>
+        </div>
+
+		<form action="/card/create" method="post">
+            <div class="mb-3">
+                <label class="form-label">Card</label>
+                <input class="form-control form-control-lg" type="text" name="CardName" placeholder="Enter your Card name" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input class="form-control form-control-lg" type="password" name="CardPass" placeholder="Enter your card password" />
+            </div>
+            <div class="text-center mt-3">
+                <button type="submit" class="btn btn-lg btn-primary">Create new card</button>
+            </div>
+            <% if (messages.create) { %>
+                <div class="alert alert-danger mt-2" role="alert"><%= messages.create %></div>
+            <% } %>
+        </form>
+    </div>
+  </body>
+</html>

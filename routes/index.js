@@ -1,68 +1,25 @@
 const express = require('express');
 const router = express.Router();
-const sql = require('mssql');
-const { dbconfig } = require('../config');
+const { isCardAuth, isCard } = require('./middleware/checkCard');
 
-const isSub = (req, res, next) => {
-    if (!req.subdomains.length || req.subdomains.slice(-1)[0] === 'www') return next();
-    let subdomain = req.subdomains.slice(-1)[0];
-    // keep subdomain
-    req.subdomain = subdomain;
-    next();
-}
-
-const isCard = (req, res, next) => {
-    if (!req.subdomains.length || req.subdomains.slice(-1)[0] === 'www') return next();
-    let subdomain = req.subdomains.slice(-1)[0];
-    // keep subdomain
-    req.subdomain = subdomain;
-    next();
-}
-
-router.get('/', isSub, async (req, res) => {
-    if (!req.subdomain) {
-        res.render('index');
-    } else {
-        let pool = await sql.connect(dbconfig);
-        let CheckCard = await pool.request().query(`SELECT CASE
-        WHEN EXISTS(
-            SELECT *
-            FROM Cards
-            WHERE CardName = N'${req.subdomain}' AND Published = 1
-        )
-        THEN CAST (1 AS BIT)
-        ELSE CAST (0 AS BIT) END AS 'check'`);
-        if(!CheckCard.recordset[0].check){
-            res.render('notfound');
-        } else {
-            res.render('card');
-        }
-    }
+router.get('/', isCard, async (req, res) => {
+    res.render('index.ejs');
 })
 
-router.get('/edit', isSub, async (req, res) => {
-    if (!req.subdomain) {
-        res.render('card-template')
-    } else {
-        let pool = await sql.connect(dbconfig);
-        let CheckCard = await pool.request().query(`SELECT CASE
-        WHEN EXISTS(
-            SELECT *
-            FROM Cards
-            WHERE CardName = N'${req.subdomain}'
-        )
-        THEN CAST (1 AS BIT)
-        ELSE CAST (0 AS BIT) END AS 'check'`);
-        if(!CheckCard.recordset[0].check){
-            res.render('notfound');
-        } else {
-            res.render('card-edit');
-        }
-    }
+router.get('/manage/:CardTag', isCardAuth, (req, res) => {
+    res.render('card-edit');
 })
 
-router.get('/error', (req, res) => {
-    res.render('notfound');
-})
+// router.get('/login', ifLoggedIn, (req, res, next) => {
+//     res.render('login.ejs');
+// });
+
+// router.get('/register', ifLoggedIn, (req, res, next) => {
+//     res.render('register.ejs');
+// });
+
+// router.get('/manager', (req, res) => {
+//     res.render('card-template')
+// })
 
 module.exports = router
