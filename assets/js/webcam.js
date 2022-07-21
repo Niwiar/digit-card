@@ -13,11 +13,11 @@ document.getElementById('results').innerHTML = '';
 }
 
 function closeCamera() {
-    document.getElementById('results').innerHTML = '';
     Webcam.reset();
+    document.getElementById('results').innerHTML = '';
+    
 }
 
-// setCamera();
 
 function take_snapshot() {
     
@@ -32,6 +32,5 @@ function take_snapshot() {
 function saveSnap() {
     var URL = document.getElementById("imageprev").src;
     console.log(URL)
-
     setCamera();
 }
