@@ -18,7 +18,6 @@ function closeCamera() {
     
 }
 
-
 function take_snapshot() {
     
     Webcam.snap( function(data_url) {
