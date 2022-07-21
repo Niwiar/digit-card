@@ -1,0 +1,41 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#camera{
+    /* display: inline; */
+    position: relative;
+    width: 350px;
+    height: 350px;
+    /* border: 3px solid black; */
+    margin: 10px
+}
+
+#camera-line{
+    width: 250px;
+    height: 250px;
+    border: 3px solid rgb(89, 255, 47);
+    margin: 10px;
+    border-radius: 50%;
+    position: absolute;
+    top: 52px;
+    left: 55px;
+
+}
+
+#results{
+    margin: 10px;
+}
+
+.img-circle {
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+}
+
+button{
+    padding: 2px;
+    margin: 10px;
+}
