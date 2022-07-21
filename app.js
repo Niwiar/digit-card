@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const flash = require('express-flash');
 const session = require('express-session');
 const cors = require('cors');
 
@@ -14,9 +15,12 @@ app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html')
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'script')));
 
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
+
+app.use(flash());
 
 app.use(session({
     cookie: {
@@ -36,6 +40,7 @@ let userRoute = require('./routes/user');
 let cardRoute = require('./routes/card');
 
 app.use('/', indexRoute);
+app.use('/user', userRoute);
 
 app.use('/card', cardRoute);
 
