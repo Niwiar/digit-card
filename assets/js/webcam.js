@@ -3,29 +3,35 @@
 function setCamera() {
     //set camera
 Webcam.set({
-    width: 350,
-    height: 350,
+    width: 320,
+    height: 240,
     image_format: 'jpeg',
     jpeg_quality: 90
 });
 Webcam.attach( '#camera' );
+document.getElementById('results').innerHTML = '';
+}
+
+function closeCamera() {
+    document.getElementById('results').innerHTML = '';
+    Webcam.reset();
 }
 
 // setCamera();
 
-// function take_snapshot() {
+function take_snapshot() {
     
-//     Webcam.snap( function(data_url) {
-//         document.getElementById('results').innerHTML = 
-//          '<img id="imageprev" class="img-circle" src="'+data_url+'"/>';
-//      } );
+    Webcam.snap( function(data_url) {
+        document.getElementById('results').innerHTML = 
+         '<img id="imageprev" class="cropped1" src="'+data_url+'"/>';
+     } );
      
-//      Webcam.reset();
-// }
+     Webcam.reset();
+}
 
-// function saveSnap() {
-//     var URL = document.getElementById("imageprev").src;
-//     console.log(URL)
+function saveSnap() {
+    var URL = document.getElementById("imageprev").src;
+    console.log(URL)
 
-//     setCamera();
-// }
+    setCamera();
+}
