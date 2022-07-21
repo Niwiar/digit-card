@@ -2,32 +2,169 @@
 <html lang="en">
 
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
-	<meta name="author" content="AdminKit">
-	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5" />
+	<meta name="author" content="AdminKit" />
+	<meta name="keywords"
+		content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web" />
 
-	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" />
 	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
 
 	<link rel="canonical" href="https://demo-basic.adminkit.io/pages-sign-in.html" />
 
-	<title>Login</title>
+	<title>edit</title>
 
-	<link rel="stylesheet" href="/css/app.css">
-	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
-	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="../assets/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="../assets/css/main.css" />
+	<link rel="stylesheet" href="../assets/fonts/fontawesome-all.min.css">
+	<link rel="stylesheet" href="../assets/fonts/font-awesome.min.css">
+	<link rel="stylesheet" href="../assets/fonts/fontawesome5-overrides.min.css">
+
+	<link rel="stylesheet" href="../assets/css/webcam.css>
+
+
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
 </head>
 
 <body>
-	edit
+	<!-- form search card -->
+
+	<!-- form webcam -->
+	<div class="modal fade" role="dialog" tabindex="-1" id="modalWebcam">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h4 class="modal-title">Camera</h4><button type="button" class="close" data-dismiss="modal"
+				aria-label="Close"><span aria-hidden="true">×</span></button>
+			</div>
+			<div class="modal-body text-center">
+				<div class="camera-box">
+					<div id="camera" ></div>
+					<div id="camera-line"></div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-secondary" type="button" data-dismiss="modal">ยกเลิก</button>
+				<button class="btn btn-danger btnYes" id="btnYes" type="button">ดาวน์โหลดรูป</button>
+			</div>
+		  </div>
+		</div>
+	  </div>
+
+	
+
+	<nav class="sidebar">
+		<ul>
+			<li >
+				<span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span>
+				
+				<a class="" href="#">หน้าแรก</a>
+			</li>
+		</ul>
+	</nav>
+
+	<div class="main-content">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-s-12 col-xl-5 left d-flex ">
+					<div class="box">
+						<h2 class="">แก้ไขการ์ด</h2>
+						<div class="input-group">
+							<span class="input-group-text">ชื่อ</span>
+							<input type="text" aria-label="First name" class="form-control">
+						</div>
+						<div class="input-group">
+							<span class="input-group-text">สกุล</span>
+							<input type="text" aria-label="Last name" class="form-control">
+						</div>
+						<!-- <div class="input-group">
+					<span class="input-group-text">ที่อยู่</span>
+					<input type="text" aria-label="First name" class="form-control">
+				  </div> -->
+						<div class="input-group">
+							<span class="input-group-text">เบอร์มือถือ</span>
+							<input type="text" aria-label="First name" class="form-control">
+						</div>
+						<div class="input-group">
+							<span class="input-group-text">บริษัท</span>
+							<input type="text" aria-label="First name" class="form-control">
+						</div>
+						<div class="input-group">
+							<span class="input-group-text">Email</span>
+							<input type="text" aria-label="First name" class="form-control">
+						</div>
+						<div class="input-group">
+							<span class="input-group-text">Facebook</span>
+							<input type="text" aria-label="First name" class="form-control">
+						</div>
+						<div class="input-group">
+							<span class="input-group-text">Line</span>
+							<input type="text" aria-label="First name" class="form-control">
+						</div>
+						<div class="input-group">
+							<span class="input-group-text">ชื่อการ์ด</span>
+							<input type="text" aria-label="First name" class="form-control">
+						</div>
+						<div class="input-group">
+							<span class="input-group-text">รหัส</span>
+							<input type="text" aria-label="First name" class="form-control">
+						</div>
+						<div class="mb-3 ">
+							<label for="formFile" class="form-label">Default file input example</label>
+							<input class="form-control pad-3" type="file" id="formFile">
+						</div>
+						<div class="btn-group">
+							<button onclick="setCamera()" class="btn btn-primary" data-toggle="modal" data-target="#modalWebcam">ถ่ายรูป</button>
+							<button class="btn btn-primary">บันทึก</button>
+							<button class="btn btn-primary">ลิ้งค์</button>
+						</div>
+
+
+					</div>
+				</div>
+				<div class="col-s-12 col-xl-7 right">
+					<div class="pre-title">
+						<h4>ตัวอย่างการ์ด</h4>
+					</div>
+					<div class="box-pre">
+						<div class="background" id="background">
+							<div class="logo" id="logo"></div>
+							<div class="character" id="character"></div>
+						</div>
+						<div class="box-name">
+							<div class="input-group">
+								<span class="input-group-text">ชื่อ-สกุล:</span>
+								<input type="text" aria-label="First name" id="IP-fname" class="form-control">
+								<input type="text" aria-label="Last name" id="IP-lname" class="form-control">
+							</div>
+							<div class="input-group">
+								<span class="input-group-text">บริษัท:</span>
+								<input type="text" aria-label="First name" id="IP-fname" class="form-control">
+							</div>
+						</div>
+						<div class="box-link">
+							<div class="social">
+								<a href="#">Email</a>
+								<a href="#">Facebook</a>
+								<a href="#">Line</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
 
 	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-	<script src="/bootstrap/js/bootstrap.min.js"></script>
-	<script src="/js/app.js"></script>
+	<script src="../assets/js/bootstrap.min.js"></script>
 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.min.js"></script>
+	<script src="../assets/js/webcam.js"></script>
 </body>
 
 </html>
