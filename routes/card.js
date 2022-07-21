@@ -4,18 +4,8 @@ const bcrypt = require("bcryptjs");
 const sql = require("mssql");
 const { dbconfig } = require("../config");
 
-const multer = require("multer");
-const path = require("path");
-
-const storage = multer.diskStorage({
-  destination: path.join(__dirname, "../public/imgs/profile"),
-  filename: (req, file, cb) => {
-    const ext = file.mimetype.split("/")[1];
-    cb(null, "img_" + req.session.CardTag + "." + ext);
-  },
-});
-
-const upload = multer({ storage: storage }).single("avatar");
+const upload = require('./modules/uploadImage');
+const { encrypt, decrypt } = require('./modules/encryption');
 
 const checkCard = async (Tag) => {
   let pool = await sql.connect(dbconfig);
@@ -28,7 +18,7 @@ const checkCard = async (Tag) => {
   return CheckCard.recordset[0].check;
 }
 
-router.get("data/:CardName", async (req, res, next) => {
+router.get("/data/:CardName", async (req, res, next) => {
   try {
     let CardName = req.params.CardName;
     let pool = await sql.connect(dbconfig);
@@ -36,6 +26,10 @@ router.get("data/:CardName", async (req, res, next) => {
       .request()
       .query(`SELECT * FROM Cards WHERE CardName = N'${CardName}'`);
     if (Card.recordset.length) {
+      let { Fname, Lname, Tel } = Card.recordset[0]
+      Card.recordset[0].Fname = decrypt(JSON.parse(Fname))
+      Card.recordset[0].Lname = decrypt(JSON.parse(Lname))
+      Card.recordset[0].Tel = decrypt(JSON.parse(Tel))
       res.status(200).send(JSON.stringify(Card.recordset[0]));
     } else {
       res.status(404).send({ message: "Card not found" });
@@ -45,6 +39,7 @@ router.get("data/:CardName", async (req, res, next) => {
   }
 });
 
+// authorization to access card editor
 router.post("/auth", async (req, res) => {
   try {
     let { CardName, CardPass } = req.body;
@@ -82,7 +77,6 @@ router.post("/create", async (req, res, next) => {
     let CheckCard = await pool.request().query(`SELECT *
             FROM Cards
             WHERE CardName = N'${CardName}'`);
-    console.log('check')
     if (CheckCard.recordset.length) {
       res.status(400).send({ message: "Duplicate Card" });
     } else {
@@ -99,18 +93,24 @@ router.post("/create", async (req, res, next) => {
   }
 });
 
+
 router.put("/edit", async (req, res) => {
   try {
     let CardTag = req.session.CardTag;
+    console.log(req.session)
     let { Fname, Lname, Company, Tel, Email, Facebook, Line } = req.body;
+    let enFname = JSON.stringify(encrypt(Fname));
+    console.log(enFname)
+    let enLname = JSON.stringify(encrypt(Lname));
+    let enTel = JSON.stringify(encrypt(Tel));
     let pool = await sql.connect(dbconfig);
     if (await checkCard(CardTag)) {
       let UpdateCard = `UPDATE Cards
             SET
-            Fname = N'${Fname}',
-            Lname = N'${Lname}',
+            Fname = N'${enFname}',
+            Lname = N'${enLname}',
             Company = N'${Company}',
-            Tel = N'${Tel}',
+            Tel = N'${enTel}',
             Facebook = N'${Facebook}',
             Line = N'${Line}',
             Email = N'${Email}'
@@ -155,12 +155,10 @@ router.get("/publish", async (req, res) => {
         WHERE CardTag = N'${CardTag}'`;
       let card = await pool.request().query(PublishCard);
       let CardName = card.recordset[0].CardName;
-      res
-        .status(200)
-        .send({
-          message: `Your Digital Card is Ready`,
-          link: `${CardName}.localhost:3000`,
-        });
+      res.status(200).send({
+        message: `Your Digital Card is Ready`,
+        link: `${CardName}.localhost:3000`,
+      });
     } else {
       res.status(404).send({ message: "Card not found" });
     }
@@ -175,8 +173,8 @@ router.get("/unpublish", async (req, res) => {
     let pool = await sql.connect(dbconfig);
     if (await checkCard(CardTag)) {
       let UnpublishCard = `UPDATE Cards
-            SET Published = 0
-            WHERE CardTag = N'${CardTag}'`;
+        SET Published = 0
+        WHERE CardTag = N'${CardTag}'`;
       await pool.request().query(UnpublishCard);
       res.status(200).send({ message: `Your Digital Card has been unpublish` });
     } else {

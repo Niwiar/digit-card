@@ -14,6 +14,7 @@ app.set('views', path.join(__dirname, "views"));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html')
 
+app.use(express.static(path.join(__dirname, 'assets')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'script')));
 
@@ -36,14 +37,10 @@ app.use(session({
 app.set('subdomain offset', 1);
 
 let indexRoute = require('./routes/index');
-let userRoute = require('./routes/user');
 let cardRoute = require('./routes/card');
 
 app.use('/', indexRoute);
-app.use('/user', userRoute);
-
 app.use('/card', cardRoute);
-
 
 app.listen(PORT, () => {
     console.log(`Server is listening on ${PORT}`);
