@@ -55,6 +55,8 @@ $(document).ready(function () {
         })
         setCamera();
     })
+
+    
 })
 
 function dataURItoBlob(dataURI) {
