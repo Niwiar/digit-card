@@ -109,48 +109,48 @@
 						<h2 class="">แก้ไขการ์ด</h2>
 						<div class="input-group">
 							<span class="input-group-text">ชื่อ</span>
-							<input type="text" aria-label="First name" class="form-control">
+							<input type="text" id="IP-fname" class="form-control">
 						</div>
 						<div class="input-group">
 							<span class="input-group-text">สกุล</span>
-							<input type="text" aria-label="Last name" class="form-control">
+							<input type="text" id="IP-lname" class="form-control">
 						</div>
 						<!-- <div class="input-group">
 							<span class="input-group-text">ที่อยู่</span>
-							<input type="text" aria-label="First name" class="form-control">
+							<input type="text" class="form-control">
 						</div> -->
 						<div class="input-group">
 							<span class="input-group-text">เบอร์มือถือ</span>
-							<input type="text" aria-label="First name" class="form-control">
+							<input type="text" id="IP-Tel" class="form-control">
 						</div>
 						<div class="input-group">
 							<span class="input-group-text">บริษัท</span>
-							<input type="text" aria-label="First name" class="form-control">
+							<input type="text" id="IP-Company" class="form-control">
 						</div>
 						<div class="input-group">
-							<span class="input-group-text">Email</span>
-							<input type="text" aria-label="First name" class="form-control">
+							<span class="input-group-text">Email link</span>
+							<input type="text" id="IP-EmailLink" class="form-control" placeholder="https://www.email.com/">
 						</div>
 						<div class="input-group">
-							<span class="input-group-text">Facebook</span>
-							<input type="text" aria-label="First name" class="form-control">
+							<span class="input-group-text">Facebook link</span>
+							<input type="text" id="IP-FacebokLink" class="form-control" placeholder="https://www.facebook.com/">
 						</div>
 						<div class="input-group">
-							<span class="input-group-text">Line</span>
-							<input type="text" aria-label="First name" class="form-control">
+							<span class="input-group-text">Line link</span>
+							<input type="text"  id="IP-LineLink" class="form-control" placeholder="https://www.line.com/">
 						</div>
-						<div class="input-group">
+						<!-- <div class="input-group">
 							<span class="input-group-text">ชื่อการ์ด</span>
-							<input type="text" aria-label="First name" class="form-control">
-						</div>
+							<input type="text" class="form-control">
+						</div> -->
 						<div class="input-group">
 							<span class="input-group-text">รหัส</span>
-							<input type="text" aria-label="First name" class="form-control">
+							<input type="password" id="IP-CardPass" class="form-control">
 						</div>
-						<div class="mb-3 ">
+						<!-- <div class="mb-3 ">
 							<label for="formFile" class="form-label">Default file input example</label>
 							<input class="form-control pad-3" type="file" id="formFile">
-						</div>
+						</div> -->
 						<div class="btn-group">
 							
 							<a class="btn btn-primary">บันทึก</a>
@@ -160,9 +160,10 @@
 
 						</div>
 
-
 					</div>
 				</div>
+
+				<!-- Show Card -->
 				<div class="col-s-12 col-xl-7 right">
 					<div class="pre-title">
 						<h4>ตัวอย่างการ์ด</h4>
@@ -177,19 +178,19 @@
 						<div class="box-name">
 							<div class="input-group">
 								<span class="input-group-text">ชื่อ-สกุล:</span>
-								<input type="text" aria-label="First name" id="IP-fname" class="form-control">
-								<input type="text" aria-label="Last name" id="IP-lname" class="form-control">
+								<input type="text" id="Show-fname" class="form-control">
+								<input type="text" id="Show-lname" class="form-control">
 							</div>
 							<div class="input-group">
 								<span class="input-group-text">บริษัท:</span>
-								<input type="text" aria-label="First name" id="IP-fname" class="form-control">
+								<input type="text" id="Show-Comany" class="form-control">
 							</div>
 						</div>
 						<div class="box-link">
 							<div class="social">
-								<a href="#">Email</a>
-								<a href="#">Facebook</a>
-								<a href="#">Line</a>
+								<a href="#" id="Show-EmailLink">Email link</a>
+								<a href="#" id="Show-FacebookLink">Facebook link</a>
+								<a href="#" id="Show-LineLink">Line link</a>
 							</div>
 						</div>
 					</div>

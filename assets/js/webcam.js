@@ -31,5 +31,7 @@ function take_snapshot() {
 function saveSnap() {
     var URL = document.getElementById("imageprev").src;
     console.log(URL)
-    setCamera();
+
+    closeCamera()
+
 }
