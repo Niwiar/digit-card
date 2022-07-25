@@ -1,4 +1,16 @@
-
+//Show Img
+function ShowImg() {
+    $.ajax({
+        url: "/card/data",
+        method: 'get',
+        cache: false,
+        success: function (response) {
+            var obj = JSON.parse(response);
+            console.log(obj)
+            document.getElementById('Show-Img').src = obj.ImgPath;
+        }
+    })
+}
 
 function setCamera() {
     //set camera
@@ -28,10 +40,24 @@ function take_snapshot() {
      Webcam.reset();
 }
 
+function dataURItoBlob(dataURI) {
+    var byteString = atob(dataURI.split(',')[1]);  
+    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
+    var ab = new ArrayBuffer(byteString.length);
+    var ia = new Uint8Array(ab);
+    for (var i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+    }
+  
+    var blob = new Blob([ab], {type: mimeString});
+    return blob;
+}
+
 $(document).ready(function () {
     $('#btnSave').on('click',() => {
         var dataUrl = $("#imageprev").attr('src');
         let blob = dataURItoBlob(dataUrl)
+        document.getElementById('Show-Img').src = dataUrl;
         let data = new FormData();
         data.append('profile', blob, 'profile');
         $.ajax({
@@ -51,22 +77,13 @@ $(document).ready(function () {
                     confirmButtonColor: '#dc3545',
                     allowOutsideClick: false
                 })
+                
             }
         })
-        setCamera();
+        closeCamera();
+        
     })
 })
 
-function dataURItoBlob(dataURI) {
-    var byteString = atob(dataURI.split(',')[1]);  
-    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
-    var ab = new ArrayBuffer(byteString.length);
-    var ia = new Uint8Array(ab);
-    for (var i = 0; i < byteString.length; i++) {
-        ia[i] = byteString.charCodeAt(i);
-    }
-  
-    var blob = new Blob([ab], {type: mimeString});
-    return blob;
-}
+
 
