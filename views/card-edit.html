@@ -18,7 +18,7 @@
 	<title>edit</title>
 
 	<link rel="stylesheet" href="/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="/css/main.css" />
+	<link rel="stylesheet" href="/css/Edit.css" />
 	<link rel="stylesheet" href="/fonts/fontawesome-all.min.css">
 	<link rel="stylesheet" href="/fonts/font-awesome.min.css">
 	<link rel="stylesheet" href="/fonts/fontawesome5-overrides.min.css">
@@ -40,19 +40,19 @@
 		<div class="modal-dialog modal-dialog-centered" role="document">
 		  <div class="modal-content">
 			<div class="modal-header">
-			  <h4 class="modal-title">เปลี่ยนรหัสผ่าน</h4><button type="button" class="close" data-dismiss="modal"
+			  <h4 class="modal-title">เปลี่ยนรหัสผ่าน</h4><button type="button" class="close"
 				aria-label="Close"><span aria-hidden="true">×</span></button>
 			</div>
 			<div class="modal-body text-center">
 				
 				<div class="input-group">
 					<span class="input-group-text">รหัสผ่านใหม่</span>
-					<input type="text" aria-label="First name" id="IP-CardPass" class="form-control">
+					<input type="password" aria-label="First name" id="IP-CardPass" class="form-control">
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-secondary" type="button" data-dismiss="modal">ยกเลิก</button>
-				<button class="btn btn-danger btnYes" id="btnChangePass" data-dismiss="modal" type="button">ยืนยัน</button>
+				<button class="btn btn-secondary no" type="button">ยกเลิก</button>
+				<button class="btn btn-danger btnYes" id="btnChangePass" type="button">ยืนยัน</button>
 			</div>
 		  </div>
 		</div>
@@ -77,9 +77,9 @@
 			</div>
 			<div class="modal-footer">
 				<button class="btn btn-secondary" type="button" data-dismiss="modal" onclick="closeCamera();">ยกเลิก</button>
-				<button class="btn btn-danger btnYes" id="btnTake" type="button" onclick="take_snapshot()">snapshot</button>
-				<button class="btn btn-danger btnYes" id="btnSet" type="button" onclick="setCamera()">reset</button>
-				<button class="btn btn-danger btnYes" id="btnSave" type="button" data-dismiss="modal">save</button>
+				<button class="btn btn-danger btnYes" id="btnTake" type="button" onclick="take_snapshot()">ถ่ายภาพ</button>
+				<button class="btn btn-danger btnYes" id="btnSet" type="button" onclick="setCamera()">ถ่ายใหม่</button>
+				<button class="btn btn-danger btnYes" id="btnSave" type="button" data-dismiss="modal">บันทึก</button>
 
 			</div>
 		  </div>
@@ -89,11 +89,11 @@
 	
 
 	<nav class="sidebar">
-		<ul>
-			<li >
+		<ul >
+			<li>
 				<!-- <i class="fa-brands fa-facebook-square"></i> -->
-				<span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span>
-				<a class="" href="#">หน้าแรก</a>
+				
+				<a class="" href="/" ><span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span><p>หน้าแรก</p> </a>
 			</li>
 		
 		</ul>
@@ -127,7 +127,7 @@
 						</div>
 						<div class="input-group">
 							<span class="input-group-text">Email</span>
-							<input type="text" id="IP-EmailLink" class="form-control" placeholder="example@email.com">
+							<input type="text" id="IP-Email" class="form-control" placeholder="example@email.com">
 						</div>
 						<div class="input-group">
 							<span class="input-group-text">Facebook link</span>
@@ -135,7 +135,7 @@
 						</div>
 						<div class="input-group">
 							<span class="input-group-text">Line ID</span>
-							<input type="text"  id="IP-LineLink" class="form-control" placeholder="example">
+							<input type="text"  id="IP-LineID" class="form-control" placeholder="example">
 						</div>
 						<!-- <div class="input-group">
 							<span class="input-group-text">ชื่อการ์ด</span>
@@ -149,14 +149,14 @@
 							<label for="formFile" class="form-label">Default file input example</label>
 							<input class="form-control pad-3" type="file" id="formFile">
 						</div> -->
-						<div class="btn-group">
-							
-							<a class="btn btn-primary">บันทึก</a>
-							<a class="btn btn-primary">ลิ้งค์</a>
-							<a class="btn btn-primary" data-toggle="modal" data-target="#modalChangePass">เปลี่ยนรหัสผ่าน</a>
-							<a href="/card/publish">เผยเเพร่</a>
-							<a href="/card/unpublish">ยกเลิกเผยเเพร่</a>
-
+						<div class="btn-group center-box ma-10">
+							<a class="btn btn-primary" id="EditCard">บันทึก</a>
+							<!-- <a class="btn btn-primary">ลิงก์</a> -->
+							<a class="btn btn-primary" id="ChangePass">เปลี่ยนรหัสผ่าน</a>
+						</div>
+						<div class="btn-group center-box">
+							<a class="btn btn-primary" id="publish">เผยเเพร่</a>
+							<a class="btn btn-primary" id="unpublish">เลิกเผยเเพร่</a>
 						</div>
 
 					</div>
@@ -164,11 +164,13 @@
 
 				<!-- Show Card -->
 				<div class="col-s-12 col-xl-7 right">
-					<div class="pre-title">
-						<h4>ตัวอย่างการ์ด</h4>
-					</div>
+					
 					<div class="box-pre">
+						
 						<div class="background" id="background">
+							<div class="pre-title">
+								<h4>ตัวอย่าง</h4>
+							</div>
 							<div class="logo" id="logo"></div>
 							<div class="character" id="character">
 								
@@ -184,14 +186,17 @@
 							</div>
 							<div class="input-group">
 								<span class="input-group-text">บริษัท:</span>
-								<input type="text" id="Show-Comany" class="form-control">
+								<input type="text" id="Show-Company" class="form-control">
+							</div>
+							<div class="input-group">
+								<span class="input-group-text">Email:</span>
+								<input type="text" id="Show-Email" class="form-control">
 							</div>
 						</div>
 						<div class="box-link">
 							<div class="social">
-								<a href="#" id="Show-EmailLink">Email link</a>
-								<a href="#" id="Show-FacebookLink">Facebook link</a>
-								<a href="#" id="Show-LineLink">Line link</a>
+								<a href="#" target="_blank" id="Show-FacebookLink">Facebook link</a>
+								<a href="#" target="_blank" id="Show-LineID">Line link</a>
 							</div>
 						</div>
 					</div>
