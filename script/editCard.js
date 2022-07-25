@@ -45,9 +45,10 @@ $(document).ready(function () {
     ShowCard();
 
     // Show Pre-Card
-    
-    let fname =  $('#IP-fname').val();
-    console.log(fname)
+    fname =  $('#IP-fname')
+    showFname =  $('#Show-fname')
+
+    fname.on('input',() => showFname.val(fname.val()))
    
     
     // Edit Card
