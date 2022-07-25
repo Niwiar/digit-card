@@ -30,36 +30,33 @@
 </head>
 
 <body>
-	<div class="line-it-button" data-lang="en" data-type="friend" data-env="REAL"   data-lineId="tletery123" style="display: none;"></div>
-	<script src="https://www.line-website.com/social-plugins/js/thirdparty/loader.min.js" async="async" defer="defer"></script>
+	<!-- <div class="line-it-button" data-lang="en" data-type="friend" data-env="REAL"   data-lineId="tletery123" style="display: none;"></div>
+	<script src="https://www.line-website.com/social-plugins/js/thirdparty/loader.min.js" async="async" defer="defer"></script> -->
 	
 	
-	<!-- form search card -->
+	<!-- form Change Password-->
 
-	<!-- <div class="modal fade" role="dialog" tabindex="-1" id="modalMasterCard">
+	<div class="modal fade" role="dialog" tabindex="-1" id="modalChangePass">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 		  <div class="modal-content">
 			<div class="modal-header">
-			  <h4 class="modal-title">สร้างการ์ด</h4><button type="button" class="close" data-dismiss="modal"
+			  <h4 class="modal-title">เปลี่ยนรหัสผ่าน</h4><button type="button" class="close" data-dismiss="modal"
 				aria-label="Close"><span aria-hidden="true">×</span></button>
 			</div>
 			<div class="modal-body text-center">
+				
 				<div class="input-group">
-					<span class="input-group-text">ชื่อการ์ด</span>
-					<input type="text" aria-label="First name" class="form-control">
-				</div>
-				<div class="input-group">
-					<span class="input-group-text">รหัส</span>
-					<input type="text" aria-label="First name" class="form-control">
+					<span class="input-group-text">รหัสผ่านใหม่</span>
+					<input type="text" aria-label="First name" id="IP-CardPass" class="form-control">
 				</div>
 			</div>
 			<div class="modal-footer">
 				<button class="btn btn-secondary" type="button" data-dismiss="modal">ยกเลิก</button>
-				<button class="btn btn-danger btnYes" id="btnYes" type="button">ยืนยัน</button>
+				<button class="btn btn-danger btnYes" id="btnChangePass" data-dismiss="modal" type="button">ยืนยัน</button>
 			</div>
 		  </div>
 		</div>
-	</div> -->
+	</div>
 
 	<!-- form webcam -->
 	<div class="modal fade" role="dialog" tabindex="-1" id="modalWebcam">
@@ -75,7 +72,6 @@
 					<div id="camera-line">
 						<div id="results"></div>
 					</div>
-					
 				</div>
 
 			</div>
@@ -95,7 +91,7 @@
 	<nav class="sidebar">
 		<ul>
 			<li >
-				<i class="fa-brands fa-facebook-square"></i>
+				<!-- <i class="fa-brands fa-facebook-square"></i> -->
 				<span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span>
 				<a class="" href="#">หน้าแรก</a>
 			</li>
@@ -130,25 +126,25 @@
 							<input type="text" id="IP-Company" class="form-control">
 						</div>
 						<div class="input-group">
-							<span class="input-group-text">Email link</span>
-							<input type="text" id="IP-EmailLink" class="form-control" placeholder="https://www.email.com/">
+							<span class="input-group-text">Email</span>
+							<input type="text" id="IP-EmailLink" class="form-control" placeholder="example@email.com">
 						</div>
 						<div class="input-group">
 							<span class="input-group-text">Facebook link</span>
-							<input type="text" id="IP-FacebokLink" class="form-control" placeholder="https://www.facebook.com/">
+							<input type="text" id="IP-FacebookLink" class="form-control" placeholder="https://www.facebook.com/">
 						</div>
 						<div class="input-group">
-							<span class="input-group-text">Line link</span>
-							<input type="text"  id="IP-LineLink" class="form-control" placeholder="https://www.line.com/">
+							<span class="input-group-text">Line ID</span>
+							<input type="text"  id="IP-LineLink" class="form-control" placeholder="example">
 						</div>
 						<!-- <div class="input-group">
 							<span class="input-group-text">ชื่อการ์ด</span>
 							<input type="text" class="form-control">
 						</div> -->
-						<div class="input-group">
+						<!-- <div class="input-group">
 							<span class="input-group-text">รหัส</span>
 							<input type="password" id="IP-CardPass" class="form-control">
-						</div>
+						</div> -->
 						<!-- <div class="mb-3 ">
 							<label for="formFile" class="form-label">Default file input example</label>
 							<input class="form-control pad-3" type="file" id="formFile">
@@ -157,6 +153,7 @@
 							
 							<a class="btn btn-primary">บันทึก</a>
 							<a class="btn btn-primary">ลิ้งค์</a>
+							<a class="btn btn-primary" data-toggle="modal" data-target="#modalChangePass">เปลี่ยนรหัสผ่าน</a>
 							<a href="/card/publish">เผยเเพร่</a>
 							<a href="/card/unpublish">ยกเลิกเผยเเพร่</a>
 
@@ -174,7 +171,9 @@
 						<div class="background" id="background">
 							<div class="logo" id="logo"></div>
 							<div class="character" id="character">
-								<a onclick="setCamera()" data-toggle="modal" data-target="#modalWebcam"><i class="fa fa-camera" aria-hidden="true"></i></a>
+								
+								<a onclick="setCamera()" data-toggle="modal" data-target="#modalWebcam"><i class="fa fa-camera" aria-hidden="true" id="icon-camera"></i>
+								<img id="Show-Img" src="#"></img></a>
 							</div>
 						</div>
 						<div class="box-name">
@@ -208,6 +207,7 @@
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.min.js"></script>
 	<script src="/js/webcam.js"></script>
+	<script src="/editCard.js"></script>
 </body>
 
 </html>
