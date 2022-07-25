@@ -24,7 +24,7 @@ router.get("/data", async (req, res, next) => {
     let pool = await sql.connect(dbconfig);
     let Card = await pool
       .request()
-      .query(`SELECT * FROM Cards WHERE CardName = N'${CardTag}'`);
+      .query(`SELECT * FROM Cards WHERE CardTag = N'${CardTag}'`);
     if (Card.recordset.length) {
       let { Fname, Lname, Tel } = Card.recordset[0]
       Card.recordset[0].Fname = decrypt(JSON.parse(Fname))
@@ -147,23 +147,22 @@ router.put("/edit", async (req, res) => {
 });
 
 router.post("/upload", async (req, res) => {
-  let CardTag = req.session.CardTag;
-  console.log(req)
-  console.log(req.body)
-  upload(req, res, async (err) => {
-    if (err){
-      res.status(500).send({ message: `${err}` });
-    } else{
-        try{
-            img = "/imgs/profile/" + req.file.filename;
-            let UpdateImagePath = `UPDATE Cards SET ImgPath = N'${img}' WHERE CardTag = ${CardTag}`;
-            await pool.request().query(UpdateImagePath);
-            res.status(200).send({message: 'Successfully upload image'});
-        } catch(err){
-            res.status(500).send({ message: `${err}` });
-        }
-    }
+  try{
+    let CardTag = req.session.CardTag;
+    upload(req, res, async (err) => {
+      if (err){
+        res.status(500).send({ message: `${err}` });
+      } else{
+        img = "/imgs/profile/" + req.file.filename;
+        let UpdateImagePath = `UPDATE Cards SET ImgPath = N'${img}' WHERE CardTag = N'${CardTag}'`;
+        let pool = await sql.connect(dbconfig);
+        await pool.request().query(UpdateImagePath);
+        res.status(200).send({message: 'Successfully upload image'});
+      }
     })
+  } catch(err){
+    res.status(500).send({ message: `${err}` });
+}
 })
 
 router.get("/publish", async (req, res) => {
