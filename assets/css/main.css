@@ -155,6 +155,7 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+    overflow: hidden ;
 
     bottom: -100px;
     left: 20px;
@@ -162,13 +163,23 @@
 }
 
 .character a {
-    
     font-size: 300%;
     text-align: center;
+    
 }
 
-.character a:hover  i{
-    color: #fff;
+.character a i#icon-camera{
+    z-index: -10;
+    position: absolute;
+    top: 40%;
+    left: 37%;
+
+}
+
+.character a:hover  i#icon-camera{
+    color: rgba(255, 255, 255, 0.6);
+    z-index: 10;
+    
 }
 
 .box-pre  .box-name {
