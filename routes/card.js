@@ -18,7 +18,28 @@ const checkCard = async (Tag) => {
   return CheckCard.recordset[0].check;
 }
 
-router.get("/data/:CardName", async (req, res, next) => {
+router.get("/data", async (req, res, next) => {
+  try {
+    let CardTag = req.session.CardTag;
+    let pool = await sql.connect(dbconfig);
+    let Card = await pool
+      .request()
+      .query(`SELECT * FROM Cards WHERE CardName = N'${CardTag}'`);
+    if (Card.recordset.length) {
+      let { Fname, Lname, Tel } = Card.recordset[0]
+      Card.recordset[0].Fname = decrypt(JSON.parse(Fname))
+      Card.recordset[0].Lname = decrypt(JSON.parse(Lname))
+      Card.recordset[0].Tel = decrypt(JSON.parse(Tel))
+      res.status(200).send(JSON.stringify(Card.recordset[0]));
+    } else {
+      res.status(404).send({ message: "Card not found" });
+    }
+  } catch (err) {
+    res.status(500).send({ message: `${err}` });
+  }
+});
+
+router.get("/show/:CardName", async (req, res, next) => {
   try {
     let CardName = req.params.CardName;
     let pool = await sql.connect(dbconfig);
@@ -125,8 +146,10 @@ router.put("/edit", async (req, res) => {
   }
 });
 
-router.put("/upload", async (req, res) => {
+router.post("/upload", async (req, res) => {
   let CardTag = req.session.CardTag;
+  console.log(req)
+  console.log(req.body)
   upload(req, res, async (err) => {
     if (err){
       res.status(500).send({ message: `${err}` });
