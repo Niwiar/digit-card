@@ -35,7 +35,34 @@
 	edit
 	<a href="/card/publish">Publish</a>
 	<a href="/card/unpublish">Unpublish</a>
+	
+	
 	<!-- form search card -->
+
+	<!-- <div class="modal fade" role="dialog" tabindex="-1" id="modalMasterCard">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h4 class="modal-title">สร้างการ์ด</h4><button type="button" class="close" data-dismiss="modal"
+				aria-label="Close"><span aria-hidden="true">×</span></button>
+			</div>
+			<div class="modal-body text-center">
+				<div class="input-group">
+					<span class="input-group-text">ชื่อการ์ด</span>
+					<input type="text" aria-label="First name" class="form-control">
+				</div>
+				<div class="input-group">
+					<span class="input-group-text">รหัส</span>
+					<input type="text" aria-label="First name" class="form-control">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-secondary" type="button" data-dismiss="modal">ยกเลิก</button>
+				<button class="btn btn-danger btnYes" id="btnYes" type="button">ยืนยัน</button>
+			</div>
+		  </div>
+		</div>
+	</div> -->
 
 	<!-- form webcam -->
 	<div class="modal fade" role="dialog" tabindex="-1" id="modalWebcam">
@@ -43,31 +70,39 @@
 		  <div class="modal-content">
 			<div class="modal-header">
 			  <h4 class="modal-title">Camera</h4><button type="button" class="close" data-dismiss="modal"
-				aria-label="Close"><span aria-hidden="true">×</span></button>
+				aria-label="Close" onclick="closeCamera();"><span aria-hidden="true">×</span></button>
 			</div>
-			<div class="modal-body text-center">
-				<div class="camera-box">
-					<div id="camera" ></div>
-					<div id="camera-line"></div>
+			<div class="modal-body text-center ">
+				<div class="camera-box center-box">
+					<div id="camera"></div>
+					<div id="camera-line">
+						<div id="results"></div>
+					</div>
+					
 				</div>
+
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-secondary" type="button" data-dismiss="modal">ยกเลิก</button>
-				<button class="btn btn-danger btnYes" id="btnYes" type="button">ดาวน์โหลดรูป</button>
+				<button class="btn btn-secondary" type="button" data-dismiss="modal" onclick="closeCamera();">ยกเลิก</button>
+				<button class="btn btn-danger btnYes" id="btnYes" type="button" onclick="take_snapshot()">snapshot</button>
+				<button class="btn btn-danger btnYes" id="btnYes" type="button" onclick="setCamera()">reset</button>
+				<button class="btn btn-danger btnYes" id="btnYes" type="button" data-dismiss="modal" onclick="saveSnap()">save</button>
+
 			</div>
 		  </div>
 		</div>
-	  </div>
+	</div>
 
 	
 
 	<nav class="sidebar">
 		<ul>
 			<li >
+				<i class="fa-brands fa-facebook-square"></i>
 				<span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span>
-				
 				<a class="" href="#">หน้าแรก</a>
 			</li>
+		
 		</ul>
 	</nav>
 
@@ -86,9 +121,9 @@
 							<input type="text" aria-label="Last name" class="form-control">
 						</div>
 						<!-- <div class="input-group">
-					<span class="input-group-text">ที่อยู่</span>
-					<input type="text" aria-label="First name" class="form-control">
-				  </div> -->
+							<span class="input-group-text">ที่อยู่</span>
+							<input type="text" aria-label="First name" class="form-control">
+						</div> -->
 						<div class="input-group">
 							<span class="input-group-text">เบอร์มือถือ</span>
 							<input type="text" aria-label="First name" class="form-control">
@@ -122,9 +157,12 @@
 							<input class="form-control pad-3" type="file" id="formFile">
 						</div>
 						<div class="btn-group">
-							<button onclick="setCamera()" class="btn btn-primary" data-toggle="modal" data-target="#modalWebcam">ถ่ายรูป</button>
-							<button class="btn btn-primary">บันทึก</button>
-							<button class="btn btn-primary">ลิ้งค์</button>
+							
+							<a class="btn btn-primary">บันทึก</a>
+							<a class="btn btn-primary">ลิ้งค์</a>
+							<a href="/card/publish">เผยเเพร่</a>
+							<a href="/card/unpublish">ยกเลิกเผยเเพร่</a>
+
 						</div>
 
 
@@ -137,7 +175,9 @@
 					<div class="box-pre">
 						<div class="background" id="background">
 							<div class="logo" id="logo"></div>
-							<div class="character" id="character"></div>
+							<div class="character" id="character">
+								<a onclick="setCamera()" data-toggle="modal" data-target="#modalWebcam"><i class="fa fa-camera" aria-hidden="true"></i></a>
+							</div>
 						</div>
 						<div class="box-name">
 							<div class="input-group">

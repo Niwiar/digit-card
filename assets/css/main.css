@@ -151,9 +151,24 @@
     border-radius: 50%;
     position: absolute;
 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
     bottom: -100px;
     left: 20px;
 
+}
+
+.character a {
+    
+    font-size: 300%;
+    text-align: center;
+}
+
+.character a:hover  i{
+    color: #fff;
 }
 
 .box-pre  .box-name {
@@ -179,3 +194,8 @@
     flex-wrap: wrap;
 }
 
+.center-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

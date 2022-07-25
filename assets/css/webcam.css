@@ -5,34 +5,39 @@
 }
 
 #camera{
-    /* display: inline; */
     position: relative;
-    width: 350px;
-    height: 350px;
-    /* border: 3px solid black; */
-    margin: 10px
+    width: 320px;
+    height: 240px;
+    margin: 10px;
+    z-index: 2;
+
 }
 
 #camera-line{
-    width: 250px;
-    height: 250px;
+    width: 220px;
+    height: 220px;
     border: 3px solid rgb(89, 255, 47);
     margin: 10px;
     border-radius: 50%;
     position: absolute;
-    top: 52px;
-    left: 55px;
-
+    z-index: 10;
+    overflow: hidden ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 #results{
-    margin: 10px;
+    position: relative;
+    z-index: 1;
+    /* top: 0; */
+    /* left: 0; */
 }
 
-.img-circle {
-    width: 350px;
-    height: 350px;
-    border-radius: 50%;
+
+.cropped1 {
+    object-fit: cover;
 }
 
 button{
