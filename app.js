@@ -37,14 +37,10 @@ app.use(session({
 app.set('subdomain offset', 1);
 
 let indexRoute = require('./routes/index');
-let userRoute = require('./routes/user');
 let cardRoute = require('./routes/card');
 
 app.use('/', indexRoute);
-app.use('/user', userRoute);
-
 app.use('/card', cardRoute);
-
 
 app.listen(PORT, () => {
     console.log(`Server is listening on ${PORT}`);
