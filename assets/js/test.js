@@ -1,4 +1,6 @@
 let camera_button = document.querySelector("#start-camera");
+let close_button = document.querySelector("#end-camera");
+
 let video = document.querySelector("#video");
 let click_button = document.querySelector("#click-photo");
 let canvas = document.querySelector("#canvas");
@@ -21,6 +23,14 @@ camera_button.addEventListener('click', async function() {
     video.style.display = 'block';
     camera_button.style.display = 'none';
     click_button.style.display = 'block';
+});
+
+close_button.addEventListener('click', async function() {
+    let stream = null;
+    camera_button.value = "Restart Camera";
+    camera_button.style.display = 'inline-block';
+
+ video.srcObject = stream;
 });
 
 click_button.addEventListener('click', function() {
