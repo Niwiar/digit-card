@@ -24,6 +24,9 @@
 	<link rel="stylesheet" href="/fonts/fontawesome5-overrides.min.css">
 
 	<link rel="stylesheet" href="/css/webcam.css">
+	<link rel="stylesheet" href="/css/test.css">
+	
+
 
 
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
@@ -32,70 +35,72 @@
 <body>
 	<!-- <div class="line-it-button" data-lang="en" data-type="friend" data-env="REAL"   data-lineId="tletery123" style="display: none;"></div>
 	<script src="https://www.line-website.com/social-plugins/js/thirdparty/loader.min.js" async="async" defer="defer"></script> -->
-	
-	
+
+
 	<!-- form Change Password-->
 
 	<div class="modal fade" role="dialog" tabindex="-1" id="modalChangePass">
 		<div class="modal-dialog modal-dialog-centered" role="document">
-		  <div class="modal-content">
-			<div class="modal-header">
-			  <h4 class="modal-title">เปลี่ยนรหัสผ่าน</h4><button type="button" class="close"
-				aria-label="Close"><span aria-hidden="true">×</span></button>
-			</div>
-			<div class="modal-body text-center">
-				
-				<div class="input-group">
-					<span class="input-group-text">รหัสผ่านใหม่</span>
-					<input type="password" aria-label="First name" id="IP-CardPass" class="form-control">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">เปลี่ยนรหัสผ่าน</h4><button type="button" class="close"
+						aria-label="Close"><span aria-hidden="true">×</span></button>
+				</div>
+				<div class="modal-body text-center">
+
+					<div class="input-group">
+						<span class="input-group-text">รหัสผ่านใหม่</span>
+						<input type="password" aria-label="First name" id="IP-CardPass" class="form-control">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary no" type="button">ยกเลิก</button>
+					<button class="btn btn-danger btnYes" id="btnChangePass" type="button">ยืนยัน</button>
 				</div>
 			</div>
-			<div class="modal-footer">
-				<button class="btn btn-secondary no" type="button">ยกเลิก</button>
-				<button class="btn btn-danger btnYes" id="btnChangePass" type="button">ยืนยัน</button>
-			</div>
-		  </div>
 		</div>
 	</div>
 
 	<!-- form webcam -->
 	<div class="modal fade" role="dialog" tabindex="-1" id="modalWebcam">
 		<div class="modal-dialog modal-dialog-centered" role="document">
-		  <div class="modal-content">
-			<div class="modal-header">
-			  <h4 class="modal-title">Camera</h4><button type="button" class="close" data-dismiss="modal"
-				aria-label="Close" onclick="closeCamera();"><span aria-hidden="true">×</span></button>
-			</div>
-			<div class="modal-body text-center ">
-				<div class="camera-box center-box">
-					<div id="camera"></div>
-					<div id="camera-line">
-						<div id="results"></div>
-					</div>
+			<div class="modal-content">
+				<div class="modal-header">
+				  <h4 class="modal-title">Camera</h4><button type="button" class="close" data-dismiss="modal"
+					aria-label="Close" onclick="closeCamera();"><span aria-hidden="true">×</span></button>
 				</div>
+				<div class="modal-body text-center ">
+					<div class="camera-box center-box">
+						<div id="camera"></div>
+						<div id="camera-line">
+							<div id="results"></div>
+						</div>
+					</div>
 
-			</div>
-			<div class="modal-footer">
-				<button class="btn btn-secondary" type="button" data-dismiss="modal" onclick="closeCamera();">ยกเลิก</button>
-				<button class="btn btn-danger btnYes" id="btnTake" type="button" onclick="take_snapshot()">ถ่ายภาพ</button>
-				<button class="btn btn-danger btnYes" id="btnSet" type="button" onclick="setCamera()">ถ่ายใหม่</button>
-				<button class="btn btn-danger btnYes" id="btnSave" type="button" data-dismiss="modal">บันทึก</button>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button" data-dismiss="modal" onclick="closeCamera();">ยกเลิก</button>
+					<button class="btn btn-danger btnYes" id="btnTake" type="button" onclick="take_snapshot()">ถ่ายภาพ</button>
+					<button class="btn btn-danger btnYes" id="btnSet" type="button" onclick="setCamera()">ถ่ายใหม่</button>
+					<button class="btn btn-danger btnYes" id="btnSave" type="button" data-dismiss="modal">บันทึก</button>
 
+				</div>
 			</div>
-		  </div>
 		</div>
 	</div>
 
-	
+
 
 	<nav class="sidebar">
-		<ul >
+		<ul>
 			<li>
 				<!-- <i class="fa-brands fa-facebook-square"></i> -->
-				
-				<a class="" href="/" ><span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span><p>หน้าแรก</p> </a>
+
+				<a class="" href="/"><span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span>
+					<p>หน้าแรก</p>
+				</a>
 			</li>
-		
+
 		</ul>
 	</nav>
 
@@ -131,24 +136,28 @@
 						</div>
 						<div class="input-group">
 							<span class="input-group-text">Facebook link</span>
-							<input type="text" id="IP-FacebookLink" class="form-control" placeholder="https://www.facebook.com/">
+							<input type="text" id="IP-FacebookLink" class="form-control"
+								placeholder="https://www.facebook.com/">
 						</div>
 						<div class="input-group">
 							<span class="input-group-text">Line ID</span>
-							<input type="text"  id="IP-LineID" class="form-control" placeholder="example">
+							<input type="text" id="IP-LineID" class="form-control" placeholder="example">
 						</div>
-						<!-- <div class="input-group">
-							<span class="input-group-text">ชื่อการ์ด</span>
-							<input type="text" class="form-control">
-						</div> -->
-						<!-- <div class="input-group">
-							<span class="input-group-text">รหัส</span>
-							<input type="password" id="IP-CardPass" class="form-control">
-						</div> -->
-						<!-- <div class="mb-3 ">
-							<label for="formFile" class="form-label">Default file input example</label>
-							<input class="form-control pad-3" type="file" id="formFile">
-						</div> -->
+						<!-- กล้องมือถือ -->
+						<input type="file" accept="image/*" capture="camera">
+
+						
+						<button id="start-camera">Start Camera</button>
+						<video id="video" width="320" height="240" autoplay></video>
+						<button id="click-photo">Click Photo</button>
+						<div id="dataurl-container">
+							<canvas id="canvas" width="320" height="240"></canvas>
+							<div id="dataurl-header">Image Data URL</div>
+							<textarea id="dataurl" readonly></textarea>
+						</div>
+
+
+						
 						<div class="btn-group center-box ma-10">
 							<a class="btn btn-primary" id="EditCard">บันทึก</a>
 							<!-- <a class="btn btn-primary">ลิงก์</a> -->
@@ -164,18 +173,19 @@
 
 				<!-- Show Card -->
 				<div class="col-s-12 col-xl-7 right">
-					
+
 					<div class="box-pre">
-						
+
 						<div class="background" id="background">
 							<div class="pre-title">
 								<h4>ตัวอย่าง</h4>
 							</div>
 							<div class="logo" id="logo"></div>
 							<div class="character" id="character">
-								
-								<a onclick="setCamera()" data-toggle="modal" data-target="#modalWebcam"><i class="fa fa-camera" aria-hidden="true" id="icon-camera"></i>
-								<img id="Show-Img" src="#"></img></a>
+
+								<a onclick="setCamera()" data-toggle="modal" data-target="#modalWebcam"><i
+										class="fa fa-camera" aria-hidden="true" id="icon-camera"></i>
+									<img id="Show-Img" src="#"></img></a>
 							</div>
 						</div>
 						<div class="box-name">
@@ -205,7 +215,7 @@
 		</div>
 	</div>
 
-	
+
 
 	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 	<script src="/js/bootstrap.min.js"></script>
@@ -215,6 +225,7 @@
 
 	<script src="/js/webcam.js"></script>
 	<script src="/editCard.js"></script>
+	<script src="/js/test.js"></script>
 </body>
 
 </html>

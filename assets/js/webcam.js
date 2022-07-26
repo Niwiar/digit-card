@@ -41,6 +41,7 @@ function take_snapshot() {
 }
 
 function dataURItoBlob(dataURI) {
+    console.log(dataURI)
     var byteString = atob(dataURI.split(',')[1]);  
     var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
     var ab = new ArrayBuffer(byteString.length);
@@ -77,7 +78,18 @@ $(document).ready(function () {
                     confirmButtonColor: '#dc3545',
                     allowOutsideClick: false
                 })
-                
+            },
+            error: function (err) {
+                errorText = err.responseJSON.message;
+                Swal.fire({
+                    position: 'center',
+                    icon: 'warning',
+                    title: 'Warning',
+                    text: errorText,
+                    showConfirmButton: true,
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#FF5733'
+                });
             }
         })
         closeCamera();
