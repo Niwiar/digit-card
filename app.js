@@ -2,10 +2,10 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const flash = require('express-flash');
-const session = require('express-session');
+const cookieSession = require('cookie-session');
 const cors = require('cors');
 
-const PORT = 3000
+const PORT = 4000
 
 app.use(cors());
 
@@ -23,15 +23,11 @@ app.use(express.urlencoded({extended: false}));
 
 app.use(flash());
 
-app.use(session({
-    cookie: {
-        maxAge: 1000 * 60 *60
-    },
-    store: new session.MemoryStore,
-    saveUninitialized: true,
-    resave: 'true',
-    secret: 'secret'
-}));
+app.use(cookieSession({
+    name: 'session',
+    keys: ['key1, key2'],
+    maxAge: 1000 * 60 * 60 * 24
+}))
 
 // only in local
 app.set('subdomain offset', 1);
