@@ -170,7 +170,7 @@
 }
 
 .character a i#icon-camera{
-    z-index: -10;
+    z-index: 10;
     position: absolute;
     top: 40%;
     left: 37%;
@@ -178,8 +178,8 @@
 }
 
 .character a:hover  i#icon-camera{
-    color: rgba(255, 255, 255, 0.6);
-    z-index: 10;
+    color: red;
+    z-index: -10;
     
 }
 
@@ -204,6 +204,7 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    text-align: center;
 }
 
 .center-box {
@@ -215,6 +216,23 @@
 .ma-10{
     margin-bottom: 10px;
 }
+
+.social a {
+    text-decoration: none
+}
+
+/* #Show-Tel{
+    height: 48px;
+    width: 48px;
+}
+
+#Show-Tel i{
+    font-size: 42px;
+    color: rgb(40, 166, 40);
+    position: relative;
+    top: 11px;
+    margin-left: 3px;
+} */
 
 @media only screen and (max-width:425px) {
     *{
@@ -263,7 +281,7 @@
     .character a i#icon-camera{
         /* width: 50px;
         height: 50px; */
-        z-index: -10;
+        /* z-index: 10; */
         position: absolute;
         top: 42%;
         left: 37%;
@@ -272,7 +290,7 @@
     
     .character a:hover i#icon-camera{
         color: rgba(255, 255, 255, 0.6);
-        z-index: 10;
+        /* z-index: -10; */
         
     }
 
