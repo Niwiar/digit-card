@@ -4,7 +4,7 @@
 const dbconfig = {
     user: "sa",
     password: "P@ssw0rd",
-    server: "192.168.1.5",
+    server: "192.168.1.6",
     database: "Digital-Card",
     options: {
         encrypt: false,
