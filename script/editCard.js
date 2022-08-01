@@ -28,8 +28,7 @@ function ShowCard() {
             $('#Show-lname').val(lname);
             $('#Show-Tel').val(Tel);
             $('#Show-Company').val(Company);
-            // $('#Show-Email').val(Email);
-            // console.log(Email)
+            $('#Show-EmailName').val(Email);
 
             document.getElementById('Show-FacebookLink').href = FacebookLink;
             document.getElementById('Show-LineID').href = "https://line.me/ti/p/~"+LineID;
@@ -49,6 +48,7 @@ $(document).ready(function () {
     $('#IP-fname').on('input', () => $('#Show-fname').val($('#IP-fname').val()));
     $('#IP-lname').on('input', () => $('#Show-lname').val($('#IP-lname').val()));
     $('#IP-Company').on('input', () => $('#Show-Company').val($('#IP-Company').val()));
+    $('#IP-Email').on('input', () => $('#Show-EmailName').val($('#IP-EmailName').val()));
 
     $('#IP-FacebookLink').on('input', () => $('#Show-FacebookLink').href($('#IP-FacebookLink').val()));
     $('#IP-LineID').on('input', () => $('#Show-LineID').href("https://line.me/ti/p/~"+$('#IP-LineID').val()));

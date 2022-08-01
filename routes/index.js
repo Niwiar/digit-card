@@ -10,9 +10,6 @@ router.get('/manage/:CardTag', isCardAuth, (req, res) => {
     res.render('card-edit');
 })
 
-router.get('/test', isCardAuth, (req, res) => {
-    res.render('testCamera');
-})
 
 // router.get('/login', ifLoggedIn, (req, res, next) => {
 //     res.render('login.ejs');
@@ -22,8 +19,8 @@ router.get('/test', isCardAuth, (req, res) => {
 //     res.render('register.ejs');
 // });
 
-// router.get('/manager', (req, res) => {
-//     res.render('card-template')
-// })
+router.get('/test', (req, res) => {
+    res.render('testCamera')
+})
 
 module.exports = router
