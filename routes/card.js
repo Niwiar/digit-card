@@ -32,7 +32,7 @@ router.get("/data", async (req, res, next) => {
       Card.recordset[0].Tel = decrypt(JSON.parse(Tel))
       res.status(200).send(JSON.stringify(Card.recordset[0]));
     } else {
-      res.status(404).send({ message: "Card not found" });
+      res.status(404).send({ message: "ไม่พบการ์ด" });
     }
   } catch (err) {
     res.status(500).send({ message: `${err}` });
@@ -53,7 +53,7 @@ router.get("/show/:CardName", async (req, res, next) => {
       Card.recordset[0].Tel = decrypt(JSON.parse(Tel))
       res.status(200).send(JSON.stringify(Card.recordset[0]));
     } else {
-      res.status(404).send({ message: "Card not found" });
+      res.status(404).send({ message: "ไม่พบการ์ด" });
     }
   } catch (err) {
     res.status(500).send({ message: `${err}` });
@@ -75,11 +75,11 @@ router.post("/auth", async (req, res) => {
         req.session.CardTag = Card.recordset[0].CardTag;
         res.redirect(`/manage/${Card.recordset[0].CardTag}`);
       } else {
-        req.flash("error", "Invalid card password");
+        req.flash("error", "รหัสผ่านของการ์ดไม่ถูกต้อง");
         res.render("error.ejs");
       }
     } else {
-      req.flash("error", "Card not found");
+      req.flash("error", "ไม่พบการ์ด");
       res.render("error.ejs");
     }
   } catch (err) {
@@ -91,7 +91,7 @@ router.post("/create", async (req, res, next) => {
   try {
     let { CardName, CardPass } = req.body;
     if (CardName == "" || CardPass == "") {
-      res.status(400).send({ message: "Please fill Card name and password" });
+      res.status(400).send({ message: "กรุณาใส่ชื่อการ์ดและรหัสผ่านในช่องว่าง" });
       return;
     }
     let pool = await sql.connect(dbconfig);
@@ -99,7 +99,7 @@ router.post("/create", async (req, res, next) => {
             FROM Cards
             WHERE CardName = N'${CardName}'`);
     if (CheckCard.recordset.length) {
-      res.status(400).send({ message: "Duplicate Card" });
+      res.status(400).send({ message: "พบการ์ดซ้ำ" });
     } else {
       let Hashpass = await bcrypt.hash(CardPass, 12);
       let Hashtag = await bcrypt.hash(CardName, 5);
@@ -107,7 +107,7 @@ router.post("/create", async (req, res, next) => {
       let InsertCard = `INSERT INTO Cards(CardName, CardTag, CardPass)
         VALUES (N'${CardName}', N'${Hashtag}', N'${Hashpass}')`;
       await pool.request().query(InsertCard);
-      res.status(201).send({ message: "Successfully create Card" });
+      res.status(201).send({ message: "สร้างการ์ดสำเร็จ" });
     }
   } catch (err) {
     res.status(500).send({ message: `${err}` });
@@ -137,9 +137,9 @@ router.put("/edit", async (req, res) => {
             Email = N'${Email}'
             WHERE CardTag = N'${CardTag}'`;
       await pool.request().query(UpdateCard);
-      res.status(200).send({ message: `Successfully edit Card` });
+      res.status(200).send({ message: `แก้ไขการ์ดสำเร็จ` });
     } else {
-      res.status(404).send({ message: "Card not found" });
+      res.status(404).send({ message: "ไม่พบการ์ด" });
     }
   } catch (err) {
     res.status(500).send({ message: `${err}` });
@@ -157,7 +157,7 @@ router.post("/upload", async (req, res) => {
         let UpdateImagePath = `UPDATE Cards SET ImgPath = N'${img}' WHERE CardTag = N'${CardTag}'`;
         let pool = await sql.connect(dbconfig);
         await pool.request().query(UpdateImagePath);
-        res.status(200).send({message: 'Successfully upload image'});
+        res.status(200).send({message: 'อัปโหลดรูปภาพสำเร็จ'});
       }
     })
   } catch(err){
@@ -178,11 +178,11 @@ router.get("/publish", async (req, res) => {
       let card = await pool.request().query(PublishCard);
       let CardName = card.recordset[0].CardName;
       res.status(200).send({
-        message: `Your Digital Card is Ready`,
+        message: `เผยแพร่การ์ดสำเร็จ`,
         link: `${CardName}.localhost:3000`,
       });
     } else {
-      res.status(404).send({ message: "Card not found" });
+      res.status(404).send({ message: "ไม่พบการ์ด" });
     }
   } catch (err) {
     res.status(500).send({ message: `${err}` });
@@ -198,9 +198,9 @@ router.get("/unpublish", async (req, res) => {
         SET Published = 0
         WHERE CardTag = N'${CardTag}'`;
       await pool.request().query(UnpublishCard);
-      res.status(200).send({ message: `Your Digital Card has been unpublish` });
+      res.status(200).send({ message: `เลิกเผยแพร่การ์ดสำเร็จ` });
     } else {
-      res.status(404).send({ message: "Card not found" });
+      res.status(404).send({ message: "ไม่พบการ์ด" });
     }
   } catch (err) {
     res.status(500).send({ message: `${err}` });
@@ -212,7 +212,7 @@ router.put("/change_password", async (req, res) => {
     let CardTag = req.session.CardTag;
     let CardPass = req.body.CardPass;
     if (CardPass == "") {
-      res.status(400).send({ message: "Please enter card's password" });
+      res.status(400).send({ message: "กรุณาใส่รหัสผ่านของการ์ด" });
       return;
     }
     let pool = await sql.connect(dbconfig);
@@ -222,9 +222,9 @@ router.put("/change_password", async (req, res) => {
         SET CardPass = N'${Hashpass}'
         WHERE CardTag = N'${CardTag}'`;
       await pool.request().query(UpdateCard);
-      res.status(200).send({ message: "Successfully change card's password" });
+      res.status(200).send({ message: "เปลี่ยนรหัสผ่านของการ์ดสำเร็จ" });
     } else {
-      res.status(404).send({ message: "Card not found" });
+      res.status(404).send({ message: "ไม่พบการ์ด" });
     }
   } catch (err) {
     res.status(500).send({ message: `${err}` });
@@ -238,9 +238,9 @@ router.delete("/delete", async (req, res) => {
     if (await checkCard(CardTag)) {
       let DeleteCard = `DELETE FROM Users WHERE CardTag = ${CardTag}`;
       await pool.request().query(DeleteCard);
-      res.status(200).send({ message: "Successfully delete card" });
+      res.status(200).send({ message: "ลบการ์ดสำเร็จ" });
     } else {
-      res.status(404).send({ message: "Card not found" });
+      res.status(404).send({ message: "ไม่พบการ์ด" });
     }
   } catch (err) {
     res.status(500).send({ message: `${err}` });
