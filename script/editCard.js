@@ -24,11 +24,13 @@ function ShowCard() {
             let FacebookLink = $.trim($('#IP-FacebookLink').val());
             let LineID = $.trim($('#IP-LineID').val());
 
-            $('#Show-fname').val(fname);
-            $('#Show-lname').val(lname);
+            $('#Show-fname').val(fname+" "+lname);
+            // $('#Show-lname').val(lname);
             $('#Show-Tel').val(Tel);
             $('#Show-Company').val(Company);
             $('#Show-EmailName').val(Email);
+
+            
 
             document.getElementById('Show-FacebookLink').href = FacebookLink;
             document.getElementById('Show-LineID').href = "https://line.me/ti/p/~"+LineID;
@@ -40,13 +42,37 @@ function ShowCard() {
 
 }
 
+function share() {
+    $.ajax({
+        url: "/card/publish",
+        method: 'get',
+        cache: false,
+        success: function (suc) {
+            successText = suc.message;
+            linkText = suc.link;
+            $("#share_button").attr("data-a2a-url", linkText);
+        },
+        error: function (err) {
+            errorText = err.responseJSON.message;
+            Swal.fire({
+                position: 'center',
+                icon: 'warning',
+                title: 'Warning',
+                text: errorText,
+                showConfirmButton: true,
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#FF5733'
+            });
+        }
+    });
+}
+
 $(document).ready(function () {
     // Show Card
     ShowCard();
-
     // Show Pre-Card
-    $('#IP-fname').on('input', () => $('#Show-fname').val($('#IP-fname').val()));
-    $('#IP-lname').on('input', () => $('#Show-lname').val($('#IP-lname').val()));
+    $('#IP-fname').on('input', () => $('#Show-fname').val($('#IP-fname').val()+" "+$('#IP-lname').val()));
+    // $('#IP-lname').on('input', () => $('#Show-lname').val($('#IP-lname').val()));
     $('#IP-Company').on('input', () => $('#Show-Company').val($('#IP-Company').val()));
     $('#IP-Email').on('input', () => $('#Show-EmailName').val($('#IP-EmailName').val()));
 
@@ -66,6 +92,9 @@ $(document).ready(function () {
         let Email = $.trim($('#IP-Email').val());
         let FacebookLink = $.trim($('#IP-FacebookLink').val());
         let LineID = $.trim($('#IP-LineID').val());
+        //camera
+        let MobileCamera = $.trim($('#IP-MobileCamera').val());
+        
 
         $.ajax({
             url: "/card/edit",
@@ -164,19 +193,20 @@ $(document).ready(function () {
             method: 'get',
             cache: false,
             success: function (suc) {
-                console.log(suc)
                 successText = suc.message;
                 linkText = suc.link;
+                $("#share_button").attr("data-a2a-url", linkText);
                 Swal.fire({
                     position: 'center',
-                    title: 'Publish',
+                    title: 'การเผยแพร่',
                     icon: 'success',
                     html:
                         ''+successText+'<br>' +
-                        'Your card link: <a href="'+linkText+'">'+linkText+'</a> ',
+                        'link ของการ์ด: <a href="http://'+linkText+'">'+linkText+'</a><br>',
                     confirmButtonColor: '#007bff'
-                    
-                })
+                });
+                
+                // document.getElementById('share_button').href = FacebookLink;
             },
             error: function (err) {
                 errorText = err.responseJSON.message;
@@ -201,12 +231,11 @@ $(document).ready(function () {
             method: 'get',
             cache: false,
             success: function (suc) {
-                console.log(suc)
                 successText = suc.message;
                 Swal.fire({
                     position: 'center',
                     icon: 'success',
-                    title: 'Unpublish',
+                    title: 'การเผยแพร่',
                     text: successText,
                     showConfirmButton: false,
                     timer: 1500
