@@ -6,26 +6,22 @@ const { dbconfig } = require('../config');
 
 router.post('/login', async (req, res) => {
     try {
-        let { Username, Password } = req.body;
+        let { CardName, CardPass } = req.body;
         let pool = await sql.connect(dbconfig);
-        let user = await pool.request().query(`SELECT * FROM Users WHERE Username = N'${Username}'`);
-        if (user.recordset.length) {
-            let compared = await bcrypt.compare(Password, user.recordset[0].Password)
+        let User = await pool.request().query(`SELECT * FROM Cards WHERE CardName = N'${CardName}' AND Authority = 1`);
+        if (User.recordset.length) {
+            let compared = await bcrypt.compare(CardPass, User.recordset[0].CardPass)
             if (compared) {
                 req.session.isLoggedIn = true;
-                req.session.UserId = user.recordset[0].UserId;
-                if(user.recordset[0].Authority == 1){
-                    req.session.isAuth = true;
-                } else{
-                    req.session.isAuth = false;
-                }
+                req.session.UserId = User.recordset[0].CardId;
+                req.session.isAuth = true;
                 res.redirect('/');
             } else {
-                req.flash('login', 'Invalid Email or Password')
+                req.flash('login', 'Invalid Username or Password')
                 res.redirect('/login')
             }
         } else {
-            req.flash('login', 'Invalid Email or Password')
+            req.flash('login', 'Invalid Username or Password')
             res.redirect('/login')
         }
     } catch (err){
@@ -41,16 +37,16 @@ router.get('/logout', (req, res, next) => {
 
 router.post('/register', async (req, res) => {
     try {
-        let { Username, Password } = req.body;
-        if (Username == '' || Password == '') {
-            res.status(400).send({message: "Please enter username and password"});
+        let { CardName, CardPass } = req.body;
+        if (CardName == '' || CardPass == '') {
+            res.status(400).send({message: "Please enter Username and Password"});
             return;
         }
         let pool = await sql.connect(dbconfig);
         let CheckUser = await pool.request().query(`SELECT CASE
             WHEN EXISTS(
-                SELECT * FROM Users
-                WHERE Username = N'${Username}'
+                SELECT * FROM Cards
+                WHERE CardName = N'${CardName}'
             )
             THEN CAST (1 AS BIT)
             ELSE CAST (0 AS BIT) END AS 'check'`);
@@ -58,9 +54,9 @@ router.post('/register', async (req, res) => {
             req.flash('register', 'Duplicate Username')
             res.redirect('/register')
         } else {
-            let Hashpass = await bcrypt.hash(Password, 12)
-            let InsertUser = `INSERT INTO Users(Username, Password)
-                VALUES  (N'${Username}', N'${Hashpass}')`;
+            let Hashpass = await bcrypt.hash(CardPass, 12)
+            let InsertUser = `INSERT INTO Cards(CardName, CardPass, Authority)
+                VALUES  (N'${CardName}', N'${Hashpass}', 1)`;
             await pool.request().query(InsertUser);
             res.status(201).send({message: 'Register successfully, Now you can login'});
         }

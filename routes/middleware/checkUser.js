@@ -1,6 +1,5 @@
 const ifNotLoggedIn = (req, res, next) => {
-    if(false) {
-    // if (!req.session.isLoggedIn) {
+    if (!req.session.isLoggedIn) {
         return res.redirect('/login');
     }
     next();
@@ -8,7 +7,7 @@ const ifNotLoggedIn = (req, res, next) => {
 
 const ifLoggedIn = (req, res, next) => {
     if (req.session.isLoggedIn) {
-        return res.redirect('/');
+        return res.redirect('/card_manager');
     }
     next();
 }

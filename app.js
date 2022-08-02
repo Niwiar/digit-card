@@ -34,9 +34,11 @@ app.set('subdomain offset', 1);
 
 let indexRoute = require('./routes/index');
 let cardRoute = require('./routes/card');
+let dashboardRoute = require('./routes/dashboard');
 
 app.use('/', indexRoute);
 app.use('/card', cardRoute);
+app.use('/dashboard', dashboardRoute);
 
 app.listen(PORT, () => {
     console.log(`Server is listening on ${PORT}`);

@@ -26,10 +26,11 @@ router.get("/data", async (req, res, next) => {
       .request()
       .query(`SELECT * FROM Cards WHERE CardTag = N'${CardTag}'`);
     if (Card.recordset.length) {
-      let { Fname, Lname, Tel } = Card.recordset[0]
+      let { CardName, Fname, Lname, Tel } = Card.recordset[0]
       Card.recordset[0].Fname = decrypt(JSON.parse(Fname))
       Card.recordset[0].Lname = decrypt(JSON.parse(Lname))
       Card.recordset[0].Tel = decrypt(JSON.parse(Tel))
+      Card.recordset[0].link = `${CardName}.localhost:3000`
       res.status(200).send(JSON.stringify(Card.recordset[0]));
     } else {
       res.status(404).send({ message: "ไม่พบการ์ด" });
