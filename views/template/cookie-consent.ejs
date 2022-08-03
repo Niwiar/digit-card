@@ -1,0 +1,70 @@
+<link rel="stylesheet" href="/css/cookie.css" />
+<link rel="stylesheet" href="/css/bootstrap.min.css" />
+
+<div id="cookiePopup">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="popup-body">
+          <h6><b>เว็บไซต์นี้ใช้คุกกี้</b></h6>
+          <h6>เราใช้คุกกี้เพื่อเพิ่มประสิทธิภาพ และประสบการณ์ที่ดีในการใช้งานเว็บไซต์ คุณสามารถเลือกตั้งค่าความยินยอมการใช้งานคุกกี้ได้ โดยคลิก "การตั้งค่าคุกกี้"
+              <a href="/privacy-policy" id="policy">นโยบายความเป็นส่วนตัว</a>
+          </h6>
+        </div>
+        <div class="popup-footer">
+          <span id="cookieSetting" data-toggle="modal" data-target="#modalCookieSetting"><b>การตั้งค่าคุกกี้</b></span>
+          <button class="btn btn-success" id="acceptAllCookie" type="button">ยอมรับทั้งหมด</button>
+        </div>
+      </div>
+    </div>
+</div>
+<div id="reconsentCookie">
+    <i class="fa-solid fa-cookie-bite" data-toggle="modal" data-target="#modalCookieSetting"></i>
+</div>
+
+
+<div class="modal fade" role="dialog" tabindex="-1" id="modalCookieSetting">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" id="contentCookieSetting">
+        <div class="modal-body">
+            <div class="modal-header">
+                <h4 class="modal-title">การตั้งค่าความเป็นส่วนตัว</h4>
+                <button type="button" class="btn btn-success" id="acceptCookies" data-dismiss="modal">ยอมรับทั้งหมด</button>
+                <button type="button" class="close" data-dismiss="modal"
+                aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="cookieInput-first">
+            <div class="cookieInput-head">
+                <span><b>คุกกี้พื้นฐานที่จำเป็น</b></span>
+                <label class="switch">
+                <input type="checkbox" id="IP-Necessary" checked disabled>
+                <span class="slider"></span>
+                </label>
+            </div>
+            <div class="cookieInput-desc">
+                <p>คุกกี้พื้นฐานที่จำเป็น เพื่อช่วยให้การทำงานหลักของเว็บไซต์ใช้งานได้ รวมถึงการเข้าถึงพื้นที่ที่ปลอดภัยต่าง ๆ ของเว็บไซต์ หากไม่มีคุกกี้นี้เว็บไซต์จะไม่สามารถทำงานได้อย่างเหมาะสม และจะใช้งานได้โดยการตั้งค่าเริ่มต้น โดยไม่สามารถปิดการใช้งานได้</p>
+            </div>
+            </div>
+            <div class="cookieInput">
+            <div class="cookieInput-head">
+                <span><b>คุกกี้ในส่วนวิเคราะห์</b></span>
+                <label class="switch">
+                <input type="checkbox" id="IP-Analytic">
+                <span class="slider"></span>
+                </label>
+            </div>
+            <div class="cookieInput-desc">
+                <p>คุกกี้ในส่วนวิเคราะห์ จะช่วยให้เว็บไซต์เข้าใจรูปแบบการใช้งานของผู้เข้าชมและจะช่วยปรับปรุงประสบการณ์การใช้งาน โดยการเก็บรวบรวมข้อมูลและรายงานผลการใช้งานของผู้ใช้งาน</p>
+            </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" id="acceptCookie" data-dismiss="modal" type="button">ยืนยัน</button>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://kit.fontawesome.com/cfb8ca0e9d.js" crossorigin="anonymous"></script>
+<script src="/cookieConsent.js"></script>
+<script src="/js/bootstrap.min.js"></script>
