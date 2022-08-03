@@ -3,8 +3,12 @@ const router = express.Router();
 const { isCardAuth, isCard } = require('./middleware/checkCard');
 const { ifNotLoggedIn, ifLoggedIn, isAuth } = require('./middleware/checkUser');
 
-router.get('/', isCard, async (req, res) => {
+router.get('/', isCard, (req, res) => {
     res.render('index.ejs');
+})
+
+router.get('/privacy-policy', (req, res) => {
+    res.render('policy')
 })
 
 router.get('/manage/:CardTag', isCardAuth, (req, res) => {

@@ -1,0 +1,2 @@
+CardId,CardName,ImgPath,Fname,Lname,Company,Tel,Email,Facebook,Line,Published
+1,new,/imgs/profile/img_new.jpeg,robot,01,engineer,1111,robot@gmail.com,https://www.facebook.com/,tletery123,1

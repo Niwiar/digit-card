@@ -1,0 +1,27 @@
+.header {
+    background-color: #000;
+    color: #aaa;
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content:space-around;
+    align-items: center;
+}
+
+.main {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+
+    display: flex;
+    gap: 5em;
+}
+
+.lead {
+    font-size: 2em;
+}
