@@ -59,7 +59,7 @@
 	</div>
 
 	<!-- form webcam -->
-	<!-- <div class="modal fade" role="dialog" tabindex="-1" id="modalWebcam">
+	<div class="modal fade" role="dialog" tabindex="-1" id="modalWebcam">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -88,7 +88,7 @@
 				</div>
 			</div>
 		</div>
-	</div> -->
+	</div>
 
 
 
@@ -147,28 +147,25 @@
 							<input type="text" id="IP-LineID" class="form-control" placeholder="example">
 						</div>
 
-						<!-- <div class="mb-3">
-							<label for="formFile" class="form-label">
-								<h4>รูปโปรไฟล์</h4>
-							</label>
-							<input type="file" accept="image/*" capture="camera" class="form-control"
-								id="IP-MobileCamera">
-						</div> -->
-
 						<div class="mb-3">
-							<label for="formFile" class="form-label">
-								<h4>รูปโปรไฟล์</h4>
+							<label for="formFile" class="form-label form-title">
+								<h4 style="margin: 10px;">รูปโปรไฟล์</h4><button class="btn btn-success" id="btnConfirmImg">บันทึกรูปภาพ</button>
 							</label>
-							<div class="form-imgInp">
-								<input type='file' accept="image/*" capture="camera"  id="imgInp" />
-								<button class="btn btn-success" id="btnConfirmImg">บันทึกรูปภาพ</button>
-							</div>
+							
 							
 							<div class="center-box h-240" >
 								<div class="camera-line2" style="border: 2px solid #111;">
 									<img id="mobileImg" src="#" alt="your image" />
 								</div>
 							</div>
+							<div class="form-imgInp">
+								<label for="imgInp" style="text-align: center;">
+									<i class="fa fa-2x fa-camera"></i>
+									<input type='file' accept="image/*" capture="camera"  id="imgInp" /><br/>
+									ถ่ายรูป
+								</label>
+							</div>
+							
 
 						</div>
 
@@ -212,9 +209,9 @@
 							<div class="logo" id="logo"></div>
 							<div class="character" id="character">
 
-								<img id="showmobileImg" src="#" alt="your image" />
+								<img id="showmobileImg" src="#" alt="your image" class=""/>
 
-								<!-- <a onclick="setCamera()" data-toggle="modal" data-target="#modalWebcam"><iclass="fa fa-camera" aria-hidden="true" id="icon-camera"></iclass=><img id="Show-Img" src="#"></img></a> -->
+								<!-- <a onclick="setCamera()" data-toggle="modal" data-target="#modalWebcam" class=""><i class="fa fa-camera" aria-hidden="true" id="icon-camera"></i><img id="Show-Img" src="#"></img></a> -->
 							</div>
 						</div>
 						<div class="box-name">

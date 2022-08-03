@@ -43,7 +43,8 @@ function ShowCard() {
             document.getElementById('Show-Email').href = "mailto:"+Email;
             $("#share-button").attr("data-a2a-url", Link);
 
-            
+            // checkWidth()
+
             if ( Published == 1) {
                 $("#share_button").attr("data-a2a-url", Link);
                 $("#share-group").removeClass('hide');
@@ -54,6 +55,15 @@ function ShowCard() {
         }
     })
 
+}
+
+function checkWidth() {
+    if (screen.width <= 768) {
+        alert("Mobile")
+    } else {
+        alert("PC")
+        
+    }
 }
 
 //copy to clipbord
@@ -73,6 +83,7 @@ function copyToclip() {
   }
 
 $(document).ready(function () {
+    // alert(screen.width)
     // Show Card
     ShowCard();
     // Show Pre-Card
