@@ -1,3 +1,4 @@
+
 //Show Card
 function ShowCard() {
     $.ajax({
@@ -6,6 +7,8 @@ function ShowCard() {
         cache: false,
         success: function (response) {
             var obj = JSON.parse(response);
+            Link = obj.Link
+            Published = obj.Published
             $('#IP-fname').val(obj.Fname);
             $('#IP-lname').val(obj.Lname);
             $('#IP-Tel').val(obj.Tel);
@@ -14,7 +17,9 @@ function ShowCard() {
             $('#IP-FacebookLink').val(obj.Facebook);
             $('#IP-LineID').val(obj.Line);
 
-            document.getElementById('Show-Img').src = obj.ImgPath;
+            // document.getElementById('Show-Img').src = obj.ImgPath;
+            document.getElementById('mobileImg').src = obj.ImgPath;
+            document.getElementById('showmobileImg').src = obj.ImgPath;
 
             let fname = $.trim($('#IP-fname').val());
             let lname = $.trim($('#IP-lname').val());
@@ -36,36 +41,36 @@ function ShowCard() {
             document.getElementById('Show-LineID').href = "https://line.me/ti/p/~"+LineID;
             document.getElementById('Show-Tel').href = "tel://"+Tel;
             document.getElementById('Show-Email').href = "mailto:"+Email;
+            $("#share-button").attr("data-a2a-url", Link);
 
+            
+            if ( Published == 1) {
+                $("#share_button").attr("data-a2a-url", Link);
+                $("#share-group").removeClass('hide');
+            } else {
+                $("#share-group").removeClass('hide');
+                $("#share-group").toggleClass('hide');
+            }
         }
     })
 
 }
 
-function share() {
-    $.ajax({
-        url: "/card/publish",
-        method: 'get',
-        cache: false,
-        success: function (suc) {
-            successText = suc.message;
-            linkText = suc.link;
-            $("#share_button").attr("data-a2a-url", linkText);
-        },
-        error: function (err) {
-            errorText = err.responseJSON.message;
-            Swal.fire({
-                position: 'center',
-                icon: 'warning',
-                title: 'Warning',
-                text: errorText,
-                showConfirmButton: true,
-                confirmButtonText: 'OK',
-                confirmButtonColor: '#FF5733'
-            });
-        }
-    });
-}
+//copy to clipbord
+function copyToclip() {
+    /* Get the text field */
+    var copyText = document.getElementById("copyLink");
+  
+    /* Select the text field */
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); /* For mobile devices */
+  
+    /* Copy the text inside the text field */
+    navigator.clipboard.writeText(copyText.value);
+    
+    /* Alert the copied text */
+    alert("คัลลอกลิงก์ " + copyText.value + " ลงคลิปบอร์ดสำเร็จ");
+  }
 
 $(document).ready(function () {
     // Show Card
@@ -74,7 +79,7 @@ $(document).ready(function () {
     $('#IP-fname').on('input', () => $('#Show-fname').val($('#IP-fname').val()+" "+$('#IP-lname').val()));
     // $('#IP-lname').on('input', () => $('#Show-lname').val($('#IP-lname').val()));
     $('#IP-Company').on('input', () => $('#Show-Company').val($('#IP-Company').val()));
-    $('#IP-Email').on('input', () => $('#Show-EmailName').val($('#IP-EmailName').val()));
+    $('#IP-Email').on('input', () => $('#Show-EmailName').val($('#IP-Email').val()));
 
     $('#IP-FacebookLink').on('input', () => $('#Show-FacebookLink').href($('#IP-FacebookLink').val()));
     $('#IP-LineID').on('input', () => $('#Show-LineID').href("https://line.me/ti/p/~"+$('#IP-LineID').val()));
@@ -93,8 +98,10 @@ $(document).ready(function () {
         let FacebookLink = $.trim($('#IP-FacebookLink').val());
         let LineID = $.trim($('#IP-LineID').val());
         //camera
-        let MobileCamera = $.trim($('#IP-MobileCamera').val());
-        
+        // let MobileCamera = $.trim($('#IP-MobileCamera').val());
+        // console.log(MobileCamera)
+        // document.getElementById('pre-mobilePic').src = MobileCamera;
+
 
         $.ajax({
             url: "/card/edit",
@@ -164,7 +171,7 @@ $(document).ready(function () {
                         showConfirmButton: false,
                         timer: 1500
                     })
-                    tableEmploy.ajax.reload(null, false);
+                    ShowCard();
                     $('#modalChangePass').modal('hide');
                 },
                 error: function (err) {
@@ -202,11 +209,13 @@ $(document).ready(function () {
                     icon: 'success',
                     html:
                         ''+successText+'<br>' +
-                        'link ของการ์ด: <a href="http://'+linkText+'">'+linkText+'</a><br>',
+                        'link ของการ์ด: '+
+                        '<input type="text" id="copyLink" class="box-w" value="'+linkText+'" disabled></input>'+
+                        '<button onclick="copyToclip()" class = "btn btn-secondary"><i class="fa fa-clipboard" aria-hidden="true"></i></button>',
                     confirmButtonColor: '#007bff'
                 });
                 
-                // document.getElementById('share_button').href = FacebookLink;
+                ShowCard();
             },
             error: function (err) {
                 errorText = err.responseJSON.message;
@@ -219,6 +228,7 @@ $(document).ready(function () {
                     confirmButtonText: 'OK',
                     confirmButtonColor: '#FF5733'
                 });
+                
             }
         });
 
@@ -240,6 +250,7 @@ $(document).ready(function () {
                     showConfirmButton: false,
                     timer: 1500
                 })
+                ShowCard();
             },
             error: function (err) {
                 errorText = err.responseJSON.message;
@@ -252,6 +263,7 @@ $(document).ready(function () {
                     confirmButtonText: 'OK',
                     confirmButtonColor: '#FF5733'
                 });
+                
             }
         });
 

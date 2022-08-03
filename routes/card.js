@@ -30,7 +30,7 @@ router.get("/data", async (req, res, next) => {
       Card.recordset[0].Fname = decrypt(JSON.parse(Fname))
       Card.recordset[0].Lname = decrypt(JSON.parse(Lname))
       Card.recordset[0].Tel = decrypt(JSON.parse(Tel))
-      Card.recordset[0].link = `${CardName}.localhost:3000`
+      Card.recordset[0].Link = `${CardName}.localhost:3000`
       res.status(200).send(JSON.stringify(Card.recordset[0]));
     } else {
       res.status(404).send({ message: "ไม่พบการ์ด" });

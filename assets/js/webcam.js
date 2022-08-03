@@ -54,11 +54,56 @@ function dataURItoBlob(dataURI) {
     return blob;
 }
 
+// $(document).ready(function () {
+//     $('#btnSave').on('click',() => {
+//         var dataUrl = $("#imageprev").attr('src');
+//         let blob = dataURItoBlob(dataUrl)
+//         document.getElementById('Show-Img').src = dataUrl;
+//         let data = new FormData();
+//         data.append('profile', blob, 'profile');
+//         $.ajax({
+//             url: '/card/upload/',
+//             type: 'post',
+//             data: data,
+//             processData: false,
+//             contentType: false,
+//             success: function (data) {
+//                 Swal.fire({
+//                     position: 'center',
+//                     icon: 'success',
+//                     title: 'Uploded',
+//                     text: 'Successfully uploaded.',
+//                     showConfirmButton: true,
+//                     confirmButtonText: 'OK',
+//                     confirmButtonColor: '#dc3545',
+//                     allowOutsideClick: false
+//                 })
+//             },
+//             error: function (err) {
+//                 errorText = err.responseJSON.message;
+//                 Swal.fire({
+//                     position: 'center',
+//                     icon: 'warning',
+//                     title: 'Warning',
+//                     text: errorText,
+//                     showConfirmButton: true,
+//                     confirmButtonText: 'OK',
+//                     confirmButtonColor: '#FF5733'
+//                 });
+//             }
+//         })
+//         closeCamera();
+        
+//     })
+
+    
+// })
+
 $(document).ready(function () {
-    $('#btnSave').on('click',() => {
-        var dataUrl = $("#imageprev").attr('src');
+    $('#btnConfirmImg').on('click',() => {
+        var dataUrl = $("#mobileImg").attr('src');
         let blob = dataURItoBlob(dataUrl)
-        document.getElementById('Show-Img').src = dataUrl;
+        document.getElementById('showmobileImg').src = dataUrl;
         let data = new FormData();
         data.append('profile', blob, 'profile');
         $.ajax({
@@ -75,7 +120,7 @@ $(document).ready(function () {
                     text: 'Successfully uploaded.',
                     showConfirmButton: true,
                     confirmButtonText: 'OK',
-                    confirmButtonColor: '#dc3545',
+                    confirmButtonColor: '#007bff',
                     allowOutsideClick: false
                 })
             },
