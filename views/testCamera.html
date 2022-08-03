@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+function captureImage()
+{
+   var photo=document.querySelector("canvas");
+   var video=document.querySelector("video");   
+   var context = photo.getContext('2d');
+   context.drawImage(video, 0, 0, photo.width, photo.height); // TODO : image size
+}
+function saveImage()
+{
+   var canvas=document.querySelector("canvas");
+   var a=document.createElement("a");
+   a.href=canvas.toDataURL();
+   a.download="sample.png";
+   document.body.appendChild(a);
+   a.click();
+   document.body.removeChild(a);
+}
+</script>
+</head>
+<body>
+<video autoplay></video>
+<canvas></canvas>
+<button onclick="captureImage();">Capture</button>
+<button onclick="saveImage();">Save</button>
+<script>
+  navigator.mediaDevices.getUserMedia({video:true}).then(function(stream) {
+    var video = document.querySelector('video');
+    video.srcObject = stream;
+  })
+  .catch(function(err) {alert(err);});
+</script>
+</body>
+</html>

@@ -13,7 +13,7 @@
 
 }
 
-#camera-line{
+.camera-line{
     width: 220px;
     height: 220px;
     border: 3px solid rgb(89, 255, 47);
@@ -28,11 +28,24 @@
     text-align: center;
 }
 
+.camera-line2{
+    width: 200px;
+    height: 200px;
+    /* border: 3px solid rgb(100, 100, 100); */
+    margin: 10px;
+    border-radius: 50%;
+    /* position: absolute; */
+    z-index: 10;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
 #results{
     position: relative;
     z-index: 1;
-    /* top: 0; */
-    /* left: 0; */
 }
 
 
@@ -43,4 +56,13 @@
 button{
     padding: 2px;
     margin: 10px;
+}
+
+@media only screen and (max-width:768px) {
+    .camera-line2{
+        width: 100px;
+        height: 100px;
+        
+    }
+    
 }
