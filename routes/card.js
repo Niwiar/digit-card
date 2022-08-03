@@ -24,7 +24,7 @@ router.get("/data", async (req, res, next) => {
     let pool = await sql.connect(dbconfig);
     let Card = await pool
       .request()
-      .query(`SELECT * FROM Cards WHERE CardTag = N'${CardTag}'`);
+      .query(`SELECT CardName, ImgPath, Fname, Lname, Company, Tel, Email, Facebook, Line, Published FROM Cards WHERE CardTag = N'${CardTag}'`);
     if (Card.recordset.length) {
       let { CardName, Fname, Lname, Tel } = Card.recordset[0]
       Card.recordset[0].Fname = decrypt(JSON.parse(Fname))

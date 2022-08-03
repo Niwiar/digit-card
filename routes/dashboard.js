@@ -4,6 +4,10 @@ const bcrypt = require("bcryptjs");
 const sql = require("mssql");
 const { dbconfig } = require("../config");
 
+const fastcsv = require("fast-csv");
+const path = require('path');
+const fs = require("fs");
+
 const upload = require("./modules/uploadImage");
 const { encrypt, decrypt } = require("./modules/encryption");
 
@@ -33,6 +37,32 @@ router.get("/cardlist", async (req, res, next) => {
       Card.Tel = decrypt(JSON.parse(Tel));
     }
     res.status(200).send(JSON.stringify(Cards.recordset));
+  } catch (err) {
+    res.status(500).send({ message: `${err}` });
+  }
+});
+
+router.get("/export", async (req, res, next) => {
+  try {
+    let pool = await sql.connect(dbconfig);
+    let Cards = await pool
+      .request()
+      .query(
+        `SELECT CardId, CardName, ImgPath, Fname, Lname, Company, Tel, Email, Facebook, Line, Published FROM Cards ORDER BY CardId DESC`
+      );
+    for (let Card of Cards.recordset) {
+      let { Fname, Lname, Tel } = Card;
+      Card.Fname = decrypt(JSON.parse(Fname));
+      Card.Lname = decrypt(JSON.parse(Lname));
+      Card.Tel = decrypt(JSON.parse(Tel));
+    }
+    let filePath = path.join(process.cwd(), `/public/report/cardlist.csv`);
+    fastcsv
+      .write(Cards.recordset, { headers: true })
+      .pipe(fs.createWriteStream(filePath))
+      .on('finish',() => {
+        res.status(200).download(filePath)
+      })
   } catch (err) {
     res.status(500).send({ message: `${err}` });
   }
@@ -91,8 +121,10 @@ router.put("/card_edit/:CardId", async (req, res) => {
 router.post("/card_img_upload/:CardId", async (req, res) => {
   try {
     let CardId = req.params.CardId;
-    let Card = await pool.request().query(`SELECT * FROM Cards WHERE CardId = N'${CardId}'`);
-    req.session.CardTag = Card.recordset[0].CardTag
+    let Card = await pool
+      .request()
+      .query(`SELECT * FROM Cards WHERE CardId = N'${CardId}'`);
+    req.session.CardTag = Card.recordset[0].CardTag;
     upload(req, res, async (err) => {
       if (err) {
         res.status(500).send({ message: `${err}` });
