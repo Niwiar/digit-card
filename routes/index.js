@@ -8,7 +8,7 @@ router.get('/', isCard, async (req, res) => {
 })
 
 router.get('/manage/:CardTag', isCardAuth, (req, res) => {
-    res.render('card-edit');
+    res.render('card-edit.ejs');
 })
 
 router.get('/login', ifLoggedIn, (req, res, next) => {

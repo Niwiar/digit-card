@@ -180,7 +180,7 @@ router.get("/publish", async (req, res) => {
       let CardName = card.recordset[0].CardName;
       res.status(200).send({
         message: `เผยแพร่การ์ดสำเร็จ`,
-        link: `${CardName}.localhost:3000`,
+        link: `${CardName}.localhost:4000`,
       });
     } else {
       res.status(404).send({ message: "ไม่พบการ์ด" });
