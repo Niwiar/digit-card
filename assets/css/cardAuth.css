@@ -36,7 +36,7 @@
 
 
 
-@media only screen and (max-width:768px) {
+@media only screen and (max-width:770px) {
     .main {
         gap: 5em;
     }
@@ -57,7 +57,7 @@
     }
 }
 
-@media only screen and (max-width:425px) {
+@media only screen and (max-width:430px) {
 
     .main {
         gap: 3em;
@@ -89,7 +89,7 @@
     }
 }
 
-@media only screen and (max-width:375px) {
+@media only screen and (max-width:380px) {
     .main {
         gap: 2em;
     }
@@ -99,7 +99,7 @@
     }
 }
 
-@media only screen and (max-width:320px) {
+@media only screen and (max-width:325px) {
     .main {
         gap: 1em;
     }

@@ -8,10 +8,36 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <title>Error</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/login.css">
   </head>
 
   <body>
-    <div class="main">
+
+    <div class="center">
+      <h1>Sign up</h1>
+      <form action="/user/register" method="post">
+        <div class="txt_field">
+          <input type="text" name="CardName" required>
+          <span></span>
+          <label>Username</label>
+        </div>
+        <div class="txt_field">
+          <input type="password" name="CardPass" required>
+          <span></span>
+          <label>Password</label>
+        </div>
+        <input type="submit" value="Sign up">
+        <div class="signup_link">
+          <a href="/login">Sign in</a>
+        </div>
+        <% if (messages.register) { %>
+          <div class="alert alert-danger mt-2" role="alert"><%= messages.register %></div>
+        <% } %>
+      </form>
+    </div>
+
+    <!-- <div class="main">
         <div class="text-center mt-4">
             <h1 class="lead">Sign up</h1>
         </div>
@@ -33,6 +59,8 @@
               <div class="alert alert-danger mt-2" role="alert"><%= messages.register %></div>
           <% } %>
       </form>
-    </div>
+    </div> -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	  <script src="/js/bootstrap.min.js"></script>
   </body>
 </html>

@@ -147,7 +147,7 @@ input:checked + .slider:before {
 transform: translateX(26px);
 }
 
-@media only screen and (max-width:425px) {
+@media only screen and (max-width:430px) {
     #contentCookieSetting>.modal-body>.modal-header{
         padding-left: 12px;
     }
