@@ -1,96 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <title>Priva Card</title>
-  </head>
 
-  <body>
-    <%- include('./template/cookie-consent'); %>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>Priva Card</title>
+</head>
+
+<body>
+  <%- include('./template/cookie-consent'); %>
     <link rel="stylesheet" href="/css/cardAuth.css" />
 
     <div class="modal fade" role="dialog" tabindex="-1" id="modalCardAuth">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-		  <div class="modal-content" id="contentCookieSetting">
-			<div class="modal-header">
-			  <h4 class="modal-title">ลงชื่อเข้าใช้เพื่อแก้ไขการ์ด</h4>
-              <button type="button" class="close" data-dismiss="modal"
-				aria-label="Close"><span aria-hidden="true">×</span></button>
-			</div>
-			<div class="modal-body">
-                <form action="/card/auth" method="post">
-                    <div class="mb-3">
-                        <label class="form-label">ชื่อการ์ด</label>
-                        <input class="form-control form-control-lg" type="text" name="CardName" placeholder="ใส่ชื่อการ์ดของคุณ" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">รหัสการ์ด</label>
-                        <input class="form-control form-control-lg" type="password" name="CardPass" placeholder="ใส่รหัสการ์ดของคุณ" />
-                    </div>
-                    <div class="text-center mt-3">
-                        <button type="submit" class="btn btn-lg btn-primary">ลงชื่อเข้าใช้</button>
-                    </div>
-                    <% if (messages.login) { %>
-                        <div class="alert alert-danger mt-2" role="alert"><%= messages.login %></div>
-                    <% } %>
-                </form>
-			</div>
-		  </div>
-		</div>
-	</div>
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" id="contentCookieSetting">
+          <div class="modal-header">
+            <h4 class="modal-title">ลงชื่อเข้าใช้เพื่อแก้ไขการ์ด</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                aria-hidden="true">×</span></button>
+          </div>
+          <div class="modal-body">
+            <form action="/card/auth" method="post">
+              <div class="mb-3">
+                <label class="form-label">ชื่อการ์ด</label>
+                <input class="form-control form-control-lg" type="text" name="CardName"
+                  placeholder="ใส่ชื่อการ์ดของคุณ" />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">รหัสการ์ด</label>
+                <input class="form-control form-control-lg" type="password" name="CardPass"
+                  placeholder="ใส่รหัสการ์ดของคุณ" />
+              </div>
+              <div class="text-center mt-3">
+                <button type="submit" class="btn btn-lg btn-primary">ลงชื่อเข้าใช้</button>
+              </div>
+              <% if (messages.login) { %>
+                <div class="alert alert-danger mt-2" role="alert">
+                  <%= messages.login %>
+                </div>
+                <% } %>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="modal fade" role="dialog" tabindex="-1" id="modalCardCreate">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-		  <div class="modal-content" id="contentCookieSetting">
-			<div class="modal-header">
-			  <h4 class="modal-title">สร้างการ์ดใหม่</h4>
-              <button type="button" class="close" data-dismiss="modal"
-				aria-label="Close"><span aria-hidden="true">×</span></button>
-			</div>
-			<div class="modal-body">
-                <form action="/card/create" method="post">
-                    <div class="mb-3">
-                        <label class="form-label">ชื่อการ์ด</label>
-                        <input class="form-control form-control-lg" type="text" name="CardName" placeholder="ใส่ชื่อการ์ดที่คุณต้องการ" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">รหัสการ์ด</label>
-                        <input class="form-control form-control-lg" type="password" name="CardPass" placeholder="ใส่รหัสการ์ดที่คุณต้องการ" />
-                    </div>
-                    <div class="text-center mt-3">
-                        <button type="submit" class="btn btn-lg btn-primary">สร้างการ์ด</button>
-                    </div>
-                    <% if (messages.create) { %>
-                        <div class="alert alert-danger mt-2" role="alert"><%= messages.create %></div>
-                    <% } %>
-                </form>
-			</div>
-		  </div>
-		</div>
-	</div>
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" id="contentCookieSetting">
+          <div class="modal-header">
+            <h4 class="modal-title">สร้างการ์ดใหม่</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                aria-hidden="true">×</span></button>
+          </div>
+          <div class="modal-body">
+            <form action="/card/create" method="post">
+              <div class="mb-3">
+                <label class="form-label">ชื่อการ์ด</label>
+                <input class="form-control form-control-lg" type="text" name="CardName"
+                  placeholder="ใส่ชื่อการ์ดที่คุณต้องการ" />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">รหัสการ์ด</label>
+                <input class="form-control form-control-lg" type="password" name="CardPass"
+                  placeholder="ใส่รหัสการ์ดที่คุณต้องการ" />
+              </div>
+              <div class="text-center mt-3">
+                <button type="submit" class="btn btn-lg btn-primary">สร้างการ์ด</button>
+              </div>
+              <% if (messages.create) { %>
+                <div class="alert alert-danger mt-2" role="alert">
+                  <%= messages.create %>
+                </div>
+                <% } %>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="header">
-        <h4>Priva Digital Card</h4>
-        <h1>LOGO</h1>
+      <h4>Priva Digital Card</h4>
+      <h1>LOGO</h1>
     </div>
 
     <div class="main">
-        <!-- edit card -->
-        <div class="text-center">
-            <p class="lead btn btn-primary" data-toggle="modal" data-target="#modalCardAuth">แก้ไขการ์ดของคุณ</p>
-        </div>
-        
-        <!-- add card -->
-		<div class="text-center">
-            <p class="lead btn btn-secondary" data-toggle="modal" data-target="#modalCardCreate">สร้างการ์ดใหม่</p>
-        </div>
+      <!-- edit card -->
+      <div class="text-center btn-card">
+        <p class="lead btn btn-primary" data-toggle="modal" data-target="#modalCardAuth">แก้ไขการ์ด</p>
+      </div>
+
+      <!-- add card -->
+      <div class="text-center btn-card">
+        <p class="lead btn btn-secondary" data-toggle="modal" data-target="#modalCardCreate">สร้างการ์ดใหม่</p>
+      </div>
+
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-  </body>
+    <script src="/js/bootstrap.min.js"></script>
+</body>
+
 </html>
