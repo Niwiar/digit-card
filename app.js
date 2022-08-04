@@ -33,10 +33,13 @@ app.use(cookieSession({
 app.set('subdomain offset', 1);
 
 let indexRoute = require('./routes/index');
+let userRoute = require('./routes/user')
+
 let cardRoute = require('./routes/card');
 let dashboardRoute = require('./routes/dashboard');
 
 app.use('/', indexRoute);
+app.use('/user', userRoute);
 app.use('/card', cardRoute);
 app.use('/dashboard', dashboardRoute);
 

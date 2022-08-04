@@ -76,14 +76,14 @@
     flex-direction: column;
     padding: 1em;
 
-    border: 2px solid #8888883f;
+    border: 1px solid #8888883f;
 }
 .cookieInput{
     display: flex;
     flex-direction: column;
     padding: 1em;
 
-    border: 1px solid #aaa;
+    border: 1px solid #8888883f;
     border-top: 0;
 }
 .cookieInput-head{
