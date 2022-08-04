@@ -23,7 +23,7 @@ router.get('/register', ifLoggedIn, (req, res, next) => {
     res.render('register.ejs');
 });
 
-router.get('/card_manager', ifNotLoggedIn, (req, res) => {
+router.get('/card_manager', (req, res) => {
     res.render('card-manager')
 })
 
