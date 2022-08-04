@@ -71,7 +71,7 @@
     justify-content: center;
 }
 
-.cookieInput-first{
+.cookieInput-first,.cookieInput{
     display: flex;
     flex-direction: column;
     padding: 1em;
@@ -79,11 +79,6 @@
     border: 1px solid #8888883f;
 }
 .cookieInput{
-    display: flex;
-    flex-direction: column;
-    padding: 1em;
-
-    border: 1px solid #8888883f;
     border-top: 0;
 }
 .cookieInput-head{
@@ -110,7 +105,6 @@
     width: 0;
     height: 0;
 }
-
 .slider {
     position: absolute;
     cursor: pointer;
@@ -154,12 +148,6 @@ transform: translateX(26px);
 }
 
 @media only screen and (max-width:425px) {
-    /* #modalCookieSetting>.modal-dialog>.modal-content {
-        width: 80vw;
-    }
-    #contentCookieSetting{
-        width: 80vw;
-    } */
     #contentCookieSetting>.modal-body>.modal-header{
         padding-left: 12px;
     }
@@ -185,30 +173,12 @@ transform: translateX(26px);
         width: 36px;
         height: 17px;
     }
-
-    .slider {
-        position: absolute;
-        cursor: pointer;
-        border-radius: 28px;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: #ccc;
-        -webkit-transition: .4s;
-        transition: .4s;
-    }
+    
     .slider:before {
-        position: absolute;
-        border-radius: 50%;
-        content: "";
         height: 13px;
         width: 13px;
         left: 3px;
         bottom: 2px;
-        background-color: white;
-        -webkit-transition: .4s;
-        transition: .4s;
       }
       
     input:checked + .slider:before {

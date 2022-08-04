@@ -27,4 +27,8 @@ router.get('/card_manager', (req, res) => {
     res.render('card-manager')
 })
 
+router.get('/test', (req, res) => {
+    res.render('test')
+})
+
 module.exports = router
