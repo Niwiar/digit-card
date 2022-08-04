@@ -13,21 +13,21 @@
 
 <body>
   <div class="center">
-    <h1>Login</h1>
+    <h3>ลงชื่อเข้าใช้</h3>
     <form action="/user/login" method="post">
       <div class="txt_field">
         <input type="text" name="CardName" required>
         <span></span>
-        <label>Username</label>
+        <label>ชื่อผู้ใช้</label>
       </div>
       <div class="txt_field">
         <input type="password" name="CardPass" required>
         <span></span>
-        <label>Password</label>
+        <label>รหัสผ่าน</label>
       </div>
-      <input type="submit" value="Login">
+      <input type="submit" value="ลงชื่อเข้าใช้">
       <div class="signup_link">
-        Not a member? <a href="/register">Sign up</a>
+        ผู้ใช้ใหม่?<a href="/register">ลงทะเบียนบัญชีใหม่</a>
       </div>
       <% if (messages.login) { %>
         <div class="alert alert-danger mt-2" role="alert"><%= messages.login %></div>

@@ -1,66 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <title>Error</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/login.css">
-  </head>
 
-  <body>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>Register</title>
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/login.css">
+</head>
 
-    <div class="center">
-      <h1>Sign up</h1>
-      <form action="/user/register" method="post">
-        <div class="txt_field">
-          <input type="text" name="CardName" required>
-          <span></span>
-          <label>Username</label>
-        </div>
-        <div class="txt_field">
-          <input type="password" name="CardPass" required>
-          <span></span>
-          <label>Password</label>
-        </div>
-        <input type="submit" value="Sign up">
-        <div class="signup_link">
-          <a href="/login">Sign in</a>
-        </div>
-        <% if (messages.register) { %>
-          <div class="alert alert-danger mt-2" role="alert"><%= messages.register %></div>
-        <% } %>
-      </form>
-    </div>
+<body >
+  <!-- style="background: linear-gradient(190deg,#e0dac1, #e6af5d)" -->
 
-    <!-- <div class="main">
-        <div class="text-center mt-4">
-            <h1 class="lead">Sign up</h1>
+  <div class="center">
+    <h3>ลงทะเบียนบัญชีใหม่</h3>
+    <form action="/user/register" method="post">
+      <div class="txt_field">
+        <input type="text" name="CardName" required>
+        <span></span>
+        <label>ชื่อผู้ใช้</label>
+      </div>
+      <div class="txt_field">
+        <input type="password" name="CardPass" required>
+        <span></span>
+        <label>รหัสผ่าน</label>
+      </div>
+      <input type="submit" id="signUp" value="ลงทะเบียน">
+      <div class="signup_link">
+        ไปยังหน้า <a href="/login">ลงชื่อเข้าใช้</a>
+      </div>
+      <% if (messages.null) { %>
+        <div class="alert alert-danger mt-2" role="alert">
+          <%= messages.null %>
         </div>
-        
-        <form action="/user/register" method="post">
-          <div class="mb-3">
-              <label class="form-label">Username</label>
-              <input class="form-control form-control-lg" type="text" name="Username" placeholder="Enter your Username" />
-          </div>
-          <div class="mb-3">
-              <label class="form-label">Password</label>
-              <input class="form-control form-control-lg" type="password" name="Password" placeholder="Enter your password" />
-          </div>
-          <div class="text-center mt-3">
-              <button type="submit" class="btn btn-lg btn-primary">Sign up</button>
-              <a href="/login" class="btn btn-lg btn-success">Sign in</a>
-          </div>
-          <% if (messages.register) { %>
-              <div class="alert alert-danger mt-2" role="alert"><%= messages.register %></div>
-          <% } %>
-      </form>
-    </div> -->
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-	  <script src="/js/bootstrap.min.js"></script>
-  </body>
+      <% } %>
+      <% if (messages.register) { %>
+        <div class="alert alert-danger mt-2" role="alert">
+          <%= messages.register %>
+        </div>
+      <% } %>
+      <% if (messages.success) { %>
+        <div class="alert alert-success mt-2" role="alert">
+          <%= messages.success %>
+        </div>
+      <% } %>
+      <% if (messages.error) { %>
+        <div class="alert alert-danger mt-2" role="alert">
+          <%= messages.error %>
+        </div>
+      <% } %>
+    </form>
+  </div>
+
+  
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+  <script src="/js/bootstrap.min.js"></script>
+  
+</body>
+
 </html>
