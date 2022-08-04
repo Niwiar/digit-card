@@ -12,7 +12,7 @@ router.get('/privacy-policy', (req, res) => {
 })
 
 router.get('/manage/:CardTag', isCardAuth, (req, res) => {
-    res.render('card-edit');
+    res.render('card-edit.ejs');
 })
 
 router.get('/login', ifLoggedIn, (req, res, next) => {
@@ -25,6 +25,10 @@ router.get('/register', ifLoggedIn, (req, res, next) => {
 
 router.get('/card_manager', (req, res) => {
     res.render('card-manager')
+})
+
+router.get('/test', (req, res) => {
+    res.render('test')
 })
 
 module.exports = router

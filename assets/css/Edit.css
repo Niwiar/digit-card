@@ -8,10 +8,15 @@
 }
 
 .hide{
-    visibility: hidden;
+    display: none;
 }
 
 .box-w{
+    border: 0;
+    background: #fff;
+}
+
+.box-w:disabled{
     border: 0;
     background: #fff;
 }
@@ -28,7 +33,7 @@
     margin: 0;
     padding: 0;
     width: 100px;
-    background: #434e4d;
+    background: #2d2e2e;
     position: fixed;
     height: 100%;
     overflow: auto;
@@ -39,7 +44,7 @@
 }
 
 .sidebar:hover{
-    background-color: #2d2e2e;
+    background-color: #434e4d;
 }
 
 .sidebar ul {
@@ -76,7 +81,7 @@
 
 .left {
     padding: 20px;
-    background: #009a9d;
+    background: #434e4d;
     width: 100%;
     min-height: 120vh;
     display: flex;
@@ -138,6 +143,11 @@
 
 .share-group label{
     font-size: 0.9rem;
+}
+
+#Show-Img{
+    width: 320px;
+    height: 240px;
 }
 
 .box-pre .background {
@@ -233,6 +243,7 @@
 }
 
 #imgInp{
+    display: none;
     margin: 10px;
 }
 
@@ -255,9 +266,15 @@
     height: 32px;
 }
 
-.form-imgInp{
+.form-title{
+    margin-top: 5px;
     display: flex;
     justify-content: space-between;
+}
+
+.form-imgInp{
+    display: flex;
+    justify-content: center;
 }
 
 
@@ -277,6 +294,11 @@
 
 .h-240{
     height: 250px;
+}
+
+.btn-group a {
+    border: 1px solid white;
+    width: 50%;
 }
 
 /* .mobile{

@@ -58,10 +58,14 @@ router.post('/register', async (req, res) => {
             let InsertUser = `INSERT INTO Cards(CardName, CardPass, Authority)
                 VALUES  (N'${CardName}', N'${Hashpass}', 1)`;
             await pool.request().query(InsertUser);
-            res.status(201).send({message: 'Register successfully, Now you can login'});
+            // res.status(201).send({message: 'Register successfully, Now you can login'});
+            req.flash('success', 'Register successfully, Now you can login')
+            res.redirect('/register')
         }
     } catch (err){
-        res.status(500).send({message: `${err}`});
+        // res.status(500).send({message: `${err}`});
+        req.flash('error', `${err}`)
+        res.redirect('/register')
     }
 });
 
