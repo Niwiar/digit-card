@@ -36,7 +36,7 @@ router.get("/cardlist", async (req, res, next) => {
     let Cards = await pool
       .request()
       .query(
-        `SELECT row_number() over(order by CardId desc) as 'index', * FROM Cards`
+        `SELECT row_number() over(order by CardId desc) as 'index', * FROM Cards WHERE Authority = 0`
       );
     for (let Card of Cards.recordset) {
       let data = decodeData(Card);
@@ -116,7 +116,7 @@ router.put("/card_edit/:CardId", async (req, res) => {
         Facebook = N'${Facebook}',
         Line = N'${Line}',
         Email = N'${Email}'
-        WHERE CardId = N'${CardId}'`;
+        WHERE CardId = ${CardId}`;
       await pool.request().query(UpdateCard);
       res.status(200).send({ message: `แก้ไขการ์ดสำเร็จ` });
     } else {
@@ -139,7 +139,7 @@ router.post("/card_img_upload/:CardId", async (req, res) => {
         res.status(500).send({ message: `${err}` });
       } else {
         img = "/imgs/profile/" + req.file.filename;
-        let UpdateImagePath = `UPDATE Cards SET ImgPath = N'${img}' WHERE CardId = N'${CardId}'`;
+        let UpdateImagePath = `UPDATE Cards SET ImgPath = N'${img}' WHERE CardId = ${CardId}`;
         let pool = await sql.connect(dbconfig);
         await pool.request().query(UpdateImagePath);
         req.session.CardTag = null;
@@ -158,9 +158,9 @@ router.get("/card_publish/:CardId", async (req, res) => {
     if (await checkCard(CardId)) {
       let PublishCard = `UPDATE Cards
         SET Published = 1
-        WHERE CardId = N'${CardId}'
+        WHERE CardId = ${CardId}
         SELECT CardName FROM Cards
-        WHERE CardId = N'${CardId}'`;
+        WHERE CardId = ${CardId}`;
       let card = await pool.request().query(PublishCard);
       let CardName = card.recordset[0].CardName;
       res.status(200).send({
@@ -182,7 +182,7 @@ router.get("/card_unpublish/:CardId", async (req, res) => {
     if (await checkCard(CardId)) {
       let UnpublishCard = `UPDATE Cards
         SET Published = 0
-        WHERE CardId = N'${CardId}'`;
+        WHERE CardId = ${CardId}`;
       await pool.request().query(UnpublishCard);
       res.status(200).send({ message: `เลิกเผยแพร่การ์ดสำเร็จ` });
     } else {
@@ -206,7 +206,7 @@ router.put("/card_change_password/:CardId", async (req, res) => {
       let Hashpass = await bcrypt.hash(CardPass, 12);
       let UpdateCard = `UPDATE Cards
         SET CardPass = N'${Hashpass}'
-        WHERE CardId = N'${CardId}'`;
+        WHERE CardId = ${CardId}`;
       await pool.request().query(UpdateCard);
       res.status(200).send({ message: "เปลี่ยนรหัสผ่านของการ์ดสำเร็จ" });
     } else {
