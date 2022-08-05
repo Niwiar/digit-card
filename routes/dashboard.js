@@ -116,7 +116,7 @@ router.put("/card_edit/:CardId", async (req, res) => {
         Facebook = N'${Facebook}',
         Line = N'${Line}',
         Email = N'${Email}'
-        WHERE CardTag = N'${CardTag}'`;
+        WHERE CardId = N'${CardId}'`;
       await pool.request().query(UpdateCard);
       res.status(200).send({ message: `แก้ไขการ์ดสำเร็จ` });
     } else {
