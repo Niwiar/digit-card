@@ -25,6 +25,110 @@
 </head>
 
 <body>
+
+	<!-- Modal Edit-->
+	<div class="modal fade" role="dialog" tabindex="-1" id="modalEditTable">
+		<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<form id="formEditCard">
+					<div class="modal-header">
+						<h4 class="modal-title" id="modalHeaderAddPart">Edit Card:</h4><button type="button"
+							class="close" data-dismiss="modal" aria-label="Close"><span
+								aria-hidden="true">×</span></button>
+					</div>
+					<div class="modal-body">
+						<div class="form-row my-2">
+							<div class="col-xl-4 d-xl-flex justify-content-xl-end align-items-xl-center">
+								<span>Frist Name:&nbsp;</span></div>
+							<div class="col-xl-8 d-xl-flex align-items-xl-center" id="M_RecpCookCnt-1"><input
+									class="form-control" type="text" id="IP-Fname" style="width: 100%;"
+									required=""></div>
+						</div>
+
+						<div class="form-row my-2">
+							<div class="col-xl-4 d-xl-flex justify-content-xl-end align-items-xl-center">
+								<span>Last Name:&nbsp;</span>
+							</div>
+							<div class="col-xl-8 d-xl-flex align-items-xl-center" id="M_RecpCookCnt-1"><input
+									class="form-control" type="text" id="IP-Lname" style="width: 100%;"
+									required=""></div>
+						</div>
+
+						<div class="form-row my-2">
+							<div class="col-xl-4 d-xl-flex justify-content-xl-end align-items-xl-center">
+								<span>Tel:&nbsp;</span>
+							</div>
+							<div class="col-xl-8 d-xl-flex align-items-xl-center" id="M_RecpCookCnt-1"><input
+									class="form-control" type="text" id="IP-Tel" style="width: 100%;" required="">
+							</div>
+						</div>
+						
+						<div class="form-row my-2">
+							<div class="col-xl-4 d-xl-flex justify-content-xl-end align-items-xl-center">
+								<span>Email:&nbsp;</span>
+							</div>
+							<div class="col-xl-8 d-xl-flex align-items-xl-center" id="M_RecpCookCnt-1"><input
+									class="form-control" type="text" id="IP-Email" style="width: 100%;" required="">
+							</div>
+						</div>
+						
+						<div class="form-row my-2">
+							<div class="col-xl-4 d-xl-flex justify-content-xl-end align-items-xl-center">
+								<span>FacebookLink:&nbsp;</span>
+							</div>
+							<div class="col-xl-8 d-xl-flex align-items-xl-center" id="M_RecpCookCnt-1"><input
+									class="form-control" type="text" id="IP-FacebookLink" style="width: 100%;" required="">
+							</div>
+						</div>
+						
+						<div class="form-row my-2">
+							<div class="col-xl-4 d-xl-flex justify-content-xl-end align-items-xl-center">
+								<span>LineID:&nbsp;</span>
+							</div>
+							<div class="col-xl-8 d-xl-flex align-items-xl-center" id="M_RecpCookCnt-1"><input
+									class="form-control" type="text" id="IP-LineID" style="width: 100%;" required="">
+							</div>
+						</div>
+						
+						<!-- <div class="form-row my-2">
+							<div class="col-xl-4 d-xl-flex justify-content-xl-end align-items-xl-center">
+								<span>Company:&nbsp;</span>
+							</div>
+							<div class="col-xl-8 d-xl-flex align-items-xl-center" id="M_RecpCookCnt-1"><input
+									class="form-control" type="text" id="IP-Company" style="width: 100%;" required="">
+							</div>
+						</div> -->
+
+					</div>
+					<div class="modal-footer"><button class="btn btn-primary" id="SaveEditCard"
+							type="button">บันทึก</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal Edit Pass -->
+	<div class="modal fade" role="dialog" tabindex="-1" id="modalPassMaster">
+		<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+		  <div class="modal-content">
+			<form id="formPass" >
+			  <div class="modal-header">
+				  <h4 class="modal-title" id="modalHeaderAddPart">Edit Password:</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+			  </div>
+			  <div class="modal-body">
+				  <div class="form-row my-2">
+					<div class="col-xl-4 d-xl-flex justify-content-xl-end align-items-xl-center">Password:&nbsp;</span></div>
+					<div class="col-xl-8 d-xl-flex align-items-xl-center" id="M_RecpCookCnt-1"><input class="form-control" type="password" id="modalInpEdEmployPassword" style="width: 100%;" required=""></div>
+				  </div>
+			  </div>
+			  <div class="modal-footer"><button class="btn btn-primary" id="modalSaveEdit" type="button">Save</button></div>
+			</form>
+		  </div>
+		</div>
+	  </div>
+
+	<!-- NavBar -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<a class="navbar-brand" href="#">Logo</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -35,7 +139,7 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active">
-					<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+					<a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
 				</li>
 			</ul>
 			<form class="form-inline my-2 my-lg-0" action="/user/logout">
@@ -51,32 +155,33 @@
 		<h1>Table</h1>
 		<table class="table table-bordered" id="tableShow">
 			<thead class="thead-dark">
-			  <tr>
-				<th scope="col">Index</th>
-				<th scope="col">CardName</th>
-				<th scope="col">First Name</th>
-				<th scope="col">Last Name</th>
-				<th scope="col">Tel</th>
-				<th scope="col">Email</th>
-				<th scope="col">Facebook</th>
-				<th scope="col">LineID</th>
-				<th scope="col">Action</th>
-				<th style="display: none;"></th>
-			  </tr>
+				<tr>
+					<th scope="col">Index</th>
+					<th scope="col">CardName</th>
+					<th scope="col">First Name</th>
+					<th scope="col">Last Name</th>
+					<th scope="col">Tel</th>
+					<th scope="col">Email</th>
+					<th scope="col">Facebook</th>
+					<th scope="col">LineID</th>
+					<th scope="col">Action</th>
+					<th style="display: none;"></th>
+				</tr>
 			</thead>
 			<tbody>
-			  <tr>
-				<td colspan="9">Error...</td>
-			  </tr>
+				<tr>
+					<td colspan="9">Error...</td>
+				</tr>
 			</tbody>
-		  </table>
+		</table>
 	</div>
-	
-	  
-	  
+
+
+
 
 	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 	<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.14/dist/sweetalert2.all.min.js"></script>
 
 	<script src="/js/bootstrap.min.js"></script>
 	<script src="/cardManager.js"></script>
