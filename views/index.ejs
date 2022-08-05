@@ -12,7 +12,7 @@
   <%- include('./template/cookie-consent'); %>
     <link rel="stylesheet" href="/css/cardAuth.css" />
 
-    <div class="modal fade" role="dialog" tabindex="-1" id="modalCardAuth">
+    <div class="modal" role="dialog" tabindex="-1" id="modalCardAuth">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content" id="contentCookieSetting">
           <div class="modal-header">
@@ -32,21 +32,21 @@
                 <input class="form-control form-control-lg" type="password" name="CardPass"
                   placeholder="ใส่รหัสการ์ดของคุณ" />
               </div>
+              <% if (messages.auth) { %>
+                <div class="alert alert-danger mt-2" role="alert">
+                  <%= messages.auth %>
+                </div>
+              <% } %>
               <div class="text-center mt-3">
                 <button type="submit" class="btn btn-lg btn-primary">ลงชื่อเข้าใช้</button>
               </div>
-              <% if (messages.login) { %>
-                <div class="alert alert-danger mt-2" role="alert">
-                  <%= messages.login %>
-                </div>
-                <% } %>
             </form>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="modal fade" role="dialog" tabindex="-1" id="modalCardCreate">
+    <div class="modal" role="dialog" tabindex="-1" id="modalCardCreate">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content" id="contentCookieSetting">
           <div class="modal-header">
@@ -66,14 +66,14 @@
                 <input class="form-control form-control-lg" type="password" name="CardPass"
                   placeholder="ใส่รหัสการ์ดที่คุณต้องการ" />
               </div>
-              <div class="text-center mt-3">
-                <button type="submit" class="btn btn-lg btn-primary">สร้างการ์ด</button>
-              </div>
               <% if (messages.create) { %>
                 <div class="alert alert-danger mt-2" role="alert">
                   <%= messages.create %>
                 </div>
-                <% } %>
+              <% } %>
+              <div class="text-center mt-3">
+                <button type="submit" class="btn btn-lg btn-primary">สร้างการ์ด</button>
+              </div>
             </form>
           </div>
         </div>
@@ -96,10 +96,26 @@
         <p class="lead btn btn-secondary" data-toggle="modal" data-target="#modalCardCreate">สร้างการ์ดใหม่</p>
       </div>
 
+      <% if (messages.success) { %>
+        <div class="alert alert-success mt-2" role="alert">
+          <%= messages.success %>
+        </div>
+      <% } %>
+
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+    <% if (messages.auth) { %>
+    <script>
+        $('#modalCardAuth').modal('show')
+    </script>
+    <% } %>
+    <% if (messages.create) { %>
+      <script>
+        $('#modalCardCreate').modal('show')
+      </script>
+    <% } %>
 </body>
 
 </html>
