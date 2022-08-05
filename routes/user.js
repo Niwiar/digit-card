@@ -24,7 +24,7 @@ router.post('/login', async (req, res) => {
                 req.session.isLoggedIn = true;
                 req.session.UserId = User.recordset[0].CardId;
                 req.session.isAuth = true;
-                res.redirect('/');
+                res.redirect('/card_manager');
             } else {
                 req.flash('login', 'ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง')
                 res.redirect('/login')
