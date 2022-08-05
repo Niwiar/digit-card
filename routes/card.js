@@ -63,7 +63,7 @@ router.get("/show/:CardName", async (req, res, next) => {
     let pool = await sql.connect(dbconfig);
     let Card = await pool
       .request()
-      .query(`SELECT * FROM Cards WHERE CardName = N'${CardName}'`);
+      .query(`SELECT CardName, ImgPath, Fname, Lname, Company, Tel, Email, Facebook, Line FROM Cards WHERE CardName = N'${CardName}'`);
     if (Card.recordset.length) {
       let data = decodeData(Card.recordset[0]);
       Card.recordset[0].Fname = data.Fname
