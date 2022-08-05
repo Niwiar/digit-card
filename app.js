@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const morgan = require('morgan');
 const path = require('path');
 const flash = require('express-flash');
 const cookieSession = require('cookie-session');
@@ -18,6 +19,7 @@ app.use(express.static(path.join(__dirname, 'assets')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'script')));
 
+app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 

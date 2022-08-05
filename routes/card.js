@@ -18,6 +18,23 @@ const checkCard = async (Tag) => {
   return CheckCard.recordset[0].check;
 }
 
+const decodeData = (Card) => {
+  let { Fname, Lname, Tel } = Card;
+  Fname === null ? "" : Fname = decrypt(JSON.parse(Fname));
+  Lname === null ? "" : Lname = decrypt(JSON.parse(Lname));
+  Tel === null ? "" : Tel = decrypt(JSON.parse(Tel));
+  return { Fname, Lname, Tel}
+}
+
+const checkSpecial = (word) => {
+  const spacialChar = [ ".", "'" ]
+  spacialChar.forEach((spacial) => {
+    if (word.includes(spacial)) {
+      return 1;
+    }
+  })
+}
+
 router.get("/data", async (req, res, next) => {
   try {
     let CardTag = req.session.CardTag;
@@ -48,6 +65,10 @@ router.get("/show/:CardName", async (req, res, next) => {
       .request()
       .query(`SELECT * FROM Cards WHERE CardName = N'${CardName}'`);
     if (Card.recordset.length) {
+      let data = decodeData(Card.recordset[0]);
+      Card.recordset[0].Fname = data.Fname
+      Card.recordset[0].Lname = data.Lname
+      Card.recordset[0].Tel = data.Tel
       let { Fname, Lname, Tel } = Card.recordset[0]
       Card.recordset[0].Fname = decrypt(JSON.parse(Fname))
       Card.recordset[0].Lname = decrypt(JSON.parse(Lname))
@@ -94,6 +115,9 @@ router.post("/create", async (req, res, next) => {
     if (CardName == "" || CardPass == "") {
       res.status(400).send({ message: "กรุณาใส่ชื่อการ์ดและรหัสผ่านในช่องว่าง" });
       return;
+    }
+    if (checkSpecial(CardName)) {
+      res.status(400).send({ message: "กรุณาอย่าใช้ . หรือ ' ในชื่อการ์ด" });
     }
     let pool = await sql.connect(dbconfig);
     let CheckCard = await pool.request().query(`SELECT *
