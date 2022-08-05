@@ -153,7 +153,7 @@ router.post("/card_img_upload/:CardId", async (req, res) => {
 
 router.get("/card_publish/:CardId", async (req, res) => {
   try {
-    let CardId = req.session.CardId;
+    let CardId = req.params.CardId;
     let pool = await sql.connect(dbconfig);
     if (await checkCard(CardId)) {
       let PublishCard = `UPDATE Cards
@@ -177,7 +177,7 @@ router.get("/card_publish/:CardId", async (req, res) => {
 
 router.get("/card_unpublish/:CardId", async (req, res) => {
   try {
-    let CardId = req.session.CardId;
+    let CardId = req.params.CardId;
     let pool = await sql.connect(dbconfig);
     if (await checkCard(CardId)) {
       let UnpublishCard = `UPDATE Cards
@@ -195,7 +195,7 @@ router.get("/card_unpublish/:CardId", async (req, res) => {
 
 router.put("/card_change_password/:CardId", async (req, res) => {
   try {
-    let CardId = req.session.CardId;
+    let CardId = req.params.CardId;
     let CardPass = req.body.CardPass;
     if (CardPass == "") {
       res.status(400).send({ message: "กรุณาใส่รหัสผ่านของการ์ด" });
@@ -204,6 +204,7 @@ router.put("/card_change_password/:CardId", async (req, res) => {
     let pool = await sql.connect(dbconfig);
     if (await checkCard(CardId)) {
       let Hashpass = await bcrypt.hash(CardPass, 12);
+      console.log('id'+CardId+':'+Hashpass)
       let UpdateCard = `UPDATE Cards
         SET CardPass = N'${Hashpass}'
         WHERE CardId = ${CardId}`;
