@@ -67,8 +67,10 @@ router.post('/register', async (req, res) => {
             res.redirect('/register')
         } else {
             let Hashpass = await bcrypt.hash(CardPass, 12)
-            let InsertUser = `INSERT INTO Cards(CardName, CardPass, Authority)
-                VALUES  (N'${CardName}', N'${Hashpass}', 1)`;
+            let Hashtag = await bcrypt.hash(CardName, 5);
+            Hashtag = Hashtag.replace(/\//g, "");
+            let InsertUser = `INSERT INTO Cards(CardName, CardTag, CardPass, Authority)
+                VALUES  (N'${CardName}', N'${Hashtag}', N'${Hashpass}', 1)`;
             await pool.request().query(InsertUser);
             // res.status(201).send({message: 'Register successfully, Now you can login'});
             req.flash('success', 'ลงทะเบียนสำเร็จ, คุณสามารถเข้าสู่ระบบได้')
