@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-size: smaller;
 }
 
 body{
@@ -12,4 +13,9 @@ body{
     margin:40px 20px;
     background: white;
     border-radius: 10px;
+}
+
+.sp-b{
+    display: flex;
+    justify-content: space-around;
 }

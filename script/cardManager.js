@@ -24,7 +24,16 @@ $(document).ready(function () {
                     "data": "Tel"
                 },
                 {
-                    "defaultContent": "<div class='text-center'><div class='btn-group' role='group' aria-label='Basic mixed styles example'><button type='button' class='btn btn-primary p-1' id='btnEditCompany' style='width: 2rem;'><i class='fa fa-pencil-square-o'></i></button><button type='button' style='width: 2rem;' class='btn btn-danger p-1 ' id='btnDelCompany'><i class='fa fa-remove'></i></button></div></div>"
+                    "data": "Email"
+                },
+                {
+                    "data": "Facebook"
+                },
+                {
+                    "data": "Line"
+                },
+                {
+                    "defaultContent": "<div class='text-center'><div class='sp-b' role='group' aria-label='Basic mixed styles example'><button type='button' class='btn btn-primary p-1' id='btnEditCompany' style='width: 2rem;'><i class='fa fa-pencil-square-o'></i></button><button type='button' style='width: 2rem;' class='btn btn-danger p-1 ' id='btnDelCompany'><i class='fa fa-remove'></i></button></div></div>"
                 }
                 ,
                 {
@@ -33,7 +42,7 @@ $(document).ready(function () {
 
             ], "columnDefs": [
                 {
-                    "targets": [6],
+                    "targets": [9],
                     "visible": false
                 },
             ],
