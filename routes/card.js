@@ -113,13 +113,13 @@ router.post("/create", async (req, res, next) => {
   try {
     let { CardName, CardPass } = req.body;
     if (CardName == "" || CardPass == "") {
-      req.flash("create", "กรุณาใส่ชื่อการ์ดและรหัสผ่านในช่องว่าง");
+      req.flash("createErr", "กรุณาใส่ชื่อการ์ดและรหัสผ่านในช่องว่าง");
       res.render("index.ejs");
       // res.status(400).send({ message: "กรุณาใส่ชื่อการ์ดและรหัสผ่านในช่องว่าง" });
       return;
     }
     if (checkSpecial(CardName)) {
-      req.flash("create", "กรุณาอย่าใช้ . หรือ ' ในชื่อการ์ด");
+      req.flash("createErr", "กรุณาอย่าใช้ . หรือ ' ในชื่อการ์ด");
       res.render("index.ejs");
       // res.status(400).send({ message: "กรุณาอย่าใช้ . หรือ ' ในชื่อการ์ด" });
       return;
@@ -129,7 +129,7 @@ router.post("/create", async (req, res, next) => {
             FROM Cards
             WHERE CardName = N'${CardName}'`);
     if (CheckCard.recordset.length) {
-      req.flash("create", "ชื่อการ์ดซ้ำ");
+      req.flash("createErr", "ชื่อการ์ดซ้ำ");
       res.render("index.ejs");
       // res.status(400).send({ message: "ชื่อการ์ดซ้ำ" });
     } else {
