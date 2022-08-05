@@ -186,4 +186,38 @@ $(document).ready(function () {
             $('#modalPassMaster').modal('hide');
         })
     });
+
+    // Delete Edit card
+    $(document).on("click", "#btnDelTable", function () {
+        $('#modalDeleteConfirm').modal('show');
+
+        rows = $(this).closest('tr');
+        let CardId = table.rows(rows).data()[0].CardId;
+        $(".modal-title").text("Confirm Delete");
+
+        $("#btnYes").unbind();
+        $("#btnYes").click(function () {
+            $.ajax({
+                url: "/dashboard/card_delete/" + CardId,
+                method: 'delete',
+                contentType: 'application/json',
+                success: function (succ) {
+                    successText = succ.message;
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Deleted',
+                        text: successText,
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    tableEmploy.ajax.reload(null, false);
+                }
+            })
+            $('#modalDeleteConfirm').modal('hide');
+        })
+        $(".close,.no").click(function () {
+            $('#modalDeleteConfirm').modal('hide');
+        })
+    });
 })
