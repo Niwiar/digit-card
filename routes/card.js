@@ -97,12 +97,12 @@ router.post("/auth", async (req, res) => {
         req.session.CardTag = Card.recordset[0].CardTag;
         res.redirect(`/manage/${Card.recordset[0].CardTag}`);
       } else {
-        req.flash("error", "รหัสผ่านของการ์ดไม่ถูกต้อง");
-        res.render("error.ejs");
+        req.flash("auth", "รหัสผ่านของการ์ดไม่ถูกต้อง");
+        res.render("index.ejs");
       }
     } else {
-      req.flash("error", "ไม่พบการ์ด");
-      res.render("error.ejs");
+      req.flash("auth", "ไม่พบการ์ด");
+      res.render("index.ejs");
     }
   } catch (err) {
     res.status(500).send({ message: `${err}` });
@@ -113,18 +113,25 @@ router.post("/create", async (req, res, next) => {
   try {
     let { CardName, CardPass } = req.body;
     if (CardName == "" || CardPass == "") {
-      res.status(400).send({ message: "กรุณาใส่ชื่อการ์ดและรหัสผ่านในช่องว่าง" });
+      req.flash("create", "กรุณาใส่ชื่อการ์ดและรหัสผ่านในช่องว่าง");
+      res.render("index.ejs");
+      // res.status(400).send({ message: "กรุณาใส่ชื่อการ์ดและรหัสผ่านในช่องว่าง" });
       return;
     }
     if (checkSpecial(CardName)) {
-      res.status(400).send({ message: "กรุณาอย่าใช้ . หรือ ' ในชื่อการ์ด" });
+      req.flash("create", "กรุณาอย่าใช้ . หรือ ' ในชื่อการ์ด");
+      res.render("index.ejs");
+      // res.status(400).send({ message: "กรุณาอย่าใช้ . หรือ ' ในชื่อการ์ด" });
+      return;
     }
     let pool = await sql.connect(dbconfig);
     let CheckCard = await pool.request().query(`SELECT *
             FROM Cards
             WHERE CardName = N'${CardName}'`);
     if (CheckCard.recordset.length) {
-      res.status(400).send({ message: "พบการ์ดซ้ำ" });
+      req.flash("create", "ชื่อการ์ดซ้ำ");
+      res.render("index.ejs");
+      // res.status(400).send({ message: "ชื่อการ์ดซ้ำ" });
     } else {
       let Hashpass = await bcrypt.hash(CardPass, 12);
       let Hashtag = await bcrypt.hash(CardName, 5);
@@ -132,9 +139,12 @@ router.post("/create", async (req, res, next) => {
       let InsertCard = `INSERT INTO Cards(CardName, CardTag, CardPass)
         VALUES (N'${CardName}', N'${Hashtag}', N'${Hashpass}')`;
       await pool.request().query(InsertCard);
-      res.status(201).send({ message: "สร้างการ์ดสำเร็จ" });
+      req.flash("success", "สร้างการ์ดสำเร็จ");
+      res.render("index.ejs");
+      // res.status(201).send({ message: "สร้างการ์ดสำเร็จ" });
     }
   } catch (err) {
+    console.log('check')
     res.status(500).send({ message: `${err}` });
   }
 });
