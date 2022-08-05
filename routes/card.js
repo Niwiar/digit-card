@@ -120,7 +120,6 @@ router.post("/create", async (req, res, next) => {
       // res.status(400).send({ message: "กรุณาใส่ชื่อการ์ดและรหัสผ่านในช่องว่าง" });
       return;
     }
-    console.log(checkSpecial(CardName))
     if (checkSpecial(CardName)) {
       req.flash("create", "กรุณาอย่าใช้ตัวอักษร . หรือ ' ในชื่อการ์ด");
       res.render("index.ejs");
