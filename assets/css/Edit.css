@@ -99,7 +99,6 @@
 
 .box {
     width: 100%;
-    /* height: auto; */
     background: #fff;
     border-radius: 12px;
     padding: 20px 20px 60px 20px;
@@ -108,7 +107,6 @@
 .input-group span {
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
-    /* background: #e3fbf7; */
     margin-bottom: 10px;
 }
 
@@ -211,7 +209,6 @@
 }
 
 .box-pre .box-name {
-    /* background: #275757; */
     width: 60%;
     height: 40%;
     position: absolute;
@@ -225,7 +222,6 @@
 }
 
 .box-pre  .box-link {
-    /* background: #95e0e0; */
     width: 100%;
     height: 30%;
     position: absolute;
@@ -275,6 +271,13 @@
 .form-imgInp{
     display: flex;
     justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    top: 60%;
+    z-index: 100;
+    color: #fff;
+    font-weight: 700;
 }
 
 
@@ -301,17 +304,8 @@
     width: 50%;
 }
 
-/* .mobile{
-    width: 280px;
-    height: 370px;
-}
 
-.webcam{
-    width: 320px;
-    height: 240px;
-} */
-
-@media only screen and (max-width:768px) {
+@media only screen and (max-width:770px) {
     *{
         font-size: 0.7rem;
     }
@@ -369,14 +363,11 @@
     }
 
     .character a {
-        /* font-size: 60%; */
         text-align: center;
         
     }
     
     .character a i#icon-camera{
-        /* width: 50px;
-        height: 50px; */
         visibility: hidden;
         position: absolute;
         top: 42%;

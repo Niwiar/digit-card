@@ -166,6 +166,7 @@ $(document).ready(function () {
                         showConfirmButton: false,
                         timer: 1500
                     })
+                    table.ajax.reload(null, false);
                     $('#modalPassMaster').modal('hide');
                 },
                 error: function (err) {
@@ -211,7 +212,7 @@ $(document).ready(function () {
                         showConfirmButton: false,
                         timer: 1500
                     })
-                    tableEmploy.ajax.reload(null, false);
+                    table.ajax.reload(null, false);
                 }
             })
             $('#modalDeleteConfirm').modal('hide');
