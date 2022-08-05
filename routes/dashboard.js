@@ -15,7 +15,7 @@ const checkCard = async (Id) => {
   let pool = await sql.connect(dbconfig);
   let CheckCard = await pool.request().query(`SELECT CASE
     WHEN EXISTS(
-        SELECT * FROM Cards WHERE CardId = N'${Id}'
+        SELECT * FROM Cards WHERE CardId = ${Id}
     )
     THEN CAST (1 AS BIT)
     ELSE CAST (0 AS BIT) END AS 'check'`);
