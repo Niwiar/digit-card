@@ -22,6 +22,14 @@ const checkCard = async (Id) => {
   return CheckCard.recordset[0].check;
 };
 
+const decodeData = (Card) => {
+  let { Fname, Lname, Tel } = Card;
+  Fname === null ? "" : Fname = decrypt(JSON.parse(Fname));
+  Lname === null ? "" : Lname = decrypt(JSON.parse(Lname));
+  Tel === null ? "" : Tel = decrypt(JSON.parse(Tel));
+  return { Fname, Lname, Tel}
+}
+
 router.get("/cardlist", async (req, res, next) => {
   try {
     let pool = await sql.connect(dbconfig);
@@ -31,10 +39,11 @@ router.get("/cardlist", async (req, res, next) => {
         `SELECT row_number() over(order by CardId desc) as 'index', * FROM Cards`
       );
     for (let Card of Cards.recordset) {
-      let { Fname, Lname, Tel } = Card;
-      Card.Fname = decrypt(JSON.parse(Fname));
-      Card.Lname = decrypt(JSON.parse(Lname));
-      Card.Tel = decrypt(JSON.parse(Tel));
+      let data = decodeData(Card);
+      Card.Fname = data.Fname
+      Card.Lname = data.Lname
+      Card.Tel = data.Tel
+      console.log(Card)
     }
     res.status(200).send(JSON.stringify(Cards.recordset));
   } catch (err) {
@@ -51,10 +60,10 @@ router.get("/export", async (req, res, next) => {
         `SELECT CardId, CardName, ImgPath, Fname, Lname, Company, Tel, Email, Facebook, Line, Published FROM Cards ORDER BY CardId DESC`
       );
     for (let Card of Cards.recordset) {
-      let { Fname, Lname, Tel } = Card;
-      Card.Fname = decrypt(JSON.parse(Fname));
-      Card.Lname = decrypt(JSON.parse(Lname));
-      Card.Tel = decrypt(JSON.parse(Tel));
+      let data = decodeData(Card);
+      Card.Fname = data.Fname
+      Card.Lname = data.Lname
+      Card.Tel = data.Tel
     }
     let filePath = path.join(process.cwd(), `/public/report/cardlist.csv`);
     fastcsv
@@ -76,10 +85,10 @@ router.get("/card_data/:CardId", async (req, res, next) => {
       .request()
       .query(`SELECT * FROM Cards WHERE CardId = N'${CardId}'`);
     if (Card.recordset.length) {
-      let { Fname, Lname, Tel } = Card.recordset[0];
-      Card.recordset[0].Fname = decrypt(JSON.parse(Fname));
-      Card.recordset[0].Lname = decrypt(JSON.parse(Lname));
-      Card.recordset[0].Tel = decrypt(JSON.parse(Tel));
+      let data = decodeData(Card.recordset[0]);
+      Card.Fname = data.Fname
+      Card.Lname = data.Lname
+      Card.Tel = data.Tel
       res.status(200).send(JSON.stringify(Card.recordset[0]));
     } else {
       res.status(404).send({ message: "ไม่พบการ์ด" });

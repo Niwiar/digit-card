@@ -4,6 +4,15 @@ const bcrypt = require('bcryptjs');
 const sql = require('mssql');
 const { dbconfig } = require('../config');
 
+const checkSpecial = (word) => {
+    const spacialChar = [ ".", "'" ]
+    spacialChar.forEach((spacial) => {
+        if (word.includes(spacial)) {
+        return 1;
+        }
+    })
+}
+
 router.post('/login', async (req, res) => {
     try {
         let { CardName, CardPass } = req.body;
@@ -17,11 +26,11 @@ router.post('/login', async (req, res) => {
                 req.session.isAuth = true;
                 res.redirect('/');
             } else {
-                req.flash('login', 'Invalid Username or Password')
+                req.flash('login', 'ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง')
                 res.redirect('/login')
             }
         } else {
-            req.flash('login', 'Invalid Username or Password')
+            req.flash('login', 'ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง')
             res.redirect('/login')
         }
     } catch (err){
@@ -39,9 +48,12 @@ router.post('/register', async (req, res) => {
     try {
         let { CardName, CardPass } = req.body;
         if (CardName == '' || CardPass == '') {
-            res.status(400).send({message: "Please enter Username and Password"});
+            res.status(400).send({message: "กรุณาใส่ชื่อผู้ใช้งานและรหัสผ่าน"});
             return;
         }
+        if (checkSpecial(CardName)) {
+            res.status(400).send({ message: "กรุณาอย่าใช้ . หรือ ' ในชื่อการ์ด" });
+          }
         let pool = await sql.connect(dbconfig);
         let CheckUser = await pool.request().query(`SELECT CASE
             WHEN EXISTS(
@@ -51,7 +63,7 @@ router.post('/register', async (req, res) => {
             THEN CAST (1 AS BIT)
             ELSE CAST (0 AS BIT) END AS 'check'`);
         if (CheckUser.recordset[0].check) {
-            req.flash('register', 'Duplicate Username')
+            req.flash('register', 'ชื่อผู้ใช้งานซ้ำ')
             res.redirect('/register')
         } else {
             let Hashpass = await bcrypt.hash(CardPass, 12)
@@ -59,7 +71,7 @@ router.post('/register', async (req, res) => {
                 VALUES  (N'${CardName}', N'${Hashpass}', 1)`;
             await pool.request().query(InsertUser);
             // res.status(201).send({message: 'Register successfully, Now you can login'});
-            req.flash('success', 'Register successfully, Now you can login')
+            req.flash('success', 'ลงทะเบียนสำเร็จ, คุณสามารถเข้าสู่ระบบได้')
             res.redirect('/register')
         }
     } catch (err){
