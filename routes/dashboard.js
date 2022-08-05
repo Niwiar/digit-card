@@ -223,7 +223,7 @@ router.delete("/card_delete/:CardId", async (req, res) => {
     let CardId = req.params.CardId;
     let pool = await sql.connect(dbconfig);
     if (await checkCard(CardId)) {
-      let DeleteCard = `DELETE FROM Users WHERE CardId = ${CardId}`;
+      let DeleteCard = `DELETE FROM Cards WHERE CardId = ${CardId}`;
       await pool.request().query(DeleteCard);
       res.status(200).send({ message: "ลบการ์ดสำเร็จ" });
     } else {
