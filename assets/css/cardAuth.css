@@ -13,6 +13,11 @@
     align-items: center;
 }
 
+.container-mt{
+    margin-top: 6vw;
+    margin-bottom: 8vw;
+}
+
 .main {
     position: fixed;
     top: 50%;
@@ -36,6 +41,10 @@
 }
 
 @media only screen and (max-width: 1030px) {
+    .container-mt{
+        margin-top: 12vw;
+    }
+
     .main .text-center p{
         font-weight: 400;
         width: 30vw;
@@ -45,6 +54,10 @@
 @media only screen and (max-width:770px) {
     .main {
         gap: 5em;
+    }
+
+    .container-mt{
+        margin-top: 17vw;
     }
 
     .main .text-center p{
@@ -69,6 +82,10 @@
 
     .main {
         gap: 3em;
+    }
+
+    .container-mt{
+        margin-top: 25vw;
     }
 
     .main .text-center p{
@@ -101,11 +118,19 @@
     .main {
         gap: 2em;
     }
+
+    .container-mt{
+        margin-top: 28vw;
+    }
 }
 
 @media only screen and (max-width:325px) {
     .main {
         gap: 1em;
+    }
+
+    .container-mt{
+        margin-top: 30vw;
     }
 
     .main .text-center p{
