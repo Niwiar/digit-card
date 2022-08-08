@@ -6,23 +6,48 @@
       <div class="modal-content">
         <div class="popup-body">
           <h6><b>เว็บไซต์นี้ใช้คุกกี้</b></h6>
-          <h6>เราใช้คุกกี้เพื่อเพิ่มประสิทธิภาพ และประสบการณ์ที่ดีในการใช้งานเว็บไซต์ คุณสามารถเลือกตั้งค่าความยินยอมการใช้งานคุกกี้ได้ โดยคลิก "การตั้งค่าคุกกี้"
+          <h6>เราใช้คุกกี้เพื่อเพิ่มประสิทธิภาพ และประสบการณ์ที่ดีในการใช้งานเว็บไซต์ พร้อมทั้งมีการเก็บบันทึกข้อมูลส่วนบุคคล คุณสามารถให้ความยินยอมการใช้งานคุกกี้และเก็บข้อมูลส่วนบุคคลของผู้ใช้งานได้ โดยคลิก "ยอมรับ"
+            <!-- คุณสามารถเลือกตั้งค่าความยินยอมการใช้งานคุกกี้ได้ โดยคลิก "การตั้งค่าคุกกี้" -->
               <a href="/privacy-policy" id="policy">นโยบายความเป็นส่วนตัว</a>
           </h6>
         </div>
         <div class="popup-footer">
-          <span id="cookieSetting" data-toggle="modal" data-target="#modalCookieSetting"><b>การตั้งค่าคุกกี้</b></span>
-          <button class="btn btn-success" id="acceptAllCookie" type="button">ยอมรับทั้งหมด</button>
+          <!-- <span id="cookieSetting" data-toggle="modal" data-target="#modalCookieSetting"><b>การตั้งค่าคุกกี้</b></span> -->
+          <button class="btn btn-success" id="acceptAllCookie" type="button">ยอมรับ</button>
         </div>
       </div>
     </div>
 </div>
 <div id="reconsentCookie">
-    <i class="fa-solid fa-cookie-bite" data-toggle="modal" data-target="#modalCookieSetting"></i>
+    <i class="fa-solid fa-cookie-bite" data-toggle="modal" data-target="#modalCookieReconsent"></i>
+</div>
+
+<div class="modal fade" role="dialog" tabindex="-1" id="modalCookieReconsent">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" id="contentCookieSetting">
+        <div class="modal-body">
+            <div class="modal-header">
+                <h4 class="modal-title">ถอนความยินยอมการใช้งานคุกกี้</h4>
+                <button type="button" class="close" data-dismiss="modal"
+                aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <p>หากคุณต้องการถอนความยินยอมใช้งานคุกกี้และการเก็บข้อมูลส่วนบุคคลของคุณ คุณสามารถทำได้โดยคลิก "ยืนยัน"
+                    <br><br>หรือ หากต้องการสอบถามข้อมูลเกี่ยวกับนโยบายความเป็นส่วนตัวสามารถติดต่อได้ทาง....
+                    <a href="/privacy-policy" id="policy">นโยบายความเป็นส่วนตัว</a>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" id="cancelCookie" data-dismiss="modal" type="button">ยกเลิก</button>
+                <button class="btn btn-success" id="withdrawCookie" data-dismiss="modal" type="button">ยืนยัน</button>
+            </div>
+        </div>
+        </div>
+    </div>
 </div>
 
 
-<div class="modal fade" role="dialog" tabindex="-1" id="modalCookieSetting">
+<!-- <div class="modal fade" role="dialog" tabindex="-1" id="modalCookieSetting">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content" id="contentCookieSetting">
         <div class="modal-body">
@@ -46,14 +71,14 @@
             </div>
             <div class="cookieInput">
             <div class="cookieInput-head">
-                <span><b>คุกกี้ในส่วนวิเคราะห์</b></span>
+                <span><b>คุกกี้เพื่อการทำงานของเว็บไซต์</b></span>
                 <label class="switch">
-                <input type="checkbox" id="IP-Analytic">
+                <input type="checkbox" id="IP-Functional">
                 <span class="slider"></span>
                 </label>
             </div>
             <div class="cookieInput-desc">
-                <p>คุกกี้ในส่วนวิเคราะห์ จะช่วยให้เว็บไซต์เข้าใจรูปแบบการใช้งานของผู้เข้าชมและจะช่วยปรับปรุงประสบการณ์การใช้งาน โดยการเก็บรวบรวมข้อมูลและรายงานผลการใช้งานของผู้ใช้งาน</p>
+                <p>คุกกี้เพื่อการทำงานของเว็บไซต์ จะใช้ในการจดจำผู้ใช้บริการ เมื่อผู้ใช้บริการกลับมาที่เว็บไซต์ของเราอีก สิ่งนี้จะช่วยให้เราจัดเนื้อหาที่เหมาะสมสำหรับผู้ใช้บริการได้ และจดจำค่าที่ผู้ใช้บริการเลือกได้ นอกจากนี้ เรายังอาจแชร์ข้อมูลนี้กับบุคคลที่สามเพื่อวัตถุประสงค์ดังกล่าว</p>
             </div>
             </div>
             <div class="modal-footer">
@@ -62,7 +87,7 @@
         </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://kit.fontawesome.com/cfb8ca0e9d.js" crossorigin="anonymous"></script>

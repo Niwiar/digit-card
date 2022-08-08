@@ -17,7 +17,7 @@ const isCard = async (req, res, next) => {
         if(CheckCard.recordset[0].check){
             res.render('card');
         } else {
-            req.flash('error', 'Card not found')
+            req.flash('error', 'ไม่พบการ์ด')
             res.render('error.ejs');
         }
     } catch(err){
@@ -27,7 +27,7 @@ const isCard = async (req, res, next) => {
 
 const isCardAuth = async (req, res, next) => {
     if(!req.session.isCardAuth) {
-        req.flash('error', 'You are not allowed to access this page')
+        req.flash('error', 'คุณไม่ได้รับอนุญาตให้เข้าสู่หน้านี้')
         return res.status(401).render('error.ejs')
     }
     try {
@@ -44,11 +44,11 @@ const isCardAuth = async (req, res, next) => {
             if (compared) {
                 next();
             } else {
-                req.flash('error', 'You are not allowed to access this card')
+                req.flash('error', 'คุณไม่ได้รับอนุญาตให้เข้าสู่หน้านี้')
                 res.status(401).render('error.ejs');
             }
         } else {
-            req.flash('error', 'Card not found')
+            req.flash('error', 'ไม่พบการ์ด')
             res.status(404).render('error.ejs');
         }
     } catch(err){

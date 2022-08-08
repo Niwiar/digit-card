@@ -8,22 +8,22 @@ router.get('/', isCard, (req, res) => {
 })
 
 router.get('/privacy-policy', (req, res) => {
-    res.render('policy')
+    res.render('privacy-policy')
 })
 
 router.get('/manage/:CardTag', isCardAuth, (req, res) => {
     res.render('card-edit.ejs');
 })
 
-router.get('/login', ifLoggedIn, (req, res, next) => {
+router.get('/login', ifLoggedIn, (req, res) => {
     res.render('login.ejs');
 });
 
-router.get('/register', ifLoggedIn, (req, res, next) => {
+router.get('/register', ifLoggedIn, (req, res) => {
     res.render('register.ejs');
 });
 
-router.get('/card_manager', (req, res) => {
+router.get('/card_manager', ifNotLoggedIn, (req, res) => {
     res.render('card-manager')
 })
 
