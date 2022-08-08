@@ -87,6 +87,12 @@ router.get("/show/:CardName", async (req, res, next) => {
 // authorization to access card editor
 router.post("/auth", async (req, res) => {
   try {
+    let cookies = req.cookies;
+    if (cookies.cc_cookie !== "consented") {
+      req.flash("auth", "กรุณายินยอมการใช้งานคุกกี้และการเก็บข้อมูลส่วนบุคคล");
+      res.render("index.ejs");
+      return;
+    }
     let { CardName, CardPass } = req.body;
     let pool = await sql.connect(dbconfig);
     let Card = await pool
@@ -113,6 +119,12 @@ router.post("/auth", async (req, res) => {
 
 router.post("/create", async (req, res, next) => {
   try {
+    let cookies = req.cookies;
+    if (cookies.cc_cookie !== "consented") {
+      req.flash("createErr", "กรุณายินยอมการใช้งานคุกกี้และการเก็บข้อมูลส่วนบุคคล");
+      res.render("index.ejs");
+      return;
+    }
     let { CardName, CardPass } = req.body;
     if (CardName == "" || CardPass == "") {
       req.flash("createErr", "กรุณาใส่ชื่อการ์ดและรหัสผ่านในช่องว่าง");
@@ -146,7 +158,6 @@ router.post("/create", async (req, res, next) => {
       // res.status(201).send({ message: "สร้างการ์ดสำเร็จ" });
     }
   } catch (err) {
-    console.log('check')
     res.status(500).send({ message: `${err}` });
   }
 });
