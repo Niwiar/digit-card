@@ -9,6 +9,8 @@ function ShowCard() {
             var obj = JSON.parse(response);
             Link = obj.Link
             Published = obj.Published
+            newPageTitle = obj.CardName;
+
             $('#IP-fname').val(obj.Fname);
             $('#IP-lname').val(obj.Lname);
             $('#IP-Tel').val(obj.Tel);
@@ -16,7 +18,8 @@ function ShowCard() {
             $('#IP-Email').val(obj.Email);
             $('#IP-FacebookLink').val(obj.Facebook);
             $('#IP-LineID').val(obj.Line);
-
+            
+            document.title = newPageTitle;
             // document.getElementById('Show-Img').src = obj.ImgPath;
             document.getElementById('mobileImg').src = obj.ImgPath;
             document.getElementById('showmobileImg').src = obj.ImgPath;
@@ -48,9 +51,16 @@ function ShowCard() {
             if ( Published == 1) {
                 $("#share_button").attr("data-a2a-url", Link);
                 $("#share-group").removeClass('hide');
+
+                $("#publish").addClass('hide');
+                $("#unpublish").removeClass('hide');
             } else {
                 $("#share-group").removeClass('hide');
                 $("#share-group").toggleClass('hide');
+
+                $("#unpublish").addClass('hide');
+                $("#publish").removeClass('hide');
+
             }
         }
     })
@@ -222,7 +232,7 @@ $(document).ready(function () {
                         ''+successText+'<br>' +
                         'link ของการ์ด: '+
                         '<input type="text" id="copyLink" class="box-w" value="'+linkText+'" disabled></input>'+
-                        '<button onclick="copyToclip()" class = "btn btn-secondary"><i class="fa fa-clipboard" aria-hidden="true"></i></button>',
+                        '<button onclick="copyToclip()" class = "btn btn-primary"><i class="fa fa-clipboard" aria-hidden="true"></i></button>',
                     confirmButtonColor: '#007bff'
                 });
                 
@@ -256,10 +266,10 @@ $(document).ready(function () {
                 Swal.fire({
                     position: 'center',
                     icon: 'success',
-                    title: 'การเผยแพร่',
+                    title: 'ยกเลิกการเผยแพร่',
                     text: successText,
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 2000
                 })
                 ShowCard();
             },

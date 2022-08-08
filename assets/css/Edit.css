@@ -274,10 +274,13 @@
     align-items: center;
 
     position: absolute;
-    top: 60%;
     z-index: 100;
-    color: #fff;
+    color: rgb(255, 255, 255);
     font-weight: 700;
+}
+
+.form-imgInp:hover{
+    color: #434e4d;
 }
 
 
