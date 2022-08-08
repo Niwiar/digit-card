@@ -16,7 +16,7 @@
 	<link rel="canonical" href="https://demo-basic.adminkit.io/pages-sign-in.html" />
 
 	<!-- Icon -->
-	<link rel="icon" href="http://example.com/favicon.png">
+	<!-- <link rel="icon" href="http://example.com/favicon.png"> -->
 	<title>CardName</title>
 
 	<link rel="stylesheet" href="/css/bootstrap.min.css" />
@@ -115,11 +115,11 @@
 						<h2 class="">แก้ไขการ์ด</h2>
 						<div class="input-group">
 							<span class="input-group-text">ชื่อ</span>
-							<input type="text" id="IP-fname" class="form-control">
+							<input type="text" id="IP-fname" class="form-control" placeholder="ชื่อ">
 						</div>
 						<div class="input-group">
-							<span class="input-group-text">สกุล</span>
-							<input type="text" id="IP-lname" class="form-control">
+							<span class="input-group-text">นามสกุล</span>
+							<input type="text" id="IP-lname" class="form-control" placeholder="นามสกุล">
 						</div>
 						<!-- <div class="input-group">
 							<span class="input-group-text">ที่อยู่</span>
@@ -127,11 +127,11 @@
 						</div> -->
 						<div class="input-group">
 							<span class="input-group-text">เบอร์มือถือ</span>
-							<input type="text" id="IP-Tel" class="form-control">
+							<input type="text" id="IP-Tel" class="form-control" placeholder="ใส่เบอร์มือถือ">
 						</div>
 						<div class="input-group">
 							<span class="input-group-text">บริษัท</span>
-							<input type="text" id="IP-Company" class="form-control">
+							<input type="text" id="IP-Company" class="form-control" placeholder="ชื่อบริษัท">
 						</div>
 						<a href="http://"></a>
 						<div class="input-group">
@@ -175,8 +175,8 @@
 							<a class="btn btn-primary" id="ChangePass">เปลี่ยนรหัสผ่าน</a>
 						</div>
 						<div class="btn-group center-box">
-							<a class="btn btn-success" id="publish">เผยเเพร่การ์ด</a>
-							<a class="btn btn-danger hide" id="unpublish">เลิกเผยเเพร่การ์ด</a>
+							<a class="btn btn-success" id="publish" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">เผยเเพร่การ์ด</a>
+							<a class="btn btn-danger hide" id="unpublish" >เลิกเผยเเพร่การ์ด</a>
 						</div>
 
 						<div class="share-group " id="share-group">
@@ -230,8 +230,9 @@
 							</div>
 						</div>
 						<div class="box-link">
+							
 							<div class="social">
-
+								<span>ข้อมูลการติดต่อ</span>
 								<a href="tel://0830162787" id="Show-Tel" class="block">
 									<svg fill="#008f00" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"
 										width="48px" height="48px">

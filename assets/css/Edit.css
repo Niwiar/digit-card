@@ -257,6 +257,11 @@
     text-decoration: none
 }
 
+.social span {
+    display: block;
+    font-size: 1rem;
+}
+
 #IP-MobileCamera{
     padding: 0px;
     height: 32px;
