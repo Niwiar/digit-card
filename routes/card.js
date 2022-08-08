@@ -28,11 +28,13 @@ const decodeData = (Card) => {
 
 const checkSpecial = (word) => {
   const spacialChar = [ ".", "'" ]
+  let isSpacial = false;
   spacialChar.forEach((spacial) => {
     if (word.includes(spacial)) {
-      return 1;
+      isSpacial = true;
     }
   })
+  return isSpacial
 }
 
 router.get("/data", async (req, res, next) => {
@@ -119,7 +121,7 @@ router.post("/create", async (req, res, next) => {
       return;
     }
     if (checkSpecial(CardName)) {
-      req.flash("createErr", "กรุณาอย่าใช้ . หรือ ' ในชื่อการ์ด");
+      req.flash("createErr", "กรุณาอย่าใช้ตัวอักษร . หรือ ' ในชื่อการ์ด");
       res.render("index.ejs");
       // res.status(400).send({ message: "กรุณาอย่าใช้ . หรือ ' ในชื่อการ์ด" });
       return;
