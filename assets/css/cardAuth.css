@@ -13,6 +13,11 @@
     align-items: center;
 }
 
+.header a {
+    text-decoration: none;
+    color: #aaa;
+}
+
 .container-mt{
     margin-top: 6vw;
     margin-bottom: 8vw;
