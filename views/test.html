@@ -8,28 +8,9 @@
   <!-- <link rel="stylesheet" href="/css/login.css"> -->
   </head>
   <body>
-    <div class="center">
-      <h1>Login</h1>
-      <form action="/user/login" method="post">
-        <div class="txt_field">
-          <input type="text" id="username" required>
-          <span></span>
-          <label>Username</label>
-        </div>
-        <div class="txt_field">
-          <input type="password" id="password" required>
-          <span></span>
-          <label>Password</label>
-        </div>
-        <input type="submit" value="Sign in">
-        <div class="signup_link">
-          Not a member? <a href="/register">Sign up</a>
-        </div>
-        <% if (messages.login) { %>
-          <div class="alert alert-danger mt-2" role="alert"><%= messages.login %></div>
-        <% } %>
-      </form>
-    </div>
-
+    <video id="player" autoplay></video>
+    <button id="capture">Capture</button>
+    <canvas id="canvas" width=320 height=240></canvas>
+    
   </body>
 </html>
