@@ -11,8 +11,9 @@ acceptAllCookie.on("click", () => {
         method: 'get',
         cache: false,
         success: function (response) {
-            cookiePopup.css('display', 'none')
-            reconsentCookie.show();
+            checkCookie();
+            // cookiePopup.css('display', 'none')
+            // reconsentCookie.show();
         }
     })
 });
@@ -23,8 +24,9 @@ withdrawCookie.on("click", () => {
         method: 'get',
         cache: false,
         success: function (response) {
-            cookiePopup.css('display', 'block')
-            reconsentCookie.hide();
+            checkCookie();
+            // cookiePopup.css('display', 'block')
+            // reconsentCookie.hide();
         }
     })
 });

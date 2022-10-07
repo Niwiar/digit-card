@@ -43,14 +43,6 @@ let cookieRoute = require('./routes/cookie');
 let cardRoute = require('./routes/card');
 let dashboardRoute = require('./routes/dashboard');
 
-app.use((req, res, next) => {
-    let cookies = req.cookies;
-    if (cookies.cc_cookie !== "consented" || cookies.cc_cookie !== "withdrawed") {
-        res.cookie('cc_cookie', 'nonconsented', { maxAge: 180*24*60*60*1000, httpOnly: true });
-    }
-    next()
-})
-
 app.use('/', indexRoute);
 app.use('/user', userRoute);
 app.use('/cookie', cookieRoute);
