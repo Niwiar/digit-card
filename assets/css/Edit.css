@@ -257,6 +257,11 @@
     text-decoration: none
 }
 
+.social span {
+    display: block;
+    font-size: 1rem;
+}
+
 #IP-MobileCamera{
     padding: 0px;
     height: 32px;
@@ -274,10 +279,13 @@
     align-items: center;
 
     position: absolute;
-    top: 60%;
     z-index: 100;
-    color: #fff;
+    color: rgb(255, 255, 255);
     font-weight: 700;
+}
+
+.form-imgInp:hover{
+    color: #434e4d;
 }
 
 
