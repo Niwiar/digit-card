@@ -4,8 +4,10 @@ const bcrypt = require("bcryptjs");
 const sql = require("mssql");
 const { dbconfig } = require("../config");
 
-const upload = require('./modules/uploadImage');
-const { encrypt, decrypt } = require('./modules/encryption');
+const upload = require("./modules/uploadImage");
+const { encrypt, decryptCardInfo } = require("./modules/utils");
+
+const QRCode = require("qrcode");
 
 const checkCard = async (Tag) => {
   let pool = await sql.connect(dbconfig);
@@ -16,40 +18,35 @@ const checkCard = async (Tag) => {
         THEN CAST (1 AS BIT)
         ELSE CAST (0 AS BIT) END AS 'check'`);
   return CheckCard.recordset[0].check;
-}
-
-const decodeData = (Card) => {
-  let { Fname, Lname, Tel } = Card;
-  Fname === null ? "" : Fname = decrypt(JSON.parse(Fname));
-  Lname === null ? "" : Lname = decrypt(JSON.parse(Lname));
-  Tel === null ? "" : Tel = decrypt(JSON.parse(Tel));
-  return { Fname, Lname, Tel}
-}
+};
 
 const checkSpecial = (word) => {
-  const spacialChar = [ ".", "'" ]
+  const spacialChar = [".", "'"];
   let isSpacial = false;
   spacialChar.forEach((spacial) => {
     if (word.includes(spacial)) {
       isSpacial = true;
     }
-  })
-  return isSpacial
-}
+  });
+  return isSpacial;
+};
 
 router.get("/data", async (req, res, next) => {
   try {
     let CardTag = req.session.CardTag;
     let pool = await sql.connect(dbconfig);
-    let Card = await pool
-      .request()
-      .query(`SELECT CardName, ImgPath, Fname, Lname, Company, Tel, Email, Facebook, Line, Published FROM Cards WHERE CardTag = N'${CardTag}'`);
+    let Card = await pool.request().query(
+      `SELECT CardName, ImgPath, Fname, Lname,
+        Company, Tel, Email, Facebook, Line, Published
+      FROM Cards WHERE CardTag = N'${CardTag}'`
+    );
     if (Card.recordset.length) {
-      let { CardName, Fname, Lname, Tel } = Card.recordset[0]
-      Card.recordset[0].Fname = decrypt(JSON.parse(Fname))
-      Card.recordset[0].Lname = decrypt(JSON.parse(Lname))
-      Card.recordset[0].Tel = decrypt(JSON.parse(Tel))
-      Card.recordset[0].Link = `${CardName}.localhost:3000`
+      let { CardName } = Card.recordset[0];
+      let { deFname, deLname, deTel } = decryptCardInfo(Card.recordset[0]);
+      Card.recordset[0].Fname = deFname;
+      Card.recordset[0].Lname = deLname;
+      Card.recordset[0].Tel = deTel;
+      Card.recordset[0].Link = `${CardName}.localhost:3000`;
       res.status(200).send(JSON.stringify(Card.recordset[0]));
     } else {
       res.status(404).send({ message: "ไม่พบการ์ด" });
@@ -63,23 +60,22 @@ router.get("/show/:CardName", async (req, res, next) => {
   try {
     let CardName = req.params.CardName;
     let pool = await sql.connect(dbconfig);
-    let Card = await pool
-      .request()
-      .query(`SELECT CardName, ImgPath, Fname, Lname, Company, Tel, Email, Facebook, Line FROM Cards WHERE CardName = N'${CardName}'`);
+    let Card = await pool.request().query(
+      `SELECT CardName, ImgPath, Fname, Lname,
+        Company, Tel, Email, Facebook, Line
+      FROM Cards WHERE CardName = N'${CardName}'`
+    );
     if (Card.recordset.length) {
-      let data = decodeData(Card.recordset[0]);
-      Card.recordset[0].Fname = data.Fname
-      Card.recordset[0].Lname = data.Lname
-      Card.recordset[0].Tel = data.Tel
-      let { Fname, Lname, Tel } = Card.recordset[0]
-      Card.recordset[0].Fname = decrypt(JSON.parse(Fname))
-      Card.recordset[0].Lname = decrypt(JSON.parse(Lname))
-      Card.recordset[0].Tel = decrypt(JSON.parse(Tel))
+      let { deFname, deLname, deTel } = decryptCardInfo(Card.recordset[0]);
+      Card.recordset[0].Fname = deFname;
+      Card.recordset[0].Lname = deLname;
+      Card.recordset[0].Tel = deTel;
       res.status(200).send(JSON.stringify(Card.recordset[0]));
     } else {
       res.status(404).send({ message: "ไม่พบการ์ด" });
     }
   } catch (err) {
+    console.log(err);
     res.status(500).send({ message: `${err}` });
   }
 });
@@ -121,7 +117,10 @@ router.post("/create", async (req, res, next) => {
   try {
     let cookies = req.cookies;
     if (cookies.cc_cookie !== "consented") {
-      req.flash("createErr", "กรุณายินยอมการใช้งานคุกกี้และการเก็บข้อมูลส่วนบุคคล");
+      req.flash(
+        "createErr",
+        "กรุณายินยอมการใช้งานคุกกี้และการเก็บข้อมูลส่วนบุคคล"
+      );
       res.render("index.ejs");
       return;
     }
@@ -162,56 +161,55 @@ router.post("/create", async (req, res, next) => {
   }
 });
 
-
 router.put("/edit", async (req, res) => {
   try {
     let CardTag = req.session.CardTag;
-    console.log(req.session)
     let { Fname, Lname, Company, Tel, Email, Facebook, Line } = req.body;
-    let enFname = JSON.stringify(encrypt(Fname));
-    console.log(enFname)
-    let enLname = JSON.stringify(encrypt(Lname));
-    let enTel = JSON.stringify(encrypt(Tel));
+    let enFname = encrypt(Fname);
+    let enLname = encrypt(Lname);
+    let enTel = encrypt(Tel);
+    console.log(enFname);
+    console.log(enLname);
+    console.log(enTel);
     let pool = await sql.connect(dbconfig);
     if (await checkCard(CardTag)) {
       let UpdateCard = `UPDATE Cards
-            SET
-            Fname = N'${enFname}',
-            Lname = N'${enLname}',
-            Company = N'${Company}',
-            Tel = N'${enTel}',
-            Facebook = N'${Facebook}',
-            Line = N'${Line}',
-            Email = N'${Email}'
-            WHERE CardTag = N'${CardTag}'`;
+        SET
+        Fname = N'${enFname}', Lname = N'${enLname}',
+        Company = N'${Company}', Tel = N'${enTel}',
+        Facebook = N'${Facebook}', Line = N'${Line}',
+        Email = N'${Email}'
+        WHERE CardTag = N'${CardTag}'`;
       await pool.request().query(UpdateCard);
       res.status(200).send({ message: `แก้ไขการ์ดสำเร็จ` });
     } else {
       res.status(404).send({ message: "ไม่พบการ์ด" });
     }
   } catch (err) {
+    console.log(err);
     res.status(500).send({ message: `${err}` });
   }
 });
 
 router.post("/upload", async (req, res) => {
-  try{
+  try {
     let CardTag = req.session.CardTag;
     upload(req, res, async (err) => {
-      if (err){
+      if (err) {
         res.status(500).send({ message: `${err}` });
-      } else{
+      } else {
         img = "/imgs/profile/" + req.file.filename;
-        let UpdateImagePath = `UPDATE Cards SET ImgPath = N'${img}' WHERE CardTag = N'${CardTag}'`;
+        let UpdateImagePath = `UPDATE Cards SET ImgPath = N'${img}'
+          WHERE CardTag = N'${CardTag}'`;
         let pool = await sql.connect(dbconfig);
         await pool.request().query(UpdateImagePath);
-        res.status(200).send({message: 'อัปโหลดรูปภาพสำเร็จ'});
+        res.status(200).send({ message: "อัปโหลดรูปภาพสำเร็จ" });
       }
-    })
-  } catch(err){
+    });
+  } catch (err) {
     res.status(500).send({ message: `${err}` });
-}
-})
+  }
+});
 
 router.get("/publish", async (req, res) => {
   try {
@@ -225,10 +223,28 @@ router.get("/publish", async (req, res) => {
         WHERE CardTag = N'${CardTag}'`;
       let card = await pool.request().query(PublishCard);
       let CardName = card.recordset[0].CardName;
-      res.status(200).send({
-        message: `เผยแพร่การ์ดสำเร็จ`,
-        link: `${CardName}.localhost:4000`,
-      });
+      let CardLink = `${CardName}.localhost:4000`;
+      await QRCode.toDataURL(
+        CardLink,
+        {
+          errorCorrectionLevel: "H",
+          version: 4,
+          margin: 1,
+        },
+        (err, CardQr) => {
+          if (err) {
+            console.log(err);
+            res.status(500).send({ message: `${err}` });
+          }
+          console.log(CardLink);
+          console.log(CardQr);
+          res.status(200).send({
+            message: `เผยแพร่การ์ดสำเร็จ`,
+            link: CardLink,
+            qrData: CardQr,
+          });
+        }
+      );
     } else {
       res.status(404).send({ message: "ไม่พบการ์ด" });
     }
