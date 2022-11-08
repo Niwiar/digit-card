@@ -5,11 +5,11 @@ const sql = require("mssql");
 const { dbconfig } = require("../config");
 
 const fastcsv = require("fast-csv");
-const path = require('path');
+const path = require("path");
 const fs = require("fs");
 
 const upload = require("./modules/uploadImage");
-const { encrypt, decrypt } = require("./modules/encryption");
+const { encrypt, decrypt } = require("./modules/utils");
 
 const checkCard = async (Id) => {
   let pool = await sql.connect(dbconfig);
@@ -24,11 +24,11 @@ const checkCard = async (Id) => {
 
 const decodeData = (Card) => {
   let { Fname, Lname, Tel } = Card;
-  Fname === null ? "" : Fname = decrypt(JSON.parse(Fname));
-  Lname === null ? "" : Lname = decrypt(JSON.parse(Lname));
-  Tel === null ? "" : Tel = decrypt(JSON.parse(Tel));
-  return { Fname, Lname, Tel}
-}
+  Fname === null ? "" : (Fname = decrypt(Fname));
+  Lname === null ? "" : (Lname = decrypt(Lname));
+  Tel === null ? "" : (Tel = decrypt(Tel));
+  return { Fname, Lname, Tel };
+};
 
 router.get("/cardlist", async (req, res, next) => {
   try {
@@ -40,10 +40,10 @@ router.get("/cardlist", async (req, res, next) => {
       );
     for (let Card of Cards.recordset) {
       let data = decodeData(Card);
-      Card.Fname = data.Fname
-      Card.Lname = data.Lname
-      Card.Tel = data.Tel
-      console.log(Card)
+      Card.Fname = data.Fname;
+      Card.Lname = data.Lname;
+      Card.Tel = data.Tel;
+      console.log(Card);
     }
     res.status(200).send(JSON.stringify(Cards.recordset));
   } catch (err) {
@@ -61,17 +61,17 @@ router.get("/export", async (req, res, next) => {
       );
     for (let Card of Cards.recordset) {
       let data = decodeData(Card);
-      Card.Fname = data.Fname
-      Card.Lname = data.Lname
-      Card.Tel = data.Tel
+      Card.Fname = data.Fname;
+      Card.Lname = data.Lname;
+      Card.Tel = data.Tel;
     }
     let filePath = path.join(process.cwd(), `/public/report/cardlist.csv`);
     fastcsv
       .write(Cards.recordset, { headers: true })
       .pipe(fs.createWriteStream(filePath))
-      .on('finish',() => {
-        res.status(200).download(filePath)
-      })
+      .on("finish", () => {
+        res.status(200).download(filePath);
+      });
   } catch (err) {
     res.status(500).send({ message: `${err}` });
   }
@@ -86,9 +86,9 @@ router.get("/card_data/:CardId", async (req, res, next) => {
       .query(`SELECT * FROM Cards WHERE CardId = N'${CardId}'`);
     if (Card.recordset.length) {
       let data = decodeData(Card.recordset[0]);
-      Card.Fname = data.Fname
-      Card.Lname = data.Lname
-      Card.Tel = data.Tel
+      Card.Fname = data.Fname;
+      Card.Lname = data.Lname;
+      Card.Tel = data.Tel;
       res.status(200).send(JSON.stringify(Card.recordset[0]));
     } else {
       res.status(404).send({ message: "ไม่พบการ์ด" });
@@ -204,7 +204,7 @@ router.put("/card_change_password/:CardId", async (req, res) => {
     let pool = await sql.connect(dbconfig);
     if (await checkCard(CardId)) {
       let Hashpass = await bcrypt.hash(CardPass, 12);
-      console.log('id'+CardId+':'+Hashpass)
+      console.log("id" + CardId + ":" + Hashpass);
       let UpdateCard = `UPDATE Cards
         SET CardPass = N'${Hashpass}'
         WHERE CardId = ${CardId}`;
