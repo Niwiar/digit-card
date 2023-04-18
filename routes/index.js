@@ -4,31 +4,31 @@ const { isCardAuth, isCard } = require('./middleware/checkCard');
 const { ifNotLoggedIn, ifLoggedIn, isAuth } = require('./middleware/checkUser');
 
 router.get('/', isCard, (req, res) => {
-    res.render('index.ejs');
-})
+  res.render('index.ejs');
+});
 
 router.get('/privacy-policy', (req, res) => {
-    res.render('privacy-policy')
-})
+  res.render('privacy-policy');
+});
 
 router.get('/manage/:CardTag', isCardAuth, (req, res) => {
-    res.render('card-edit.ejs');
-})
+  res.render('card-edit.ejs');
+});
 
 router.get('/login', ifLoggedIn, (req, res) => {
-    res.render('login.ejs');
+  res.render('login.ejs');
 });
 
 router.get('/register', ifLoggedIn, (req, res) => {
-    res.render('register.ejs');
+  res.render('register.ejs');
 });
 
-router.get('/card_manager', ifNotLoggedIn, (req, res) => {
-    res.render('card-manager')
-})
+router.get('/card_manager', ifNotLoggedIn, isAuth, (req, res) => {
+  res.render('card-manager');
+});
 
 router.get('/test', (req, res) => {
-    res.render('test')
-})
+  res.render('test');
+});
 
-module.exports = router
+module.exports = router;
