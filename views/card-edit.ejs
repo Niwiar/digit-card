@@ -19,7 +19,11 @@
 	<!-- <link rel="icon" href="http://example.com/favicon.png"> -->
 	<title>CardName</title>
 
-	<link rel="stylesheet" href="/css/bootstrap.min.css" />
+	<!-- <link rel="stylesheet" href="/css/bootstrap.min.css" /> -->
+	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/bootstrap/css/bootstrap.icon.css" />
+	<link rel="stylesheet" href="/fonts/fontawesome/css/all.min.css">
+	
 	<link rel="stylesheet" href="/css/Edit.css" />
 	<link rel="stylesheet" href="/fonts/fontawesome-all.min.css">
 	<link rel="stylesheet" href="/fonts/font-awesome.min.css">
@@ -42,8 +46,8 @@
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title">เปลี่ยนรหัสผ่าน</h4><button type="button" class="close" aria-label="Close"><span
-							aria-hidden="true">×</span></button>
+					<h4 class="modal-title">เปลี่ยนรหัสผ่าน</h4>
+					<button type="button" class="close" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
 				</div>
 				<div class="modal-body text-center">
 
@@ -54,7 +58,7 @@
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-secondary no" type="button">ยกเลิก</button>
-					<button class="btn btn-danger btnYes" id="btnChangePass" type="button">ยืนยัน</button>
+					<button class="btn btn-success btnYes" id="btnChangePass" type="button">ยืนยัน</button>
 				</div>
 			</div>
 		</div>
@@ -106,62 +110,69 @@
 	<div class="main-content">
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-s-12 col-xl-5 left d-flex ">
+				<div class="col-12 col-s-12 col-md-5 col-xl-5 left d-flex ">
 					<div class="box">
-						<div class="form-title">
+						<div class="form-title edit-card mb-3">
 							<h2 class="">แก้ไขการ์ด</h2>
 							<div class="btn-group">
-								<div class="btn-group center-box ma-10">
-									<a class="btn btn-primary" id="EditCard">บันทึกการแก้ไข</a>
-									<a class="btn btn-primary" id="ChangePass">เปลี่ยนรหัสผ่าน</a>
-								</div>
+								<!-- <div class="btn-group center-box ma-10"> -->
+								<button class="btn btn-sm btn-success " id="EditCard"><i class="fa fa-floppy-o" aria-hidden="true"></i> การ์ด</button>
+								<!-- <button class="btn btn-sm btn-primary m-0" id =""><i class="bi bi-arrow-clockwise"></i></button> -->
+								<!-- </div> -->
 							</div>
-							
+
 						</div>
-						
-						<div class="input-group">
-							<span class="input-group-text">ชื่อ</span>
-							<input type="text" id="IP-fname" class="form-control" placeholder="ชื่อ">
+
+						<div class="d-flex justify-content-center align-item-center mb-2">
+							<div class="input-group me-2">
+								<span class="input-group-text">ชื่อ</span>
+								<input type="text" id="IP-fname" class="form-control" placeholder="ชื่อ">
+							</div>
+							<div class="input-group">
+								<span class="input-group-text">นามสกุล</span>
+								<input type="text" id="IP-lname" class="form-control" placeholder="นามสกุล">
+							</div>
 						</div>
-						<div class="input-group">
-							<span class="input-group-text">นามสกุล</span>
-							<input type="text" id="IP-lname" class="form-control" placeholder="นามสกุล">
-						</div>
+
 						<!-- <div class="input-group">
 							<span class="input-group-text">ที่อยู่</span>
 							<input type="text" class="form-control">
 						</div> -->
-						<div class="input-group">
+						<div class="input-group mb-2">
 							<span class="input-group-text">เบอร์มือถือ</span>
 							<input type="text" id="IP-Tel" class="form-control" placeholder="ใส่เบอร์มือถือ">
 						</div>
-						<div class="input-group">
+						<div class="input-group mb-2">
 							<span class="input-group-text">บริษัท</span>
 							<input type="text" id="IP-Company" class="form-control" placeholder="ชื่อบริษัท">
 						</div>
 						<a href="http://"></a>
-						<div class="input-group">
+						<div class="input-group mb-2">
 							<span class="input-group-text">Email</span>
 							<input type="text" id="IP-Email" class="form-control" placeholder="example@email.com">
 						</div>
-						<div class="input-group ">
-							<span class="input-group-text">Facebook link</span>
-							<input type="text" id="IP-FacebookLink" class="form-control" placeholder="https://www.facebook.com/">
-						</div>
-
-						<div class="input-group">
+						<div class="input-group mb-2">
 							<span class="input-group-text">Line ID</span>
 							<input type="text" id="IP-LineID" class="form-control" placeholder="example">
 						</div>
+						<div class="input-group mb-2">
+							<span class="input-group-text">Facebook</span>
+							<input type="text" id="IP-FacebookLink" class="form-control" placeholder="https://www.facebook.com/">
+						</div>
 
-						<div class="mb-3">
-							<label for="formFile" class="form-label form-title">
-								<h4 style="margin: 10px;">รูปโปรไฟล์</h4><button class="btn btn-success"
-									id="btnConfirmImg">บันทึกรูปภาพ</button>
+
+						<div class="w-100 mb-3 ">
+							<button class="btn btn-sm btn-primary m-0 float-left" id="ChangePass"><i class="fa-solid fa-lock"></i> เปลี่ยนรหัสผ่าน</button>
+						</div>
+
+						<div class="mb-3 profile-image">
+							<label for="formFile" class=" form-title mb-3">
+								<h4 class="m-0">รูปโปรไฟล์</h4>
+								<button class="btn btn-sm btn-success m-0" id="btnConfirmImg"><i class="fa fa-floppy-o" aria-hidden="true"></i> รูปภาพ</button>
 							</label>
 
 
-							<div class="center-box h-240">
+							<div class="center-box h-240 mb-3">
 								<div class="camera-line2">
 									<img id="mobileImg" src="#" alt="your image" />
 									<div class="form-imgInp">
@@ -176,16 +187,17 @@
 						</div>
 
 
-						
+
 						<div class="btn-group center-box">
-							<a class="btn btn-success" id="publish" data-toggle="tooltip" data-placement="bottom"
-								title="Tooltip on bottom">เผยเเพร่การ์ด</a>
-							<a class="btn btn-danger hide" id="unpublish">เลิกเผยเเพร่การ์ด</a>
+							<button class="btn btn-sm btn-primary m-0" id="publish">เผยเเพร่การ์ด</button>
+						</div>
+						<div class="btn-group center-box">
+							<button class="btn btn-sm btn-danger m-0 hide" id="unpublish">เลิกเผยเเพร่การ์ด</button>
 						</div>
 
 						<div class="share-group " id="share-group">
 
-							<label>เเชร์การ์ด</label>
+							<label class="mb-2">เเชร์การ์ด</label>
 							<div class="a2a_kit a2a_kit_size_32 a2a_default_style" id="share_button" data-a2a-url="#">
 								<!-- <a class="a2a_dd" href="https://www.addtoany.com/share"></a> -->
 								<a class="a2a_button_facebook"></a>
@@ -202,7 +214,7 @@
 				</div>
 
 				<!-- Show Card -->
-				<div class="col-s-12 col-xl-7 right">
+				<div class="col-12 col-s-12 col-md-7 col-xl-7 right">
 
 					<div class="box-pre">
 
@@ -210,7 +222,7 @@
 							<div class="pre-title">
 								<h4>ตัวอย่าง</h4>
 							</div>
-							<div class="logo" id="logo" >
+							<div class="logo" id="logo">
 								<h1>Logo</h1>
 							</div>
 							<div class="character" id="character">
@@ -284,7 +296,7 @@
 
 	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 	<script async src="https://static.addtoany.com/menu/page.js"></script>
-	<script src="/js/bootstrap.min.js"></script>
+	<script src="/bootstrap/js/bootstrap.min.js"></script>
 
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.min.js"></script>
@@ -293,6 +305,8 @@
 	<script src="/js/webcam.js"></script>
 	<script src="/editCard.js"></script>
 	<script src="/js/mobileCamera.js"></script>
+	<script src="/fontawesome/js/solid.js"></script>
+  <script src="/fontawesome/js/brands.js"></script>
 
 	<!-- <script src="/js/test.js"></script> -->
 </body>

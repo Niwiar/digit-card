@@ -72,24 +72,26 @@
   padding-bottom: 0;
 }
 
+
+
 .main-content {
   margin-left: 100px;
   padding: 0;
-  height: 120vh;
+  height: 100vh;
 }
 
 .left {
   padding: 20px;
   background: #434e4d;
-  width: 100%;
-  min-height: 120vh;
+  /* width: 100%; */
+  min-height: 100vh;
   display: flex;
 }
 .right {
   padding: 20px 0;
   background: rgb(236, 235, 235);
-  width: 100%;
-  min-height: 120vh;
+  /* width: 100%; */
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -259,28 +261,34 @@
   height: 32px;
 }
 
-.btn-group {
-  /* background-color: #95e0e0; */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-left: 5px;
-  padding-right: 5px;
-}
+/* Scroll Bar */
+::-webkit-scrollbar {
+    width: 10px; /* กำหนดความกว้างของ scrollbar */
+    height: 8px; /* กำหนดความสูงของ scrollbar */
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; /* กำหนดสีของ track */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #414141; /* กำหนดสีของ thumb */
+    border-radius: 5px; /* กำหนดรูปร่างของ thumb */
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #000000; /* กำหนดสีของ thumb เมื่อ hover */
+  }
 
-.btn-group button:first-child {
-    margin-right: 2px;
-}
 
-.btn-group button {
-  margin: 0;
-  width: 45px;
-}
 
 .form-title {
-  margin-top: 5px;
   display: flex;
   justify-content: space-between;
+}
+
+.form-title.edit-card h2{
+    margin: 0;
 }
 
 .form-imgInp {
@@ -296,6 +304,12 @@
 
 .form-imgInp:hover {
   color: #434e4d;
+}
+
+.profile-image{
+    border: 2px solid #bbbbbb;
+    border-radius: 8px;
+    padding: 10px 20px;
 }
 
 #mobileImg {
@@ -319,6 +333,26 @@
 .btn-group a {
   border: 1px solid white;
   width: 50%;
+}
+
+.close {
+    background-color: rgb(207, 66, 66);
+    padding: 2px 7px;
+    border: 1px solid #555555;
+    border-radius: 3px;
+    color: #414141;
+    align-items: center;
+}
+
+/* Boostrap */
+
+span.input-group-text {
+    margin: 0;
+}
+
+.modal-header{
+    background-color: #2d2e2e;
+    color: white;
 }
 
 @media only screen and (max-width: 770px) {
