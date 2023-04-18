@@ -1,15 +1,15 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const bcrypt = require("bcryptjs");
-const sql = require("mssql");
-const { dbconfig } = require("../config");
+const bcrypt = require('bcryptjs');
+const sql = require('mssql');
+const { dbconfig } = require('../config');
 
-const fastcsv = require("fast-csv");
-const path = require("path");
-const fs = require("fs");
+const fastcsv = require('fast-csv');
+const path = require('path');
+const fs = require('fs');
 
-const upload = require("./modules/uploadImage");
-const { encrypt, decrypt } = require("./modules/utils");
+const upload = require('./modules/uploadImage');
+const { encrypt, decrypt } = require('./modules/utils');
 
 const checkCard = async (Id) => {
   let pool = await sql.connect(dbconfig);
@@ -24,13 +24,13 @@ const checkCard = async (Id) => {
 
 const decodeData = (Card) => {
   let { Fname, Lname, Tel } = Card;
-  Fname === null ? "" : (Fname = decrypt(Fname));
-  Lname === null ? "" : (Lname = decrypt(Lname));
-  Tel === null ? "" : (Tel = decrypt(Tel));
+  Fname === null ? '' : (Fname = decrypt(Fname));
+  Lname === null ? '' : (Lname = decrypt(Lname));
+  Tel === null ? '' : (Tel = decrypt(Tel));
   return { Fname, Lname, Tel };
 };
 
-router.get("/cardlist", async (req, res, next) => {
+router.get('/cardlist', async (req, res, next) => {
   try {
     let pool = await sql.connect(dbconfig);
     let Cards = await pool
@@ -51,7 +51,7 @@ router.get("/cardlist", async (req, res, next) => {
   }
 });
 
-router.get("/export", async (req, res, next) => {
+router.get('/export', async (req, res, next) => {
   try {
     let pool = await sql.connect(dbconfig);
     let Cards = await pool
@@ -69,7 +69,7 @@ router.get("/export", async (req, res, next) => {
     fastcsv
       .write(Cards.recordset, { headers: true })
       .pipe(fs.createWriteStream(filePath))
-      .on("finish", () => {
+      .on('finish', () => {
         res.status(200).download(filePath);
       });
   } catch (err) {
@@ -77,7 +77,7 @@ router.get("/export", async (req, res, next) => {
   }
 });
 
-router.get("/card_data/:CardId", async (req, res, next) => {
+router.get('/card_data/:CardId', async (req, res, next) => {
   try {
     let CardId = req.params.CardId;
     let pool = await sql.connect(dbconfig);
@@ -91,14 +91,14 @@ router.get("/card_data/:CardId", async (req, res, next) => {
       Card.Tel = data.Tel;
       res.status(200).send(JSON.stringify(Card.recordset[0]));
     } else {
-      res.status(404).send({ message: "ไม่พบการ์ด" });
+      res.status(404).send({ message: 'ไม่พบนามบัตร' });
     }
   } catch (err) {
     res.status(500).send({ message: `${err}` });
   }
 });
 
-router.put("/card_edit/:CardId", async (req, res) => {
+router.put('/card_edit/:CardId', async (req, res) => {
   try {
     let CardId = req.params.CardId;
     let { Fname, Lname, Company, Tel, Email, Facebook, Line } = req.body;
@@ -118,16 +118,16 @@ router.put("/card_edit/:CardId", async (req, res) => {
         Email = N'${Email}'
         WHERE CardId = ${CardId}`;
       await pool.request().query(UpdateCard);
-      res.status(200).send({ message: `แก้ไขการ์ดสำเร็จ` });
+      res.status(200).send({ message: `แก้ไขนามบัตรสำเร็จ` });
     } else {
-      res.status(404).send({ message: "ไม่พบการ์ด" });
+      res.status(404).send({ message: 'ไม่พบนามบัตร' });
     }
   } catch (err) {
     res.status(500).send({ message: `${err}` });
   }
 });
 
-router.post("/card_img_upload/:CardId", async (req, res) => {
+router.post('/card_img_upload/:CardId', async (req, res) => {
   try {
     let CardId = req.params.CardId;
     let Card = await pool
@@ -138,12 +138,12 @@ router.post("/card_img_upload/:CardId", async (req, res) => {
       if (err) {
         res.status(500).send({ message: `${err}` });
       } else {
-        img = "/imgs/profile/" + req.file.filename;
+        img = '/imgs/profile/' + req.file.filename;
         let UpdateImagePath = `UPDATE Cards SET ImgPath = N'${img}' WHERE CardId = ${CardId}`;
         let pool = await sql.connect(dbconfig);
         await pool.request().query(UpdateImagePath);
         req.session.CardTag = null;
-        res.status(200).send({ message: "อัปโหลดรูปภาพสำเร็จ" });
+        res.status(200).send({ message: 'อัปโหลดรูปภาพสำเร็จ' });
       }
     });
   } catch (err) {
@@ -151,7 +151,7 @@ router.post("/card_img_upload/:CardId", async (req, res) => {
   }
 });
 
-router.get("/card_publish/:CardId", async (req, res) => {
+router.get('/card_publish/:CardId', async (req, res) => {
   try {
     let CardId = req.params.CardId;
     let pool = await sql.connect(dbconfig);
@@ -164,18 +164,18 @@ router.get("/card_publish/:CardId", async (req, res) => {
       let card = await pool.request().query(PublishCard);
       let CardName = card.recordset[0].CardName;
       res.status(200).send({
-        message: `เผยแพร่การ์ดสำเร็จ`,
+        message: `เผยแพร่นามบัตร`,
         link: `${CardName}.localhost:3000`,
       });
     } else {
-      res.status(404).send({ message: "ไม่พบการ์ด" });
+      res.status(404).send({ message: 'ไม่พบนามบัตร' });
     }
   } catch (err) {
     res.status(500).send({ message: `${err}` });
   }
 });
 
-router.get("/card_unpublish/:CardId", async (req, res) => {
+router.get('/card_unpublish/:CardId', async (req, res) => {
   try {
     let CardId = req.params.CardId;
     let pool = await sql.connect(dbconfig);
@@ -184,50 +184,50 @@ router.get("/card_unpublish/:CardId", async (req, res) => {
         SET Published = 0
         WHERE CardId = ${CardId}`;
       await pool.request().query(UnpublishCard);
-      res.status(200).send({ message: `เลิกเผยแพร่การ์ดสำเร็จ` });
+      res.status(200).send({ message: `เลิกเผยแพร่นามบัตร` });
     } else {
-      res.status(404).send({ message: "ไม่พบการ์ด" });
+      res.status(404).send({ message: 'ไม่พบนามบัตร' });
     }
   } catch (err) {
     res.status(500).send({ message: `${err}` });
   }
 });
 
-router.put("/card_change_password/:CardId", async (req, res) => {
+router.put('/card_change_password/:CardId', async (req, res) => {
   try {
     let CardId = req.params.CardId;
     let CardPass = req.body.CardPass;
-    if (CardPass == "") {
-      res.status(400).send({ message: "กรุณาใส่รหัสผ่านของการ์ด" });
+    if (CardPass == '') {
+      res.status(400).send({ message: 'กรุณาใส่รหัสผ่านของนามบัตร' });
       return;
     }
     let pool = await sql.connect(dbconfig);
     if (await checkCard(CardId)) {
       let Hashpass = await bcrypt.hash(CardPass, 12);
-      console.log("id" + CardId + ":" + Hashpass);
+      console.log('id' + CardId + ':' + Hashpass);
       let UpdateCard = `UPDATE Cards
         SET CardPass = N'${Hashpass}'
         WHERE CardId = ${CardId}`;
       await pool.request().query(UpdateCard);
-      res.status(200).send({ message: "เปลี่ยนรหัสผ่านของการ์ดสำเร็จ" });
+      res.status(200).send({ message: 'เปลี่ยนรหัสผ่านของนามบัตรสำเร็จ' });
     } else {
-      res.status(404).send({ message: "ไม่พบการ์ด" });
+      res.status(404).send({ message: 'ไม่พบนามบัตร' });
     }
   } catch (err) {
     res.status(500).send({ message: `${err}` });
   }
 });
 
-router.delete("/card_delete/:CardId", async (req, res) => {
+router.delete('/card_delete/:CardId', async (req, res) => {
   try {
     let CardId = req.params.CardId;
     let pool = await sql.connect(dbconfig);
     if (await checkCard(CardId)) {
       let DeleteCard = `DELETE FROM Cards WHERE CardId = ${CardId}`;
       await pool.request().query(DeleteCard);
-      res.status(200).send({ message: "ลบการ์ดสำเร็จ" });
+      res.status(200).send({ message: 'ลบนามบัตรสำเร็จ' });
     } else {
-      res.status(404).send({ message: "ไม่พบการ์ด" });
+      res.status(404).send({ message: 'ไม่พบนามบัตร' });
     }
   } catch (err) {
     res.status(500).send({ message: `${err}` });
