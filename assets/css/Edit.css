@@ -259,6 +259,24 @@
   height: 32px;
 }
 
+.btn-group {
+  /* background-color: #95e0e0; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.btn-group button:first-child {
+    margin-right: 2px;
+}
+
+.btn-group button {
+  margin: 0;
+  width: 45px;
+}
+
 .form-title {
   margin-top: 5px;
   display: flex;
