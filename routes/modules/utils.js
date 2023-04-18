@@ -1,16 +1,18 @@
-const key = "privaInnotech@";
+const crypto = require('crypto-js');
 
-const encrypt = (data) => Buffer.from(key + data).toString("base64");
+const key = 'privaInnotech@';
+
+const encrypt = (data) => crypto.AES.encrypt(data, key);
 
 const decrypt = (data) =>
-  Buffer.from(data, "base64").toString("ascii").replace(key, "");
+  crypto.AES.decrypt(data, key).toString(crypto.enc.Utf8);
 
 const decryptCardInfo = (Card) => {
   let { Fname, Lname, Tel } = Card;
   let deFname, deLname, deTel;
-  Fname === null ? (deFname = "") : (deFname = decrypt(Fname));
-  Lname === null ? (deLname = "") : (deLname = decrypt(Lname));
-  Tel === null ? (deTel = "") : (deTel = decrypt(Tel));
+  Fname === null ? (deFname = '') : (deFname = decrypt(Fname));
+  Lname === null ? (deLname = '') : (deLname = decrypt(Lname));
+  Tel === null ? (deTel = '') : (deTel = decrypt(Tel));
   return { deFname, deLname, deTel };
 };
 

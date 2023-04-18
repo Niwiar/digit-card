@@ -29,7 +29,7 @@ app.use(flash());
 app.use(cookieParser());
 app.use(cookieSession({
     name: 'pv_session',
-    keys: ['key1, key2'],
+    keys: ['priva, digitalnamecard'],
     maxAge: 1000 * 60 * 60 * 24
 }))
 
