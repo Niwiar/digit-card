@@ -137,6 +137,7 @@ h6 {
   top: 12%;
   left: 50%;
   transform: translate(-50%, -50%);
+  z-index: 100;
 }
 
 .pad-3 {
@@ -331,15 +332,17 @@ h6 {
 
 #mobileImg {
   position: relative;
-  width: 280px;
-  height: 370px;
+  transform: scale(0.5);
+  /* width: 280px;
+  height: 370px; */
   z-index: 10;
 }
 
 #showmobileImg {
   position: relative;
-  width: 280px;
-  height: 370px;
+  /* width: 280px;
+  height: 370px; */
+  transform: scale(0.5);
   z-index: 10;
 }
 
@@ -382,14 +385,14 @@ span.input-group-text {
   }
 
   #mobileImg {
-    width: 140px;
-    height: 185px;
+    transform: scale(0.25);
   }
 
   #showmobileImg {
-    width: 140px;
-    height: 185px;
+    transform: scale(0.25);
   }
+
+  
 
   .sidebar {
     margin: 4px;
