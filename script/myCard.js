@@ -38,7 +38,9 @@ function ShowMyCard(CardName) {
 }
 
 $(document).ready(function () {
+  $('.pre-title').hide();
   let hostname = window.location.hostname;
+  
   const CardName = hostname.split(".");
   console.log(CardName[0]);
   ShowMyCard(CardName[0]);
