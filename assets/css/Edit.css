@@ -4,8 +4,13 @@
   box-sizing: border-box;
 }
 
-h1,h2,h3,h4,h5,h6{
-    margin: 0;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
 }
 .fix {
   position: fixed;
@@ -76,8 +81,6 @@ h1,h2,h3,h4,h5,h6{
   padding-bottom: 0;
 }
 
-
-
 .main-content {
   margin-left: 100px;
   padding: 0;
@@ -129,11 +132,10 @@ h1,h2,h3,h4,h5,h6{
   background: #007bff;
   border-radius: 4px;
   position: absolute;
-  top:12%;
+  top: 12%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
-
 
 .pad-3 {
   padding: 3px;
@@ -153,13 +155,11 @@ h1,h2,h3,h4,h5,h6{
 }
 
 .box-pre .background {
-  /* background: #2d2e2e; */
-  background-image: url('/imgs/backgrounds/overview.png');
-  /* background:rgba(248, 248, 248, 0.068); */
+  background-image: url("/imgs/backgrounds/overview.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  opacity: 0.7;
+  opacity: 0.9;
   width: 100%;
   height: 30%;
   border-top-left-radius: 15px;
@@ -167,14 +167,10 @@ h1,h2,h3,h4,h5,h6{
   position: relative;
 }
 
-.box-pre .background .pre-title{
-  opacity: 1;
-}
-
 .box-pre .logo {
   background: #ffffff;
   /* background-image: url('/public/imgs/logos/logo.png'); */
-    padding: 5px;
+  padding: 5px;
   width: max-content;
   height: max-content;
   position: absolute;
@@ -282,32 +278,30 @@ h1,h2,h3,h4,h5,h6{
 
 /* Scroll Bar */
 ::-webkit-scrollbar {
-    width: 10px; /* กำหนดความกว้างของ scrollbar */
-    height: 8px; /* กำหนดความสูงของ scrollbar */
-  }
-  
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1; /* กำหนดสีของ track */
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    background: #414141; /* กำหนดสีของ thumb */
-    border-radius: 5px; /* กำหนดรูปร่างของ thumb */
-  }
-  
-  ::-webkit-scrollbar-thumb:hover {
-    background: #000000; /* กำหนดสีของ thumb เมื่อ hover */
-  }
+  width: 10px; /* กำหนดความกว้างของ scrollbar */
+  height: 8px; /* กำหนดความสูงของ scrollbar */
+}
 
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* กำหนดสีของ track */
+}
 
+::-webkit-scrollbar-thumb {
+  background: #414141; /* กำหนดสีของ thumb */
+  border-radius: 5px; /* กำหนดรูปร่างของ thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #000000; /* กำหนดสีของ thumb เมื่อ hover */
+}
 
 .form-title {
   display: flex;
   justify-content: space-between;
 }
 
-.form-title.edit-card h2{
-    margin: 0;
+.form-title.edit-card h2 {
+  margin: 0;
 }
 
 .form-imgInp {
@@ -325,10 +319,10 @@ h1,h2,h3,h4,h5,h6{
   color: #434e4d;
 }
 
-.profile-image{
-    border: 2px dashed #bbbbbb;
-    border-radius: 8px;
-    padding: 10px 20px;
+.profile-image {
+  border: 2px dashed #bbbbbb;
+  border-radius: 8px;
+  padding: 10px 20px;
 }
 
 #mobileImg {
@@ -355,23 +349,23 @@ h1,h2,h3,h4,h5,h6{
 }
 
 .close {
-    background-color: rgb(207, 66, 66);
-    padding: 2px 7px;
-    border: 1px solid #555555;
-    border-radius: 3px;
-    color: #414141;
-    align-items: center;
+  background-color: rgb(207, 66, 66);
+  padding: 2px 7px;
+  border: 1px solid #555555;
+  border-radius: 3px;
+  color: #414141;
+  align-items: center;
 }
 
 /* Boostrap */
 
 span.input-group-text {
-    margin: 0;
+  margin: 0;
 }
 
-.modal-header{
-    background-color: #2d2e2e;
-    color: white;
+.modal-header {
+  background-color: #2d2e2e;
+  color: white;
 }
 
 @media only screen and (max-width: 770px) {
