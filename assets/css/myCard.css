@@ -9,6 +9,10 @@
 .main-content {
     margin: 0;
     padding: 0;
-    height: 100vh;
+    height: 120vh;
+}
+
+.right{
+    height: 120vh;
 }
 
