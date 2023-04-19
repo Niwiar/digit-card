@@ -36,6 +36,7 @@ function ShowCard() {
             // $('#Show-lname').val(lname);
             $('#Show-Tel').val(Tel);
             $('#Show-Company').val(Company);
+            $('#Show-Tel').val(Tel);
             $('#Show-EmailName').val(Email);
 
             
@@ -100,6 +101,7 @@ $(document).ready(function () {
     $('#IP-fname').on('input', () => $('#Show-fname').val($('#IP-fname').val()+" "+$('#IP-lname').val()));
     // $('#IP-lname').on('input', () => $('#Show-lname').val($('#IP-lname').val()));
     $('#IP-Company').on('input', () => $('#Show-Company').val($('#IP-Company').val()));
+    $('#IP-Tel').on('input', () => $('#Show-Tel').val($('#IP-Tel').val()));
     $('#IP-Email').on('input', () => $('#Show-EmailName').val($('#IP-Email').val()));
 
     $('#IP-FacebookLink').on('input', () => $('#Show-FacebookLink').href($('#IP-FacebookLink').val()));

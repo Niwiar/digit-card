@@ -24,6 +24,7 @@ function ShowMyCard(CardName) {
       // $('#Show-lname').val(lname);
       $("#Show-Tel").val(Tel);
       $("#Show-Company").val(Company);
+      $("#Show-Tel").val(Tel);
       $("#Show-EmailName").val(Email);
 
       document.getElementById("Show-FacebookLink").href = FacebookLink;
