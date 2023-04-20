@@ -443,4 +443,11 @@ span.input-group-text {
   button.close span {
     font-size: 2rem;
   }
+  .box-pre .logo {
+    width: 70px;
+    height: 30px;
+  }
+  .box-pre .logo img{
+    transform: scale(0.5);
+  }
 }
