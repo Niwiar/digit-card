@@ -21,7 +21,6 @@ h6 {
 }
 
 .block {
-  /* display: block; */
   position: absolute;
   left: 4%;
   bottom: 9%;
@@ -101,12 +100,6 @@ h6 {
   padding: 20px 20px 60px 20px;
 }
 
-.input-group span {
-  border-bottom-right-radius: 0;
-  border-top-right-radius: 0;
-  margin-bottom: 10px;
-}
-
 .box-pre {
   width: 80%;
   height: 100%;
@@ -145,7 +138,6 @@ h6 {
 #Show-Img {
   width: 320px;
   height: 240px;
-  
 }
 
 .box-pre .background {
@@ -225,7 +217,7 @@ h6 {
   border: 0;
 }
 
-.box-name input:disabled{
+.box-name input:disabled {
   background-color: transparent;
   border: 0;
 }
@@ -308,7 +300,6 @@ h6 {
   display: flex;
   justify-content: center;
   align-items: center;
-
   position: absolute;
   z-index: 100;
   color: rgb(255, 255, 255);
@@ -329,7 +320,7 @@ h6 {
   padding: 10px 20px;
 }
 
-#mobileImg {
+#mobileImg,#showmobileImg {
   position: relative;
   transform: scale(0.5);
   /* width: 280px;
@@ -337,21 +328,9 @@ h6 {
   z-index: 10;
 }
 
-#showmobileImg {
-  position: relative;
-  /* width: 280px;
-  height: 370px; */
-  transform: scale(0.5);
-  z-index: 10;
-}
 
 .h-240 {
   height: 250px;
-}
-
-.btn-group a {
-  border: 1px solid white;
-  width: 50%;
 }
 
 .close {
@@ -367,9 +346,21 @@ h6 {
 span.input-group-text {
   margin: 0;
 }
+
+.input-group span {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  margin-bottom: 10px;
+}
+
 .box-name span.input-group-text {
   background-color: transparent;
   border: 0;
+}
+
+.btn-group a {
+  border: 1px solid white;
+  width: 50%;
 }
 
 .modal-header {
@@ -397,7 +388,6 @@ span.input-group-text {
   .form-imgInp label i {
     font-size: 25px;
   }
-  
 
   .sidebar {
     margin: 4px;
@@ -429,7 +419,6 @@ span.input-group-text {
   .box-pre .box-name {
     width: 65%;
   }
-
 
   #Show-Img {
     width: 160px;
