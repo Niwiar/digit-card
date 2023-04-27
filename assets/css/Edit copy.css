@@ -168,7 +168,7 @@ h6 {
 /* Photo */
 
 .box-pre .character {
-  background: #454b4a;
+  background: #95e0e0;
   width: 200px;
   height: 200px;
   border-radius: 50%;
@@ -182,6 +182,21 @@ h6 {
 
   bottom: -100px;
   left: 20px;
+}
+
+
+
+.character a i#icon-camera {
+  visibility: visible;
+  z-index: 10;
+  position: absolute;
+  top: 40%;
+  left: 37%;
+}
+
+.character a:hover i#icon-camera {
+  color: white;
+  z-index: -10;
 }
 
 .box-pre .box-name {
@@ -223,7 +238,7 @@ h6 {
   margin: 10px;
 }
 
-.d-flex-center {
+.center-box {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -245,6 +260,25 @@ h6 {
 #IP-MobileCamera {
   padding: 0px;
   height: 32px;
+}
+
+/* Scroll Bar */
+::-webkit-scrollbar {
+  width: 10px; /* กำหนดความกว้างของ scrollbar */
+  height: 8px; /* กำหนดความสูงของ scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* กำหนดสีของ track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #414141; /* กำหนดสีของ thumb */
+  border-radius: 5px; /* กำหนดรูปร่างของ thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #000000; /* กำหนดสีของ thumb เมื่อ hover */
 }
 
 .form-title {
@@ -286,8 +320,7 @@ h6 {
   padding: 10px 20px;
 }
 
-#mobileImg,
-#showmobileImg {
+#mobileImg,#showmobileImg {
   position: relative;
   transform: scale(0.5);
   /* width: 280px;
@@ -295,24 +328,9 @@ h6 {
   z-index: 10;
 }
 
-.h-max {
-  height: max-content;
-}
 
-.camera-line2 {
-  width: 200px;
-  height: 200px;
-  border: 1px solid #111;
-  background: #ffffff;
-  margin: 10px;
-  border-radius: 50%;
-  /* position: absolute; */
-  z-index: 10;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+.h-240 {
+  height: 250px;
 }
 
 /* Boostrap */
@@ -336,28 +354,21 @@ span.input-group-text {
   width: 50%;
 }
 
-/* เมื่อหน้าต่างของเรามีขนาดน้อยกว่าหรือเท่ากับ 320px มือถือขนาดเล็ก*/
-@media only screen and (max-width: 320px) {
-}
-/* เมื่อหน้าต่างของเรามีขนาดน้อยกว่าหรือเท่ากับ 375px มือถือ*/
-@media only screen and (max-width: 375px) {
-}
-/* เมื่อหน้าต่างของเรามีขนาดน้อยกว่าหรือเท่ากับ 425px มือถือขนาดใหญ่*/
-@media only screen and (max-width: 425px) {
-}
-/* เมื่อหน้าต่างของเรามีขนาดมากกว่าหรือเท่ากับ 768px แท็บเล็ต*/
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 770px) {
   * {
-    font-size: smaller;
+    font-size: 0.7rem;
   }
-  #mobileImg,
-  #showmobileImg {
+
+  .h-240 {
+    height: 160px;
+  }
+
+  #mobileImg {
     transform: scale(0.25);
   }
 
-  .camera-line2 {
-    width: 100px;
-    height: 100px;
+  #showmobileImg {
+    transform: scale(0.25);
   }
 
   .form-imgInp label i {
@@ -400,6 +411,17 @@ span.input-group-text {
     height: 120px;
   }
 
+  .character a {
+    text-align: center;
+  }
+
+  .character a i#icon-camera {
+    visibility: hidden;
+    position: absolute;
+    top: 42%;
+    left: 37%;
+  }
+
   #IP-MobileCamera {
     height: 25px;
   }
@@ -408,64 +430,7 @@ span.input-group-text {
     width: 70px;
     height: 30px;
   }
-  .box-pre .logo img {
+  .box-pre .logo img{
     transform: scale(0.5);
-  }
-}
-/* เมื่อหน้าต่างของเรามีขนาดน้อยกว่าหรือเท่ากับ 1024px แล็ปท็อป*/
-@media only screen and (min-width: 769px) and (max-width: 1024px) {
-  #mobileImg,
-  #showmobileImg {
-    transform: scale(0.3);
-  }
-
-  .camera-line2,
-  .box-pre .character {
-    width: 150px;
-    height: 150px;
-  }
-
-  .box-pre .character {
-    bottom: -40px;
-  }
-}
-/* เมื่อหน้าต่างของเรามีขนาดน้อยกว่าหรือเท่ากับ 1440px แล็ปท็อปขนาดใหญ่*/
-@media only screen and (min-width: 1025px) and (max-width: 1440px) {
-  
-  #mobileImg,
-  #showmobileImg {
-    transform: scale(0.3);
-  }
-
-  .camera-line2,
-  .box-pre .character {
-    width: 150px;
-    height: 150px;
-  }
-
-  .box-pre .character {
-    left: 7%;
-    bottom: -40px;
-  }
-}
-/* เมื่อหน้าต่างของเรามีขนาดน้อยกว่าหรือเท่ากับ 2560px เดสท็อป*/
-@media only screen and (min-width: 1441px) {
-  *{
-    font-size: medium;
-  }
-  #mobileImg,
-  #showmobileImg {
-    transform: scale(0.5);
-  }
-
-  .camera-line2,
-  .box-pre .character {
-    width: 200px;
-    height: 200px;
-  }
-
-  .box-pre .character {
-    bottom: -80px;
-    left: 10%;
   }
 }

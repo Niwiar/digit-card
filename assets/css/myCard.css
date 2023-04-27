@@ -1,23 +1,57 @@
+*{
+    /* font-family:s; */
+}
 .box-pre {
-    width: 80%;
-    height: 100%;
-    background: #fff;
-    border-radius: 15px;
-    position: relative;
+  width: 80%;
+  height: 100%;
+  background: #fff;
+  border-radius: 15px;
+  position: relative;
+}
+
+.pre-title{
+    display: none;
 }
 
 .main-content {
-    margin: 0;
-    padding: 0;
-    height: 120vh;
-    background-color: rgba(19, 19, 19, 0.753);
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background-color: rgba(19, 19, 19, 0.753);
 }
 
-.right{
-    background-color: transparent;
-    height: 120vh;
+.right {
+  background-color: transparent;
+  height: 100vh;
 }
 
-.form-control:read-only{
-    background-color: #fff;
+.form-control:read-only {
+  background-color: #fff;
+}
+
+/* เมื่อหน้าต่างของเรามีขนาดมากกว่าหรือเท่ากับ 768px แท็บเล็ต*/
+@media only screen and (max-width: 768px) {
+}
+/* เมื่อหน้าต่างของเรามีขนาดน้อยกว่าหรือเท่ากับ 1024px แล็ปท็อป*/
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+}
+/* เมื่อหน้าต่างของเรามีขนาดน้อยกว่าหรือเท่ากับ 1440px แล็ปท็อปขนาดใหญ่*/
+@media only screen and (min-width: 1025px) and (max-width: 1440px) {
+  .box-pre .character {
+    left: 7%;
+    bottom: -30px;
+  }
+  .box-pre .logo img {
+    transform: scale(0.75);
+  }
+}
+/* เมื่อหน้าต่างของเรามีขนาดน้อยกว่าหรือเท่ากับ 2560px เดสท็อป*/
+@media only screen and (min-width: 1441px) {
+  * {
+    font-size: large;
+  }
+  .box-pre .character {
+    bottom: -70px;
+    left: 7%;
+  }
 }

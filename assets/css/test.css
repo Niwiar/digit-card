@@ -73,21 +73,21 @@ h6 {
   align-items: center;
 }
 
-.sub-content .row ,.sub-content .row .col-12 {
+.sub-content .row ,.sub-content .row .colum {
   min-height: 120vh;
 }
 
-.sub-content .row .col-12 {
+.sub-content .row .colum {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.sub-content .row .col-12:first-child {
+.sub-content .row .colum:first-child {
   background-color: #434e4d;
 }
 
-.sub-content .row .col-12:first-child .my-card {
+.sub-content .row .colum:first-child .my-card {
   background-color: white;
 }
 
