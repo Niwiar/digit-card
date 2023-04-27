@@ -5,7 +5,7 @@
     top: 0;
     left: 0;
 
-    padding: 5px 20px;
+    /* padding: 5px 20px; */
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -18,11 +18,24 @@
     color: #aaa;
 }
 
+.header h4 {
+    padding: 10px 20px;
+    margin: 0;
+}
+
+.logo-priva {
+    background-color: #fff;
+    height: 100%;
+    padding: 10px 20px;
+    border: 3.5px solid #000;
+    border-radius: 2px;
+}
+
 .container-mt{
     margin-top: 6vw;
     margin-bottom: 8vw;
 }
-
+ 
 .main {
     position: fixed;
     top: 50%;

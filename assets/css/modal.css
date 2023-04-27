@@ -4,9 +4,9 @@
 }
 
 .close {
-  background-color: rgb(207, 66, 66);
-  padding: 2px 7px;
-  border: 1px solid #555555;
+  background-color: rgb(207, 66, 66)!important;
+  padding: 2px 7px!important;
+  border: 1px solid #555555!important;
   border-radius: 3px;
   color: #414141;
   align-items: center;
