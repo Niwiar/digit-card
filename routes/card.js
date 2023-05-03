@@ -51,29 +51,29 @@ router.get('/data', async (req, res, next) => {
   }
 });
 
-router.get('/show/:CardName', async (req, res, next) => {
-  try {
-    let CardName = req.params.CardName;
-    let pool = await sql.connect(dbconfig);
-    let Card = await pool.request().query(
-      `SELECT CardName, ImgPath, Fname, Lname,
-        Company, Tel, Email, Facebook, Line
-      FROM Cards WHERE CardName = N'${CardName}'`
-    );
-    if (Card.recordset.length) {
-      let { deFname, deLname, deTel } = decryptCardInfo(Card.recordset[0]);
-      Card.recordset[0].Fname = deFname;
-      Card.recordset[0].Lname = deLname;
-      Card.recordset[0].Tel = deTel;
-      res.status(200).send(JSON.stringify(Card.recordset[0]));
-    } else {
-      res.status(404).send({ message: 'ไม่พบนามบัตร' });
-    }
-  } catch (err) {
-    console.log(err);
-    res.status(500).send({ message: `${err}` });
-  }
-});
+// router.get('/show/:CardName', async (req, res, next) => {
+//   try {
+//     let CardName = req.params.CardName;
+//     let pool = await sql.connect(dbconfig);
+//     let Card = await pool.request().query(
+//       `SELECT CardName, ImgPath, Fname, Lname,
+//         Company, Tel, Email, Facebook, Line
+//       FROM Cards WHERE CardName = N'${CardName}'`
+//     );
+//     if (Card.recordset.length) {
+//       let { deFname, deLname, deTel } = decryptCardInfo(Card.recordset[0]);
+//       Card.recordset[0].Fname = deFname;
+//       Card.recordset[0].Lname = deLname;
+//       Card.recordset[0].Tel = deTel;
+//       res.status(200).send(JSON.stringify(Card.recordset[0]));
+//     } else {
+//       res.status(404).send({ message: 'ไม่พบนามบัตร' });
+//     }
+//   } catch (err) {
+//     console.log(err);
+//     res.status(500).send({ message: `${err}` });
+//   }
+// });
 
 // authorization to access card editor
 router.post('/auth', async (req, res) => {
