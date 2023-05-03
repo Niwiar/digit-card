@@ -2,10 +2,12 @@ const express = require('express');
 const router = express.Router();
 const sql = require('mssql');
 const { dbconfig } = require('../config');
-const isConsent = require('./middleware/checkCookie');
 const { decryptCardInfo } = require('./modules/utils');
 
 router.get('/', async (req, res, next) => {
+  const path = req.baseUrl.split('/');
+  if (path[3] == 'card') return getCard(req, res, path[5]);
+
   const domainName = req.hostname.split('.');
   let subdomain = req.hostname.split('.')[0];
   if (!domainName.length || subdomain === 'www')
@@ -31,9 +33,8 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.get('/card/show/:CardName', async (req, res, next) => {
+const getCard = async (req, res, CardName) => {
   try {
-    let CardName = req.params.CardName;
     let pool = await sql.connect(dbconfig);
     let Card = await pool.request().query(
       `SELECT CardName, ImgPath, Fname, Lname,
@@ -53,11 +54,6 @@ router.get('/card/show/:CardName', async (req, res, next) => {
     console.log(err);
     res.status(500).send({ message: `${err}` });
   }
-});
-
-router.get('/get', isConsent, (req, res) => {
-  let cookies = req.cookies;
-  res.send({ message: cookies.cc_cookie });
-});
+};
 
 module.exports = router;

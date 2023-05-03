@@ -216,7 +216,7 @@ router.get('/publish', async (req, res) => {
         WHERE CardTag = N'${CardTag}'`;
       let card = await pool.request().query(PublishCard);
       let CardName = card.recordset[0].CardName;
-      let CardLink = `${CardName}.localhost:4000`;
+      let CardLink = `${CardName}.card.privainnotech.net`;
       await QRCode.toDataURL(
         CardLink,
         {
