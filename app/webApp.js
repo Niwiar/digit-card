@@ -7,6 +7,7 @@ const cookieSession = require('cookie-session');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
+const PORT = 4002;
 const cwd = process.cwd();
 
 webApp.use(cors());
@@ -48,4 +49,6 @@ webApp.use('/cookie', cookieRoute);
 webApp.use('/card', cardRoute);
 webApp.use('/dashboard', dashboardRoute);
 
-module.exports = { webApp };
+webApp.listen(PORT, () => {
+  console.log(`Web server is listening on ${PORT}`);
+});

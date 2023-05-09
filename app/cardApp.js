@@ -6,7 +6,9 @@ const flash = require('express-flash');
 const cookieSession = require('cookie-session');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const wildcardSubdomains = require('wildcard-subdomains');
 
+const PORT = 4001;
 const cwd = process.cwd();
 
 cardApp.use(cors());
@@ -34,8 +36,14 @@ cardApp.use(
   })
 );
 
+cardApp.set('subdomain offset', 1);
+
+cardApp.use(wildcardSubdomains({ namespace: 's', whitelist: ['www'] }));
+
 let publicRoute = require('../routes/public');
 
-cardApp.use('/', publicRoute);
+cardApp.use('/s/*/', publicRoute);
 
-module.exports = { cardApp };
+cardApp.listen(PORT, () => {
+  console.log(`Card server is listening on ${PORT}`);
+});
