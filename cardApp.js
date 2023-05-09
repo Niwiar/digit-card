@@ -40,7 +40,7 @@ cardApp.set('subdomain offset', 1);
 
 cardApp.use(wildcardSubdomains({ namespace: 's', whitelist: ['www'] }));
 
-let publicRoute = require('../routes/public');
+let publicRoute = require('./routes/public');
 
 cardApp.use('/s/*/', publicRoute);
 

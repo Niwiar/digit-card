@@ -35,12 +35,12 @@ webApp.use(
   })
 );
 
-let indexRoute = require('../routes/index');
-let userRoute = require('../routes/user');
-let cookieRoute = require('../routes/cookie');
+let indexRoute = require('./routes/index');
+let userRoute = require('./routes/user');
+let cookieRoute = require('./routes/cookie');
 
-let cardRoute = require('../routes/card');
-let dashboardRoute = require('../routes/dashboard');
+let cardRoute = require('./routes/card');
+let dashboardRoute = require('./routes/dashboard');
 
 webApp.use('/', indexRoute);
 webApp.use('/user', userRoute);
