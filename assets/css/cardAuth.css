@@ -1,21 +1,16 @@
 .header {
-    background-color: #000;
-    color: #aaa;
+    background-color: #fff;
+    color: black;
     position: fixed;
     top: 0;
     left: 0;
-
     /* padding: 5px 20px; */
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content:space-between;
     align-items: center;
-}
-
-.header a {
-    text-decoration: none;
-    color: #aaa;
+    border-bottom: 4px solid #111111a2;
 }
 
 .header h4 {
@@ -25,9 +20,9 @@
 
 .logo-priva {
     background-color: #fff;
-    height: 100%;
+    height: 80%;
+    width: auto;
     padding: 10px 20px;
-    border: 3.5px solid #000;
     border-radius: 2px;
 }
 
@@ -41,31 +36,45 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
-
     display: flex;
-    gap: 7em;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 100%;
+    z-index: -1;
+    /* gap: 7em; */
+    
 }
 
-.main .text-center p{
+.btn-card {
+    height: 100%;
+    width: 100%;
+    background-color: seagreen;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    border-radius: 8px;
+}
+
+
+
+.lead{
     /* font-size: 32px; */
+    font-size: 2em;
     margin: 0;
     padding: auto;
-    /* height: 5vw; */
-    width: 20vw;
+    
 }
 
-.lead {
-    font-size: 2em;
-}
 
 @media only screen and (max-width: 1030px) {
     .container-mt{
         margin-top: 12vw;
     }
 
-    .main .text-center p{
+    .lead{
         font-weight: 400;
-        width: 30vw;
     }
 }
 
@@ -78,12 +87,8 @@
         margin-top: 17vw;
     }
 
-    .main .text-center p{
+    .lead{
         font-weight: 400;
-        width: 30vw;
-    }
-
-    .lead {
         font-size: 1.7em;
     }
 
@@ -98,20 +103,12 @@
 
 @media only screen and (max-width:430px) {
 
-    .main {
-        gap: 3em;
-    }
-
     .container-mt{
         margin-top: 25vw;
     }
 
-    .main .text-center p{
+    .lead{
         font-weight: 600;
-        width: 35vw;
-    }
-
-    .lead {
         font-size: 1em;
     }
 
@@ -133,9 +130,6 @@
 }
 
 @media only screen and (max-width:380px) {
-    .main {
-        gap: 2em;
-    }
 
     .container-mt{
         margin-top: 28vw;
@@ -143,19 +137,14 @@
 }
 
 @media only screen and (max-width:325px) {
-    .main {
-        gap: 1em;
-    }
 
     .container-mt{
         margin-top: 30vw;
     }
 
-    .main .text-center p{
-        width: 40vw;
+    .lead{
+        font-size: 0.9em;
+        /* width: 40vw; */
     }
 
-    .lead {
-        font-size: 0.9em;
-    }
 }
