@@ -7,11 +7,13 @@ function ShowCard() {
         cache: false,
         success: function (response) {
             var obj = JSON.parse(response);
-            // console.log(obj)
+            console.log(obj)
+            console.log(window.location.host)
             Link = obj.Link
             Published = obj.Published
             newPageTitle = obj.CardName;
-            $('a.copyLink').text(Link).attr('href',"http://"+Link)
+            $('a.copyLink').text(`${obj.CardName}.${window.location.host}`).attr('href',`http://${obj.CardName}.${window.location.host}`)
+            // $('a.copyLink').text(Link).attr('href',"http://"+Link)
 
             $('#IP-fname').val(obj.Fname);
             $('#IP-lname').val(obj.Lname);
@@ -240,6 +242,7 @@ $(document).ready(function () {
                         '<button onclick="copyToclip()" class = "btn btn-primary"><i class="fa fa-clipboard" aria-hidden="true"></i></button>',
                     confirmButtonColor: '#007bff'
                 });
+                console.log('object',linkText)
                 $('a.copyLink').text(linkText).attr('href',"http://"+linkText)
                 ShowCard();
             },
