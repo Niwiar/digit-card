@@ -1,0 +1,17 @@
+::-webkit-scrollbar {
+  width: 12px; /* กำหนดความกว้างของ scrollbar */
+  height: 8px; /* กำหนดความสูงของ scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #414141; /* กำหนดสีของ track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #f1f1f1; /* กำหนดสีของ thumb */
+  border-radius: 3px; /* กำหนดรูปร่างของ thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(9, 9, 9); /* กำหนดสีของ thumb เมื่อ hover */
+}

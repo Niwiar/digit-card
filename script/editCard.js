@@ -7,9 +7,11 @@ function ShowCard() {
         cache: false,
         success: function (response) {
             var obj = JSON.parse(response);
+            // console.log(obj)
             Link = obj.Link
             Published = obj.Published
             newPageTitle = obj.CardName;
+            $('a.copyLink').text(Link).attr('href',"http://"+Link)
 
             $('#IP-fname').val(obj.Fname);
             $('#IP-lname').val(obj.Lname);
@@ -32,10 +34,11 @@ function ShowCard() {
             let FacebookLink = $.trim($('#IP-FacebookLink').val());
             let LineID = $.trim($('#IP-LineID').val());
 
-            $('#Show-fname').val(fname+" "+lname);
+            $('#Show-fname').val(fname+"   "+lname);
             // $('#Show-lname').val(lname);
             $('#Show-Tel').val(Tel);
             $('#Show-Company').val(Company);
+            $('#Show-Tel').val(Tel);
             $('#Show-EmailName').val(Email);
 
             
@@ -80,6 +83,7 @@ function checkWidth() {
 function copyToclip() {
     /* Get the text field */
     var copyText = document.getElementById("copyLink");
+    console.log(copyText)
   
     /* Select the text field */
     copyText.select();
@@ -100,6 +104,7 @@ $(document).ready(function () {
     $('#IP-fname').on('input', () => $('#Show-fname').val($('#IP-fname').val()+" "+$('#IP-lname').val()));
     // $('#IP-lname').on('input', () => $('#Show-lname').val($('#IP-lname').val()));
     $('#IP-Company').on('input', () => $('#Show-Company').val($('#IP-Company').val()));
+    $('#IP-Tel').on('input', () => $('#Show-Tel').val($('#IP-Tel').val()));
     $('#IP-Email').on('input', () => $('#Show-EmailName').val($('#IP-Email').val()));
 
     $('#IP-FacebookLink').on('input', () => $('#Show-FacebookLink').href($('#IP-FacebookLink').val()));
@@ -231,11 +236,11 @@ $(document).ready(function () {
                     html:
                         ''+successText+'<br>' +
                         'link ของการ์ด: '+
-                        '<input type="text" id="copyLink" class="box-w" value="'+linkText+'" disabled></input>'+
+                        '<input type="text" id="copyLink" class="copyLink" value="'+linkText+'" disabled></input>'+
                         '<button onclick="copyToclip()" class = "btn btn-primary"><i class="fa fa-clipboard" aria-hidden="true"></i></button>',
                     confirmButtonColor: '#007bff'
                 });
-                
+                $('a.copyLink').text(linkText).attr('href',"http://"+linkText)
                 ShowCard();
             },
             error: function (err) {
