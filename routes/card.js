@@ -21,14 +21,9 @@ const checkCard = async (Tag) => {
 };
 
 const checkSpecial = (word) => {
-  const spacialChar = ['.', "'"];
-  let isSpacial = false;
-  spacialChar.forEach((spacial) => {
-    if (word.includes(spacial)) {
-      isSpacial = true;
-    }
-  });
-  return isSpacial;
+  // var format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+  // return format.test(word);
+  return word.match(/^[^a-zA-Z0-9]+$/);
 };
 
 router.get('/data', async (req, res, next) => {
@@ -121,41 +116,39 @@ router.post('/create', async (req, res, next) => {
         'createErr',
         'กรุณายินยอมการใช้งานคุกกี้และการเก็บข้อมูลส่วนบุคคลเพื่อเข้าใช้งาน'
       );
-      res.render('index.ejs');
-      return;
+      return res.render('index.ejs');
     }
     let { CardName, CardPass } = req.body;
     if (CardName == '' || CardPass == '') {
       req.flash('createErr', 'กรุณาใส่ชื่อนามบัตรและรหัสผ่านในช่องว่าง');
-      res.render('index.ejs');
+      return res.render('index.ejs');
       // res.status(400).send({ message: "กรุณาใส่ชื่อนามบัตรและรหัสผ่านในช่องว่าง" });
-      return;
     }
     if (checkSpecial(CardName)) {
-      req.flash('createErr', "กรุณาอย่าใช้ตัวอักษร . หรือ ' ในชื่อนามบัตร");
-      res.render('index.ejs');
+      req.flash(
+        'createErr',
+        'ตั้งชื่อนามบัตรด้วยตัวอักษรภาษาอังกฤษหรือตัวเลขเท่านั้น'
+      );
+      return res.render('index.ejs');
       // res.status(400).send({ message: "กรุณาอย่าใช้ . หรือ ' ในชื่อนามบัตร" });
-      return;
     }
     let pool = await sql.connect(dbconfig);
     let CheckCard = await pool.request().query(`SELECT *
-            FROM Cards
-            WHERE CardName = N'${CardName}'`);
+      FROM Cards WHERE CardName = N'${CardName}'`);
     if (CheckCard.recordset.length) {
       req.flash('createErr', 'ชื่อนามบัตรซ้ำ');
-      res.render('index.ejs');
+      return res.render('index.ejs');
       // res.status(400).send({ message: "ชื่อนามบัตรซ้ำ" });
-    } else {
-      let Hashpass = await bcrypt.hash(CardPass, 12);
-      let Hashtag = await bcrypt.hash(CardName, 5);
-      Hashtag = Hashtag.replace(/\//g, '');
-      let InsertCard = `INSERT INTO Cards(CardName, CardTag, CardPass)
-        VALUES (N'${CardName}', N'${Hashtag}', N'${Hashpass}')`;
-      await pool.request().query(InsertCard);
-      req.flash('success', 'สร้างนามบัตรสำเร็จ');
-      res.render('index.ejs');
-      // res.status(201).send({ message: "สร้างนามบัตรสำเร็จ" });
     }
+    let Hashpass = await bcrypt.hash(CardPass, 12);
+    let Hashtag = await bcrypt.hash(CardName, 5);
+    Hashtag = Hashtag.replace(/\//g, '');
+    let InsertCard = `INSERT INTO Cards(CardName, CardTag, CardPass)
+        VALUES (N'${CardName}', N'${Hashtag}', N'${Hashpass}')`;
+    await pool.request().query(InsertCard);
+    req.flash('success', 'สร้างนามบัตรสำเร็จ');
+    res.render('index.ejs');
+    // res.status(201).send({ message: "สร้างนามบัตรสำเร็จ" });
   } catch (err) {
     res.status(500).send({ message: `${err}` });
   }
