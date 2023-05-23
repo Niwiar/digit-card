@@ -1,150 +1,138 @@
-.header {
-    background-color: #fff;
-    color: black;
-    position: fixed;
-    top: 0;
-    left: 0;
-    /* padding: 5px 20px; */
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content:space-between;
-    align-items: center;
-    border-bottom: 4px solid #111111a2;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.header h4 {
+.header {
+  background-color: #fff;
+  color: black;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 4px solid #111111a2;
+  z-index: 10;
+
+  > .text-head {
     padding: 10px 20px;
     margin: 0;
-}
+  }
 
-.logo-priva {
+  > .logo-priva {
     background-color: #fff;
-    height: 80%;
+    height: 85%;
     width: auto;
     padding: 10px 20px;
     border-radius: 2px;
+  }
 }
 
-.container-mt{
-    margin-top: 6vw;
-    margin-bottom: 8vw;
-}
- 
 .main {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 80%;
-    height: 100%;
-    z-index: -1;
-    /* gap: 7em; */
-    
+  background-color: #f4f4f4;
+  margin-top: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: calc(100vh - 70px);
+  z-index: -1;
 }
 
 .btn-card {
+  height: 350px;
+  width: 350px;
+  background-color: seagreen;
+  color: white;
+  border-radius: 24px;
+  cursor: pointer;
+  margin: auto;
+  box-shadow: 4px 4px 10px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  padding: 3px;
+
+  > div {
     height: 100%;
     width: 100%;
-    background-color: seagreen;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
-    border-radius: 8px;
+    flex-direction: column;
+    border: 3px solid #fff;
+    border-radius: 24px;
+
+    > i {
+      font-size: 2.7rem;
+      margin-bottom: 1rem;
+    }
+    > p {
+      font-size: 1.5em;
+      margin: 0;
+      padding: auto;
+    }
+  }
 }
 
-
-
-.lead{
-    /* font-size: 32px; */
-    font-size: 2em;
-    margin: 0;
-    padding: auto;
-    
+.btn-card.bg-secondary {
+  background-color: seagreen !important;
 }
-
 
 @media only screen and (max-width: 1030px) {
-    .container-mt{
-        margin-top: 12vw;
-    }
-
-    .lead{
-        font-weight: 400;
-    }
 }
 
-@media only screen and (max-width:770px) {
-    .main {
-        gap: 5em;
-    }
+@media only screen and (max-width: 770px) {
+  #cookiePopup {
+    width: 60vw;
+  }
 
-    .container-mt{
-        margin-top: 17vw;
-    }
-
-    .lead{
-        font-weight: 400;
-        font-size: 1.7em;
-    }
-
-    #cookiePopup{
-        width: 60vw;
-    }
-
-    #cookiePopup>.modal-dialog>.modal-content {
-        border-radius: 0.8em;
-    }
+  #cookiePopup > .modal-dialog > .modal-content {
+    border-radius: 0.8em;
+  }
 }
 
-@media only screen and (max-width:430px) {
-
-    .container-mt{
-        margin-top: 25vw;
+@media only screen and (max-width: 430px) {
+  .header {
+    > .logo-priva {
+      height: 75%;
     }
+  }
+  #cookiePopup {
+    width: 90vw;
+    position: fixed;
+    top: -50%;
+    left: 52.5%;
+  }
 
-    .lead{
-        font-weight: 600;
-        font-size: 1em;
-    }
+  #cookiePopup > .modal-dialog > .modal-content {
+    border-radius: 0.6em;
+  }
 
-    #cookiePopup{
-        width: 90vw;
-        position: fixed;
-        top: -50%;
-        left: 52.5%;
-        
-    }
-
-    #cookiePopup>.modal-dialog>.modal-content {
-        border-radius: 0.6em;
-    }
-
-    .popup-body h6,.popup-footer span,.popup-footer button{
-        font-size: 0.6rem;
-    }
+  .popup-body h6,
+  .popup-footer span,
+  .popup-footer button {
+    font-size: 0.6rem;
+  }
 }
 
-@media only screen and (max-width:380px) {
-
-    .container-mt{
-        margin-top: 28vw;
+@media only screen and (max-width: 380px) {
+  .header {
+    > .text-head {
+      font-size: 1.4rem;
     }
+    > .logo-priva {
+      height: 75%;
+    }
+  }
+  .btn-card {
+    height: 270px;
+    width: 270px;
+  }
 }
 
-@media only screen and (max-width:325px) {
-
-    .container-mt{
-        margin-top: 30vw;
-    }
-
-    .lead{
-        font-size: 0.9em;
-        /* width: 40vw; */
-    }
-
+@media only screen and (max-width: 325px) {
 }
