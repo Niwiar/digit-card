@@ -1,15 +1,56 @@
-<link rel="stylesheet" href="/css/card_profile.css" />
+<div class="box-pre">
+  <div class="background" id="background">
+    <div class="pre-title">
+    <h4>ตัวอย่าง</h4>
+    </div>
+    <div class="logo" id="logo">
+      <img src="/imgs/logos/logo.png" alt="">
+    </div>
+    <div class="character" id="character">
+      <img id="showmobileImg" src="#" alt="your image" class="" />
+      <!-- <a onclick="setCamera()" data-toggle="modal" data-target="#modalWebcam" class=""><i class="fa fa-camera" aria-hidden="true" id="icon-camera"></i><img id="Show-Img" src="#"></img></a> -->
+    </div>
+    <div class="character-name">
+      <input type="text" id="Show-fname" class="form-control" disabled>
+    </div>
 
-<div class="profile-card">
-  <div class="image">
-    <img class="profile-image" id ="showmobileImg" alt="">
   </div>
 
-  <div class="text-data">
-    <span class="name" id="Show-fname">CodingLab</span>
-    <span class="company" id="Show-Company" >YouTuber & Blogger</span>
+  <div class="box-name">
+    <!-- <div class="row mb-1">
+      <div class="col-3 pr-0 d-flex justify-content-center align-item-start">
+        <span class="input-group-text">ชื่อ-สกุล:</span>
+      </div>
+      <div class="col-9 pl-0 d-flex justify-content-center align-item-start">
+        <input type="text" id="Show-fname" class="form-control" disabled>
+      </div>
+    </div> -->
+    <div class="row mb-1">
+      <div class="col-3 pr-0 d-flex justify-content-center align-item-start">
+        <span class="input-group-text py-1">บริษัท:</span>
+      </div>
+      <div class="col-9 pl-0 d-flex justify-content-center align-item-start">
+        <input type="text" id="Show-Company" class="form-control py-1" disabled>
+      </div>
+    </div>
+    
+    <div class="row mb-1">
+      <div class="col-3  pr-0 d-flex justify-content-center align-item-start">
+        <span class="input-group-text">อีเมล์:</span>
+      </div>
+      <div class="col-9 pl-0 d-flex justify-content-center align-item-start">
+        <input type="text" id="Show-EmailName" class="form-control" disabled>
+      </div>
+    </div>
+    <div class="row mb-1">
+      <div class="col-4 pr-0 d-flex justify-content-center align-item-start">
+        <span class="input-group-text">เบอร์มือถือ:</span>
+      </div>
+      <div class="col-8 pl-0 d-flex justify-content-center align-item-start">
+        <input type="text" id="Show-Tel" class="form-control" disabled>
+      </div>
+    </div>
   </div>
-
   <div class="box-link">
 
     <div class="social">
@@ -30,6 +71,7 @@
         </svg>
       </a>
 
+
       <a href="#" target="_blank" id="Show-FacebookLink">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px">
           <path fill="#3F51B5"
@@ -38,7 +80,6 @@
             d="M34.368,25H31v13h-5V25h-3v-4h3v-2.41c0.002-3.508,1.459-5.59,5.592-5.59H35v4h-2.287C31.104,17,31,17.6,31,18.723V21h4L34.368,25z" />
         </svg>
       </a>
-
       <a href="#" id="Show-Email">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px">
           <path fill="#1e88e5"

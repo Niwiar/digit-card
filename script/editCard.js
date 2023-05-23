@@ -36,10 +36,10 @@ function ShowCard() {
             let FacebookLink = $.trim($('#IP-FacebookLink').val());
             let LineID = $.trim($('#IP-LineID').val());
 
-            $('#Show-fname').val(fname+"   "+lname);
+            $('#Show-fname').text(fname+"   "+lname);
             // $('#Show-lname').val(lname);
             $('#Show-Tel').val(Tel);
-            $('#Show-Company').val(Company);
+            $('#Show-Company').text(Company);
             $('#Show-Tel').val(Tel);
             $('#Show-EmailName').val(Email);
 
@@ -103,9 +103,9 @@ $(document).ready(function () {
     // Show Card
     ShowCard();
     // Show Pre-Card
-    $('#IP-fname').on('input', () => $('#Show-fname').val($('#IP-fname').val()+" "+$('#IP-lname').val()));
+    $('#IP-fname').on('input', () => $('#Show-fname').text($('#IP-fname').val()+" "+$('#IP-lname').val()));
     // $('#IP-lname').on('input', () => $('#Show-lname').val($('#IP-lname').val()));
-    $('#IP-Company').on('input', () => $('#Show-Company').val($('#IP-Company').val()));
+    $('#IP-Company').on('input', () => $('#Show-Company').text($('#IP-Company').val()));
     $('#IP-Tel').on('input', () => $('#Show-Tel').val($('#IP-Tel').val()));
     $('#IP-Email').on('input', () => $('#Show-EmailName').val($('#IP-Email').val()));
 

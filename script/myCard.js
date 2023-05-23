@@ -20,10 +20,10 @@ function ShowMyCard(CardName) {
       let FacebookLink = obj.Facebook;
       let LineID = obj.Line;
 
-      $("#Show-fname").val(Fname + " " + Lname);
+      $("#Show-fname").text(Fname + " " + Lname);
       // $('#Show-lname').val(lname);
       $("#Show-Tel").val(Tel);
-      $("#Show-Company").val(Company);
+      $("#Show-Company").text(Company);
       $("#Show-Tel").val(Tel);
       $("#Show-EmailName").val(Email);
 

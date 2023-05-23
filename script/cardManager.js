@@ -1,6 +1,4 @@
 $(document).ready(function () {
-
-
     // Table
     function fill_table() {
         table = $('#tableShow').DataTable({
