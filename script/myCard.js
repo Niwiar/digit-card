@@ -5,7 +5,7 @@ function ShowMyCard(CardName) {
     method: "get",
     cache: false,
     success: function (res) {
-      console.log(res)
+      console.log(res);
       var obj = JSON.parse(res);
       Link = obj.Link;
 
@@ -18,15 +18,39 @@ function ShowMyCard(CardName) {
       let Tel = obj.Tel;
       let Company = obj.Company;
       let Email = obj.Email;
+      console.log(Email);
       let FacebookLink = obj.Facebook;
       let LineID = obj.Line;
+
+      let BgColor = obj.BgColor;
+      let Theme = obj.Theme;
+
+      $(".image").css("background", obj.BgColor);
+      $(".header").css("background", obj.BgColor);
+
+      if (Theme == "dark") {
+        $(".profile-card").css("background", "#555555");
+        $(".profile-card .card-text").css("color", "#fff");
+        $("#Day_Night,.main-content").removeClass("night");
+        $(".fa-sun, .fa-moon ").addClass("d-none");
+        $(".fa-moon ").removeClass("d-none");
+      } else {
+        $(".profile-card").css("background", "#fff");
+        $(".profile-card .card-text").css("color", "#333");
+        $("#Day_Night,.main-content").removeClass("night");
+        $("#Day_Night,.main-content").addClass("night");
+        $(".fa-sun, .fa-moon ").addClass("d-none");
+        $(".fa-sun ").removeClass("d-none");
+      }
+
+      
 
       $("#Show-fname").text(Fname + " " + Lname);
       // $('#Show-lname').val(lname);
       $("#Show-Tel").val(Tel);
       $("#Show-Company").text(Company);
       $("#Show-Tel").val(Tel);
-      $("#Show-EmailName").val(Email);
+      $("#Show-Email-text").text(Email);
 
       document.getElementById("Show-FacebookLink").href = FacebookLink;
       document.getElementById("Show-LineID").href =
@@ -43,6 +67,15 @@ $(document).ready(function () {
   let hostname = window.location.hostname;
 
   const CardName = hostname.split(".");
-  console.log(CardName[0]);
   ShowMyCard(CardName[0]);
+
+  $(document).on("click", "#Day_Night", function () {
+    if (!$(".day-night").hasClass("night")) {
+      $("#Day_Night,.main-content").toggleClass("night");
+      $(".fa-sun, .fa-moon ").toggleClass("d-none");
+    } else {
+      $("#Day_Night,.main-content").toggleClass("night");
+      $(".fa-sun, .fa-moon ").toggleClass("d-none");
+    }
+  });
 });

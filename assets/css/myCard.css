@@ -20,7 +20,37 @@
   margin: 0;
   padding: 0;
   height: 100vh;
+  background-color: #fff;
+}
+
+.main-content.night {
   background-color: rgba(19, 19, 19, 0.753);
+}
+
+.day-night {
+  position: fixed;
+  right: 15px;
+  bottom: 15px;
+  z-index: 100;
+  cursor: pointer;
+  opacity: 0.7;
+
+  > .btn {
+    background-color: rgba(19, 19, 19, 0.753);
+    /* padding: 10px 12px; */
+    width: 50px;
+    height: 50px;
+    > i {
+      color: #fff;
+      font-size: 1.6em;
+    }
+  }
+  > .btn.night {
+    background-color: #fff;
+    > i {
+      color: rgba(19, 19, 19, 0.753);
+    }
+  }
 }
 
 .right {
@@ -31,6 +61,8 @@
 .form-control:read-only {
   background-color: #fff;
 }
+
+
 
 /* เมื่อหน้าต่างของเรามีขนาดมากกว่าหรือเท่ากับ 768px แท็บเล็ต*/
 @media only screen and (max-width: 768px) {
@@ -43,6 +75,7 @@
 @media only screen and (min-width: 1025px) and (max-width: 1440px) {
   .box-pre .background {
     height: 40%;
+    
   }
   
   .box-pre .logo img {
