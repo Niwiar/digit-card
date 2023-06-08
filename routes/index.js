@@ -3,7 +3,7 @@ const router = express.Router();
 const { isCardAuth, isCard } = require('./middleware/checkCard');
 const { ifNotLoggedIn, ifLoggedIn, isAuth } = require('./middleware/checkUser');
 
-router.get('/', isCard, (req, res) => {
+router.get('/', (req, res) => {
   res.render('index.ejs');
 });
 

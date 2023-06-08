@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const sql = require('mssql');
 const { dbconfig } = require('../config');
 
-const upload = require('./modules/uploadImage');
+const { uploadLogo, uploadProfile } = require('./modules/uploadImage');
 const { encrypt, decryptCardInfo } = require('./modules/utils');
 
 const QRCode = require('qrcode');
@@ -51,29 +51,29 @@ router.get('/data', async (req, res, next) => {
   }
 });
 
-router.get('/show/:CardName', async (req, res, next) => {
-  try {
-    let CardName = req.params.CardName;
-    let pool = await sql.connect(dbconfig);
-    let Card = await pool.request().query(
-      `SELECT CardName, ImgPath, Fname, Lname,
-        Company, Tel, Email, Facebook, Line
-      FROM Cards WHERE CardName = N'${CardName}'`
-    );
-    if (Card.recordset.length) {
-      let { deFname, deLname, deTel } = decryptCardInfo(Card.recordset[0]);
-      Card.recordset[0].Fname = deFname;
-      Card.recordset[0].Lname = deLname;
-      Card.recordset[0].Tel = deTel;
-      res.status(200).send(JSON.stringify(Card.recordset[0]));
-    } else {
-      res.status(404).send({ message: 'ไม่พบนามบัตร' });
-    }
-  } catch (err) {
-    console.log(err);
-    res.status(500).send({ message: `${err}` });
-  }
-});
+// router.get('/show/:CardName', async (req, res, next) => {
+//   try {
+//     let CardName = req.params.CardName;
+//     let pool = await sql.connect(dbconfig);
+//     let Card = await pool.request().query(
+//       `SELECT CardName, ImgPath, Fname, Lname,
+//         Company, Tel, Email, Facebook, Line
+//       FROM Cards WHERE CardName = N'${CardName}'`
+//     );
+//     if (Card.recordset.length) {
+//       let { deFname, deLname, deTel } = decryptCardInfo(Card.recordset[0]);
+//       Card.recordset[0].Fname = deFname;
+//       Card.recordset[0].Lname = deLname;
+//       Card.recordset[0].Tel = deTel;
+//       res.status(200).send(JSON.stringify(Card.recordset[0]));
+//     } else {
+//       res.status(404).send({ message: 'ไม่พบนามบัตร' });
+//     }
+//   } catch (err) {
+//     console.log(err);
+//     res.status(500).send({ message: `${err}` });
+//   }
+// });
 
 // authorization to access card editor
 router.post('/auth', async (req, res) => {
@@ -157,7 +157,8 @@ router.post('/create', async (req, res, next) => {
 router.put('/edit', async (req, res) => {
   try {
     let CardTag = req.session.CardTag;
-    let { Fname, Lname, Company, Tel, Email, Facebook, Line } = req.body;
+    let { Fname, Lname, Company, Tel, Email, Facebook, Line, BgColor, Theme } =
+      req.body;
     let enFname = encrypt(Fname);
     let enLname = encrypt(Lname);
     let enTel = encrypt(Tel);
@@ -171,7 +172,8 @@ router.put('/edit', async (req, res) => {
         Fname = N'${enFname}', Lname = N'${enLname}',
         Company = N'${Company}', Tel = N'${enTel}',
         Facebook = N'${Facebook}', Line = N'${Line}',
-        Email = N'${Email}'
+        Email = N'${Email}', BgColor = '${BgColor | '#007bff'}',
+        Theme = '${Theme | 'light'}',
         WHERE CardTag = N'${CardTag}'`;
       await pool.request().query(UpdateCard);
       res.status(200).send({ message: `แก้ไขนามบัตรสำเร็จ` });
@@ -187,7 +189,7 @@ router.put('/edit', async (req, res) => {
 router.post('/upload', async (req, res) => {
   try {
     let CardTag = req.session.CardTag;
-    upload(req, res, async (err) => {
+    uploadProfile(req, res, async (err) => {
       if (err) {
         res.status(500).send({ message: `${err}` });
       } else {
@@ -197,6 +199,26 @@ router.post('/upload', async (req, res) => {
         let pool = await sql.connect(dbconfig);
         await pool.request().query(UpdateImagePath);
         res.status(200).send({ message: 'อัปโหลดรูปภาพสำเร็จ' });
+      }
+    });
+  } catch (err) {
+    res.status(500).send({ message: `${err}` });
+  }
+});
+
+router.post('/upload-logo', async (req, res) => {
+  try {
+    let CardTag = req.session.CardTag;
+    uploadLogo(req, res, async (err) => {
+      if (err) {
+        res.status(500).send({ message: `${err}` });
+      } else {
+        img = '/imgs/logo/' + req.file.filename;
+        let UpdateImagePath = `UPDATE Cards SET LogoPath = N'${img}'
+          WHERE CardTag = N'${CardTag}'`;
+        let pool = await sql.connect(dbconfig);
+        await pool.request().query(UpdateImagePath);
+        res.status(200).send({ message: 'อัปโหลดโลโก้สำเร็จ' });
       }
     });
   } catch (err) {
@@ -216,7 +238,7 @@ router.get('/publish', async (req, res) => {
         WHERE CardTag = N'${CardTag}'`;
       let card = await pool.request().query(PublishCard);
       let CardName = card.recordset[0].CardName;
-      let CardLink = `${CardName}.localhost:4000`;
+      let CardLink = `${CardName}.card.privainnotech.net`;
       await QRCode.toDataURL(
         CardLink,
         {

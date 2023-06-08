@@ -6,13 +6,13 @@ const flash = require('express-flash');
 const cookieSession = require('cookie-session');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const wildcardSubdomains = require('wildcard-subdomains');
 
 const PORT = 4000;
 
 app.use(cors());
 
 app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'html');
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
@@ -36,7 +36,11 @@ app.use(
 );
 
 // only in local
-app.set('subdomain offset', 1);
+app.set('subdomain offset', 0);
+
+app.use(wildcardSubdomains({ namespace: 's', whitelist: ['www'] }));
+
+let publicRoute = require('./routes/public');
 
 let indexRoute = require('./routes/index');
 let userRoute = require('./routes/user');
@@ -44,6 +48,8 @@ let cookieRoute = require('./routes/cookie');
 
 let cardRoute = require('./routes/card');
 let dashboardRoute = require('./routes/dashboard');
+
+app.use('/s/*/', publicRoute);
 
 app.use('/', indexRoute);
 app.use('/user', userRoute);
