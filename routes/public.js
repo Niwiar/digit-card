@@ -37,8 +37,8 @@ const getCard = async (req, res, CardName) => {
   try {
     let pool = await sql.connect(dbconfig);
     let Card = await pool.request().query(
-      `SELECT CardName, ImgPath, Fname, Lname,
-        Company, Tel, Email, Facebook, Line
+      `SELECT CardName, ImgPath, LogoPath, Fname, Lname,
+        Company, Tel, Email, Facebook, Line, BgColor, Theme
       FROM Cards WHERE CardName = N'${CardName}'`
     );
     if (Card.recordset.length) {
