@@ -1,13 +1,13 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const bcrypt = require("bcryptjs");
-const sql = require("mssql");
-const { dbconfig } = require("../config");
+const bcrypt = require('bcryptjs');
+const sql = require('mssql');
+const { dbconfig } = require('../config');
 
-const { uploadLogo, uploadProfile } = require("./modules/uploadImage");
-const { encrypt, decryptCardInfo } = require("./modules/utils");
+const { uploadLogo, uploadProfile } = require('./modules/uploadImage');
+const { encrypt, decryptCardInfo } = require('./modules/utils');
 
-const QRCode = require("qrcode");
+const QRCode = require('qrcode');
 
 const checkCard = async (Tag) => {
   let pool = await sql.connect(dbconfig);
@@ -26,7 +26,7 @@ const checkSpecial = (word) => {
   return word.match(/^[^a-zA-Z0-9]+$/);
 };
 
-router.get("/data", async (req, res, next) => {
+router.get('/data', async (req, res, next) => {
   try {
     let CardTag = req.session.CardTag;
     let pool = await sql.connect(dbconfig);
@@ -44,7 +44,7 @@ router.get("/data", async (req, res, next) => {
       Card.recordset[0].Link = `${CardName}.localhost:3000`;
       res.status(200).send(JSON.stringify(Card.recordset[0]));
     } else {
-      res.status(404).send({ message: "ไม่พบนามบัตร" });
+      res.status(404).send({ message: 'ไม่พบนามบัตร' });
     }
   } catch (err) {
     res.status(500).send({ message: `${err}` });
@@ -76,13 +76,14 @@ router.get("/data", async (req, res, next) => {
 // });
 
 // authorization to access card editor
-router.post("/auth", async (req, res) => {
+router.post('/auth', async (req, res) => {
   try {
     let cookies = req.cookies;
-    if (cookies.cc_cookie !== "consented") {
-      req.flash("auth", "กรุณายินยอมการใช้งานคุกกี้และการเก็บข้อมูลส่วนบุคคล");
-      res.render("index.ejs");
-      return;
+    if (cookies.cc_cookie !== 'consented') {
+      return res.status(400).send({
+        message:
+          'กรุณายินยอมการใช้งานคุกกี้และการเก็บข้อมูลส่วนบุคคลเพื่อเข้าใช้งาน',
+      });
     }
     let { CardName, CardPass } = req.body;
     let pool = await sql.connect(dbconfig);
@@ -96,71 +97,65 @@ router.post("/auth", async (req, res) => {
         req.session.CardTag = Card.recordset[0].CardTag;
         res.redirect(`/manage/${Card.recordset[0].CardTag}`);
       } else {
-        req.flash("auth", "รหัสผ่านของนามบัตรไม่ถูกต้อง");
-        res.render("index.ejs");
+        return res
+          .status(403)
+          .send({ message: 'ชื่อหรือรหัสผ่านของนามบัตรไม่ถูกต้อง' });
       }
     } else {
-      req.flash("auth", "ไม่พบนามบัตร");
-      res.render("index.ejs");
+      return res
+        .status(403)
+        .send({ message: 'ชื่อหรือรหัสผ่านของนามบัตรไม่ถูกต้อง' });
     }
   } catch (err) {
     res.status(500).send({ message: `${err}` });
   }
 });
 
-router.post("/create", async (req, res, next) => {
+router.post('/create', async (req, res, next) => {
   try {
     let cookies = req.cookies;
-    if (cookies.cc_cookie !== "consented") {
-      req.flash(
-        "createErr",
-        "กรุณายินยอมการใช้งานคุกกี้และการเก็บข้อมูลส่วนบุคคลเพื่อเข้าใช้งาน"
-      );
-      return res.render("index.ejs");
+    if (cookies.cc_cookie !== 'consented') {
+      return res.status(400).send({
+        message:
+          'กรุณายินยอมการใช้งานคุกกี้และการเก็บข้อมูลส่วนบุคคลเพื่อเข้าใช้งาน',
+      });
     }
     let { CardName, CardPass } = req.body;
-    if (CardName == "" || CardPass == "") {
-      req.flash("createErr", "กรุณาใส่ชื่อนามบัตรและรหัสผ่านในช่องว่าง");
-      return res.render("index.ejs");
-      // res.status(400).send({ message: "กรุณาใส่ชื่อนามบัตรและรหัสผ่านในช่องว่าง" });
+    if (CardName == '' || CardPass == '') {
+      return res
+        .status(400)
+        .send({ message: 'กรุณาใส่ชื่อนามบัตรและรหัสผ่านในช่องว่าง' });
     }
     if (checkSpecial(CardName)) {
-      req.flash(
-        "createErr",
-        "ตั้งชื่อนามบัตรด้วยตัวอักษรภาษาอังกฤษหรือตัวเลขเท่านั้น"
-      );
-      return res.render("index.ejs");
-      // res.status(400).send({ message: "กรุณาอย่าใช้ . หรือ ' ในชื่อนามบัตร" });
+      return res.status(400).send({
+        message: 'ตั้งชื่อนามบัตรด้วยตัวอักษรภาษาอังกฤษหรือตัวเลขเท่านั้น',
+      });
     }
     let pool = await sql.connect(dbconfig);
     let CheckCard = await pool.request().query(`SELECT *
       FROM Cards WHERE CardName = N'${CardName}'`);
     if (CheckCard.recordset.length) {
-      req.flash("createErr", "ชื่อนามบัตรซ้ำ");
-      return res.render("index.ejs");
-      // res.status(400).send({ message: "ชื่อนามบัตรซ้ำ" });
+      return res.status(400).send({ message: 'ชื่อนามบัตรซ้ำ' });
     }
     let Hashpass = await bcrypt.hash(CardPass, 12);
     let Hashtag = await bcrypt.hash(CardName, 5);
-    Hashtag = Hashtag.replace(/\//g, "");
+    Hashtag = Hashtag.replace(/\//g, '');
     let InsertCard = `INSERT INTO Cards(CardName, CardTag, CardPass)
         VALUES (N'${CardName}', N'${Hashtag}', N'${Hashpass}')`;
     await pool.request().query(InsertCard);
-    req.flash("success", "สร้างนามบัตรสำเร็จ");
-    res.render("index.ejs");
-    // res.status(201).send({ message: "สร้างนามบัตรสำเร็จ" });
+    res.status(201).send({ message: 'สร้างนามบัตรสำเร็จ' });
   } catch (err) {
     res.status(500).send({ message: `${err}` });
   }
 });
 
-router.put("/edit", async (req, res) => {
-  console.log(req.body)
+router.put('/edit', async (req, res) => {
+  console.log(req.body);
   try {
     let CardTag = req.session.CardTag;
     let { Fname, Lname, Company, Tel, Email, Facebook, Line, BgColor, Theme } =
       req.body;
-      console.log(BgColor)
+    console.log(BgColor);
     let enFname = encrypt(Fname);
     let enLname = encrypt(Lname);
     let enTel = encrypt(Tel);
@@ -174,13 +169,13 @@ router.put("/edit", async (req, res) => {
         Fname = N'${enFname}', Lname = N'${enLname}',
         Company = N'${Company}', Tel = N'${enTel}',
         Facebook = N'${Facebook}', Line = N'${Line}',
-        Email = N'${Email}', BgColor = '${BgColor || "#007bff"}',
-        Theme = '${Theme || "light"}'
+        Email = N'${Email}', BgColor = '${BgColor || '#007bff'}',
+        Theme = '${Theme || 'light'}'
         WHERE CardTag = N'${CardTag}'`;
       await pool.request().query(UpdateCard);
       res.status(200).send({ message: `แก้ไขนามบัตรสำเร็จ` });
     } else {
-      res.status(404).send({ message: "ไม่พบนามบัตร" });
+      res.status(404).send({ message: 'ไม่พบนามบัตร' });
     }
   } catch (err) {
     console.log(err);
@@ -188,19 +183,19 @@ router.put("/edit", async (req, res) => {
   }
 });
 
-router.post("/upload", async (req, res) => {
+router.post('/upload', async (req, res) => {
   try {
     let CardTag = req.session.CardTag;
     uploadProfile(req, res, async (err) => {
       if (err) {
         res.status(500).send({ message: `${err}` });
       } else {
-        img = "/imgs/profile/" + req.file.filename;
+        img = '/imgs/profile/' + req.file.filename;
         let UpdateImagePath = `UPDATE Cards SET ImgPath = N'${img}'
           WHERE CardTag = N'${CardTag}'`;
         let pool = await sql.connect(dbconfig);
         await pool.request().query(UpdateImagePath);
-        res.status(200).send({ message: "อัปโหลดรูปภาพสำเร็จ" });
+        res.status(200).send({ message: 'อัปโหลดรูปภาพสำเร็จ' });
       }
     });
   } catch (err) {
@@ -208,19 +203,19 @@ router.post("/upload", async (req, res) => {
   }
 });
 
-router.post("/upload-logo", async (req, res) => {
+router.post('/upload-logo', async (req, res) => {
   try {
     let CardTag = req.session.CardTag;
     uploadLogo(req, res, async (err) => {
       if (err) {
         res.status(500).send({ message: `${err}` });
       } else {
-        img = "/imgs/logo/" + req.file.filename;
+        img = '/imgs/logo/' + req.file.filename;
         let UpdateImagePath = `UPDATE Cards SET LogoPath = N'${img}'
           WHERE CardTag = N'${CardTag}'`;
         let pool = await sql.connect(dbconfig);
         await pool.request().query(UpdateImagePath);
-        res.status(200).send({ message: "อัปโหลดโลโก้สำเร็จ" });
+        res.status(200).send({ message: 'อัปโหลดโลโก้สำเร็จ' });
       }
     });
   } catch (err) {
@@ -228,7 +223,7 @@ router.post("/upload-logo", async (req, res) => {
   }
 });
 
-router.get("/publish", async (req, res) => {
+router.get('/publish', async (req, res) => {
   try {
     let CardTag = req.session.CardTag;
     let pool = await sql.connect(dbconfig);
@@ -244,7 +239,7 @@ router.get("/publish", async (req, res) => {
       await QRCode.toDataURL(
         CardLink,
         {
-          errorCorrectionLevel: "H",
+          errorCorrectionLevel: 'H',
           version: 4,
           margin: 1,
         },
@@ -263,14 +258,14 @@ router.get("/publish", async (req, res) => {
         }
       );
     } else {
-      res.status(404).send({ message: "ไม่พบนามบัตร" });
+      res.status(404).send({ message: 'ไม่พบนามบัตร' });
     }
   } catch (err) {
     res.status(500).send({ message: `${err}` });
   }
 });
 
-router.get("/unpublish", async (req, res) => {
+router.get('/unpublish', async (req, res) => {
   try {
     let CardTag = req.session.CardTag;
     let pool = await sql.connect(dbconfig);
@@ -281,19 +276,19 @@ router.get("/unpublish", async (req, res) => {
       await pool.request().query(UnpublishCard);
       res.status(200).send({ message: `เลิกเผยแพร่นามบัตรสำเร็จ` });
     } else {
-      res.status(404).send({ message: "ไม่พบนามบัตร" });
+      res.status(404).send({ message: 'ไม่พบนามบัตร' });
     }
   } catch (err) {
     res.status(500).send({ message: `${err}` });
   }
 });
 
-router.put("/change_password", async (req, res) => {
+router.put('/change_password', async (req, res) => {
   try {
     let CardTag = req.session.CardTag;
     let CardPass = req.body.CardPass;
-    if (CardPass == "") {
-      res.status(400).send({ message: "กรุณาใส่รหัสผ่านของนามบัตร" });
+    if (CardPass == '') {
+      res.status(400).send({ message: 'กรุณาใส่รหัสผ่านของนามบัตร' });
       return;
     }
     let pool = await sql.connect(dbconfig);
@@ -303,25 +298,25 @@ router.put("/change_password", async (req, res) => {
         SET CardPass = N'${Hashpass}'
         WHERE CardTag = N'${CardTag}'`;
       await pool.request().query(UpdateCard);
-      res.status(200).send({ message: "เปลี่ยนรหัสผ่านของนามบัตรสำเร็จ" });
+      res.status(200).send({ message: 'เปลี่ยนรหัสผ่านของนามบัตรสำเร็จ' });
     } else {
-      res.status(404).send({ message: "ไม่พบนามบัตร" });
+      res.status(404).send({ message: 'ไม่พบนามบัตร' });
     }
   } catch (err) {
     res.status(500).send({ message: `${err}` });
   }
 });
 
-router.delete("/delete", async (req, res) => {
+router.delete('/delete', async (req, res) => {
   try {
     let CardTag = req.params.CardTag;
     let pool = await sql.connect(dbconfig);
     if (await checkCard(CardTag)) {
       let DeleteCard = `DELETE FROM Users WHERE CardTag = ${CardTag}`;
       await pool.request().query(DeleteCard);
-      res.status(200).send({ message: "ลบนามบัตรสำเร็จ" });
+      res.status(200).send({ message: 'ลบนามบัตรสำเร็จ' });
     } else {
-      res.status(404).send({ message: "ไม่พบนามบัตร" });
+      res.status(404).send({ message: 'ไม่พบนามบัตร' });
     }
   } catch (err) {
     res.status(500).send({ message: `${err}` });
