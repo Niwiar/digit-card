@@ -31,8 +31,8 @@ router.get('/data', async (req, res, next) => {
     let CardTag = req.session.CardTag;
     let pool = await sql.connect(dbconfig);
     let Card = await pool.request().query(
-      `SELECT CardName, ImgPath, Fname, Lname,
-        Company, Tel, Email, Facebook, Line, Published
+      `SELECT CardName, ImgPath, LogoPath, Fname, Lname,
+        Company, Tel, Email, Facebook, Line, Published, BgColor, Theme
       FROM Cards WHERE CardTag = N'${CardTag}'`
     );
     if (Card.recordset.length) {
