@@ -1,4 +1,3 @@
-
 //Show Card
 function ShowCard() {
     $.ajax({
@@ -101,8 +100,9 @@ function copyToclip() {
 $(document).ready(function () {
     // alert(screen.width)
     // Show Card
+    
     ShowCard();
-    // Show Pre-Card
+    // Show Pre-Card (on change)
     $('#IP-fname').on('input', () => $('#Show-fname').text($('#IP-fname').val()+" "+$('#IP-lname').val()));
     // $('#IP-lname').on('input', () => $('#Show-lname').val($('#IP-lname').val()));
     $('#IP-Company').on('input', () => $('#Show-Company').text($('#IP-Company').val()));
@@ -113,6 +113,12 @@ $(document).ready(function () {
     $('#IP-LineID').on('input', () => $('#Show-LineID').href("https://line.me/ti/p/~"+$('#IP-LineID').val()));
     $('#IP-Tel').on('input', () => $('#Show-Tel').href("tel://"+$('#IP-Tel').val()));
     $('#IP-Email').on('input', () => $('#Show-Email').href("mailto:"+$('#IP-Email').val()));
+    // design
+    $('#IP-Background').on('input', (e) => {
+        console.log(e.target.value);
+        $('.image').css('background',e.target.value);
+        $('.header').css('background',e.target.value);
+    });
 
 
     // Edit Card
@@ -125,12 +131,7 @@ $(document).ready(function () {
         let Email = $.trim($('#IP-Email').val());
         let FacebookLink = $.trim($('#IP-FacebookLink').val());
         let LineID = $.trim($('#IP-LineID').val());
-        //camera
-        // let MobileCamera = $.trim($('#IP-MobileCamera').val());
-        // console.log(MobileCamera)
-        // document.getElementById('pre-mobilePic').src = MobileCamera;
-
-
+        
         $.ajax({
             url: "/card/edit",
             method: 'put',
