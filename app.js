@@ -36,7 +36,7 @@ app.use(
 );
 
 // only in local
-app.set('subdomain offset', 0);
+app.set('subdomain offset', 1);
 
 app.use(wildcardSubdomains({ namespace: 's', whitelist: ['www'] }));
 

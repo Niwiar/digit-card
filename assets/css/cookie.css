@@ -1,9 +1,12 @@
 #cookiePopup{
     display: none;
     position: fixed;
-    bottom: 0;
+    bottom: 13px;
     left: 50%;
     transform: translateX(-50%);
+    background-color: #fff;
+    border-radius: 8px;
+    z-index: 10;
 }
 #cookiePopup>.modal-dialog{
     max-width: 80vw;

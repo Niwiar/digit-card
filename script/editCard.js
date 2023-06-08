@@ -4,8 +4,9 @@ function ShowCard() {
         url: "/card/data",
         method: 'get',
         cache: false,
-        success: function (response) {
-            var obj = JSON.parse(response);
+        success: function (res) {
+            console.log(res)
+            var obj = JSON.parse(res);
             console.log(obj)
             console.log(window.location.host)
             Link = obj.Link
