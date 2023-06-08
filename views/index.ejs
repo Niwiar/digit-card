@@ -54,7 +54,8 @@
                 class="fa-solid fa-xmark"></i></button>
           </div>
           <div class="modal-body">
-            <form action="/card/create" method="post">
+            <!-- <form action="/card/create" method="post"> -->
+            <form action="" method="">
               <div class="mb-3">
                 <label class="form-label">ชื่อการ์ด</label>
                 <input class="form-control form-control-lg" type="text" name="CardName"
@@ -65,10 +66,10 @@
                 <input class="form-control form-control-lg" type="password" name="CardPass"
                   placeholder="ใส่รหัสการ์ดที่คุณต้องการ" />
               </div>
-              <div class="text-center mt-3">
-                <button type="submit" class="btn btn-lg btn-primary">สร้างการ์ด</button>
-              </div>
             </form>
+            <div class="text-center mt-3">
+              <button type="submit" class="btn btn-lg btn-primary" id="btn_CardCreate">สร้างการ์ด</button>
+            </div>
           </div>
         </div>
       </div>
@@ -89,7 +90,7 @@
             </div>
           </div>
         </div>
-        <div class="col col-12 col-md-6 p-3">
+        <div class="col col-12">
           <div class="btn-card bg-primary" data-toggle="modal" data-target="#modalCardAuth">
             <div>
               <i class="fa-regular fa-pen-to-square"></i>
@@ -108,7 +109,13 @@
       integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
       crossorigin="anonymous"></script>
 
-    <% if (messages.auth) { %>
+    <script>
+      $('#btn_CardCreate').on('click', () => {
+        console.log('create')
+      })
+    </script>
+
+    <!-- <% if (messages.auth) { %>
       <script>
         $('#modalCardAuth').modal('show')
         Swal.fire({
@@ -124,6 +131,7 @@
       <% } %>
         <% if (messages.createErr) { %>
           <script>
+            console.log('error', messages.createErr)
             $('#modalCardCreate').modal('show')
             Swal.fire({
               position: 'center',
@@ -148,7 +156,7 @@
                   timer: 1500
                 })
               </script>
-              <% } %>
+              <% } %> -->
 
 </body>
 

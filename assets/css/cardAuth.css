@@ -102,9 +102,8 @@
     }
   }
   #cookiePopup {
-    width: 90vw;
+    width: 80vw;
     position: fixed;
-    top: -50%;
     left: 52.5%;
   }
 
