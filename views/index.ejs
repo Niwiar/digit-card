@@ -15,57 +15,29 @@
       integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/cardAuth.css" />
     <link rel="stylesheet" href="/css/modal.css" />
-
-    <div class="modal" role="dialog" tabindex="-1" id="modalCardAuth">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content" id="contentCookieSetting">
-          <div class="modal-header d-flex">
-            <h4 class="modal-title">ลงชื่อเข้าใช้เพื่อแก้ไขการ์ด</h4>
-            <button type="button" style="margin-right: 5px;" class="close" data-dismiss="modal" aria-label="Close"><i
-                class="fa-solid fa-xmark"></i></button>
-          </div>
-          <div class="modal-body">
-            <form action="/card/auth" method="post">
-              <div class="mb-3">
-                <label class="form-label">ชื่อการ์ด</label>
-                <input class="form-control form-control-lg" type="text" name="CardName"
-                  placeholder="ใส่ชื่อการ์ดของคุณ" />
-              </div>
-              <div class="mb-3">
-                <label class="form-label">รหัสการ์ด</label>
-                <input class="form-control form-control-lg" type="password" name="CardPass"
-                  placeholder="ใส่รหัสการ์ดของคุณ" />
-              </div>
-              <div class="text-center mt-3">
-                <button type="submit" class="btn btn-lg btn-primary">ลงชื่อเข้าใช้</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
+    <link rel="stylesheet" href="/css/loginInput.css" />
 
     <div class="modal" role="dialog" tabindex="-1" id="modalCardCreate">
       <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content" id="contentCookieSetting">
+        <div class="modal-content" id="contentCardCreate">
           <div class="modal-header">
             <h4 class="modal-title">สร้างการ์ดใหม่</h4>
-            <button type="button" class="close" style="margin-right: 5px;" data-dismiss="modal" aria-label="Close"><i
-                class="fa-solid fa-xmark"></i></button>
+            <button type="button" class="close" style="margin-right: 5px;"><i class="fa-solid fa-xmark"></i></button>
           </div>
           <div class="modal-body">
             <!-- <form action="/card/create" method="post"> -->
             <form action="" method="">
               <div class="mb-3">
                 <label class="form-label">ชื่อการ์ด</label>
-                <input class="form-control form-control-lg" type="text" name="CardName"
+                <input class="form-control form-control-lg" type="text" name="CardName" id="create_Name"
                   placeholder="ใส่ชื่อการ์ดที่คุณต้องการ" />
               </div>
               <div class="mb-3">
                 <label class="form-label">รหัสการ์ด</label>
-                <input class="form-control form-control-lg" type="password" name="CardPass"
+                <input class="form-control form-control-lg" type="password" name="CardPass" id="create_Pass"
                   placeholder="ใส่รหัสการ์ดที่คุณต้องการ" />
               </div>
+
             </form>
             <div class="text-center mt-3">
               <button type="submit" class="btn btn-lg btn-primary" id="btn_CardCreate">สร้างการ์ด</button>
@@ -80,21 +52,32 @@
       <img class="logo-priva" src="/imgs/logos/logo.png" alt="">
     </div>
 
-    <div class="main ">
+    <div class="main">
       <div class="row w-100 ">
-        <div class=" col col-12 col-md-6 p-3">
-          <div class="btn-card bg-secondary" data-toggle="modal" data-target="#modalCardCreate">
-            <div>
-              <i class="fa-regular fa-square-plus"></i>
-              <p class="lead">สร้างการ์ดใหม่</p>
-            </div>
-          </div>
-        </div>
-        <div class="col col-12">
-          <div class="btn-card bg-primary" data-toggle="modal" data-target="#modalCardAuth">
-            <div>
-              <i class="fa-regular fa-pen-to-square"></i>
-              <p class="lead">แก้ไขการ์ด</p>
+        <div class="col d-flex justify-content-center align-item-center">
+          <div class="card shadow">
+            <div class="card-body p-4">
+              <form action="" method="">
+                <div class="my-4">
+                  <h1 class="m-0 fw-bold text-center">Login</h1>
+                </div>
+                <div class="input-box mb-3">
+                  <input type="text" name="CardName" id="auth_Name" required="required">
+                  <span>Card Name</span>
+                </div>
+                <div class="input-box mb-3">
+                  <input type="password" name="CardPass" id="auth_Pass" required="required">
+                  <span>Password</span>
+                </div>
+              </form>
+              <div class="mb-3">
+                <button type="submit" class="btn btn-success w-100" id="btn_CardAuth">
+                  <i class="fa-solid fa-right-to-bracket me-2"></i>ลงชื่อเข้าใช้
+                </button>
+              </div>
+              <div class="mb-3 w-100 d-flex justify-content-center align-item-center">
+                <span class="">ยังไม่มีการ์ดใช่หรือไม่? <a href="#" id="CardCreate">สร้างการ์ดใหม่</a></span>
+              </div>
             </div>
           </div>
         </div>
@@ -110,53 +93,102 @@
       crossorigin="anonymous"></script>
 
     <script>
-      $('#btn_CardCreate').on('click', () => {
-        console.log('create')
-      })
-    </script>
+      $("#CardCreate").unbind();
+      $("#CardCreate").on('click', () => {
 
-    <!-- <% if (messages.auth) { %>
-      <script>
-        $('#modalCardAuth').modal('show')
-        Swal.fire({
-          position: 'center',
-          icon: 'warning',
-          title: 'Warning',
-          text: '<%= messages.auth %>',
-          showConfirmButton: true,
-          confirmButtonText: 'OK',
-          confirmButtonColor: '#FF5733'
+        $("#modalCardCreate").modal("show");
+        $('#contentCardCreate input').val('');
+
+        $('#btn_CardCreate').unbind();
+        $('#btn_CardCreate').on('click', () => {
+          let CardName = $.trim($("#create_Name").val());
+          let CardPass = $.trim($("#create_Pass").val());
+
+          $.ajax({
+            url: "/card/create",
+            method: "post",
+            contentType: "application/json",
+            data: JSON.stringify({
+              CardName: CardName,
+              CardPass: CardPass,
+
+            }),
+            success: function (suc) {
+              successText = suc.message;
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Edit",
+                text: successText,
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              $("#modalCardCreate").modal("hide");
+
+
+            },
+            error: function (err) {
+              errorText = err.responseJSON.message;
+              Swal.fire({
+                position: "center",
+                icon: "warning",
+                title: "Warning",
+                text: errorText,
+                showConfirmButton: true,
+                confirmButtonText: "OK",
+                confirmButtonColor: "#FF5733",
+              });
+            },
+          });
+        })
+        $(".close").on('click', () => {
+          $("#modalCardCreate").modal("hide");
         });
-      </script>
-      <% } %>
-        <% if (messages.createErr) { %>
-          <script>
-            console.log('error', messages.createErr)
-            $('#modalCardCreate').modal('show')
+      })
+
+      // Auth
+
+
+      $('#btn_CardAuth').unbind();
+      $('#btn_CardAuth').on('click', () => {
+        let CardName = $.trim($("#auth_Name").val());
+        let CardPass = $.trim($("#auth_Pass").val());
+
+        $.ajax({
+          url: "/card/auth",
+          method: "post",
+          contentType: "application/json",
+          data: JSON.stringify({
+            CardName: CardName,
+            CardPass: CardPass,
+
+          }),
+          success: function (suc,) {
+            console.log(suc)
+            window.location.replace(suc.url)
+            $('#auth_Name,#auth_Pass').val('');
+
+          },
+          error: function (err) {
+            errorText = err.responseJSON.message;
             Swal.fire({
-              position: 'center',
-              icon: 'warning',
-              title: 'Warning',
-              text: '<%= messages.createErr %>',
+              position: "center",
+              icon: "warning",
+              title: "Warning",
+              text: errorText,
               showConfirmButton: true,
-              confirmButtonText: 'OK',
-              confirmButtonColor: '#FF5733'
+              confirmButtonText: "OK",
+              confirmButtonColor: "#FF5733",
             });
-          </script>
-          <% } %>
-            <% if (messages.success) { %>
-              <script>
-                $('#modalCardCreate').modal('show')
-                Swal.fire({
-                  position: 'center',
-                  icon: 'success',
-                  title: 'Success',
-                  text: '<%= messages.success %>',
-                  showConfirmButton: false,
-                  timer: 1500
-                })
-              </script>
-              <% } %> -->
+
+          },
+
+        });
+
+      })
+
+
+    </script>
 
 </body>
 

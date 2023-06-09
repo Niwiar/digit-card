@@ -1,0 +1,60 @@
+:root {
+  --border-color:rgb(36, 117, 223);
+  --font-color-1: #818181;
+  --font-color-2: #111;
+  --font-color-3: #fff;
+  --bg-color-1:rgb(36, 117, 223);
+  --bg-color-2:#fff;
+}
+
+.card {
+  width: 400px;
+}
+
+.input-box {
+  position: relative;
+  width: 100%;
+  /* margin-bottom: 1.5rem; */
+  > input {
+    width: 100%;
+    padding: 10px;
+    border: 1.5px solid var(--font-color-1);
+    border-radius: 5px;
+    background: transparent;
+    outline: none;
+    color: var(--font-color-2);
+    font-size: 1em;
+  }
+
+  > span {
+    position: absolute;
+    left: 0;
+    top:50%;
+    transform: translate(0,-50%);
+    padding: 10px;
+    pointer-events: none;
+    font-size: 1em;
+    color: var(--font-color-1);
+    /* text-transform: uppercase; */
+    transition: 0.5s;
+  }
+
+  > input:valid,
+  input:focus {
+    border: 1.5px solid var(--border-color);
+  }
+
+  > input:valid ~ span,
+  input:focus ~ span {
+    color: var(--border-color);
+    top: -3%;
+    left: 10px;
+    font-size: 0.75em;
+    font-weight: 600;
+    padding: 2px 10px;
+    background: var(--bg-color-2);
+    border-left: 1.5px solid var(--border-color);
+    border-right: 1.5px solid var(--border-color);
+    letter-spacing: 0.2em;
+  }
+}

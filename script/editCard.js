@@ -5,10 +5,8 @@ function ShowCard() {
     method: "get",
     cache: false,
     success: function (res) {
-      console.log(res);
+    //   console.log(res);
       var obj = JSON.parse(res);
-      console.log(obj);
-      console.log(window.location.host);
       Link = obj.Link;
       Published = obj.Published;
       newPageTitle = obj.CardName;

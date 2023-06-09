@@ -95,7 +95,10 @@ router.post('/auth', async (req, res) => {
       if (compared) {
         req.session.isCardAuth = true;
         req.session.CardTag = Card.recordset[0].CardTag;
-        res.redirect(`/manage/${Card.recordset[0].CardTag}`);
+        // res.redirect(`/manage/${Card.recordset[0].CardTag}`);
+        return res
+        .status(200)
+        .send({ url: `/manage/${Card.recordset[0].CardTag}` });
       } else {
         return res
           .status(403)

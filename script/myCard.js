@@ -5,12 +5,10 @@ function ShowMyCard(CardName) {
     method: "get",
     cache: false,
     success: function (res) {
-      console.log(res);
+      // console.log(res);
       var obj = JSON.parse(res);
       Link = obj.Link;
 
-      // document.getElementById('Show-Img').src = obj.ImgPath;
-      // document.getElementById('mobileImg').src = obj.ImgPath;
       document.getElementById("showmobileImg").src = obj.ImgPath;
 
       let Fname = obj.Fname;
@@ -18,7 +16,6 @@ function ShowMyCard(CardName) {
       let Tel = obj.Tel;
       let Company = obj.Company;
       let Email = obj.Email;
-      console.log(Email);
       let FacebookLink = obj.Facebook;
       let LineID = obj.Line;
 
