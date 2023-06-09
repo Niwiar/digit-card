@@ -45,6 +45,10 @@
       font-size: 1.6em;
     }
   }
+  >.btn:active {
+    transform: scale(0.95);
+    /* transition: 1s; */
+  }
   > .btn.night {
     background-color: #fff;
     > i {
