@@ -36,7 +36,7 @@ cardApp.use(
   })
 );
 
-cardApp.set('subdomain offset', 4);
+cardApp.set('subdomain offset', 3);
 
 cardApp.use(wildcardSubdomains({ namespace: 's', whitelist: ['www'] }));
 
